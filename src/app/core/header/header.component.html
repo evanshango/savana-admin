@@ -1,0 +1,12 @@
+<div class="nav">
+  <div class="nav-container">
+    <div class="nav-right">
+      <div class="nav-logo" routerLink="/" *ngIf="windowWidth > 768">
+        <img src="/assets/logo.svg" alt="logo">
+      </div>
+      <div class="nav-menu-icon" (click)="toggleMenu()" *ngIf="windowWidth <= 768">
+        <fa-icon [icon]="menuIcon" class="fa-xl"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

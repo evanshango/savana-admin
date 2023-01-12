@@ -1,0 +1,11 @@
+<div class="main" (window:resize)="windowsResize($event)">
+    <app-header [windowWidth]="currentWindowWidth" (menuClicked)="toggleSidebar()"></app-header>
+  <div class="dashboard">
+    <div [ngClass]="{'sidebar-min': menuClicked, 'sidebar': !menuClicked}">
+      <app-sidebar [menuClicked]="menuClicked" [windowWidth]="currentWindowWidth"></app-sidebar>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

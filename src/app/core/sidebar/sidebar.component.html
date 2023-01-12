@@ -1,0 +1,13 @@
+<div class="action-main" *ngFor="let action of actions" [ngClass]="{'collapse-menu': menuClicked}">
+  <h2>{{action.title}}</h2>
+  <div class="action-links">
+    <ul *ngFor="let menuItem of action.data">
+      <li>
+        <a [routerLink]="menuItem['link']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <fa-icon [icon]="menuItem['icon']"></fa-icon>
+          <span>{{menuItem.name}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

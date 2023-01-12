@@ -1,0 +1,97 @@
+.action {
+  &-main, .expand-menu {
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+
+    h2 {
+      text-transform: uppercase;
+      padding: .7rem 2rem;
+      color: #858585;
+      background: rgb(50, 27, 20);
+      font-size: .9rem;
+      border-radius: .2rem;
+      font-weight: bold;
+      font-family: "Andale Mono", monospace;
+    }
+  }
+
+  &-links {
+    display: flex;
+    flex-direction: column;
+
+    ul {
+      margin: 0 0 0 .5rem;
+
+      li {
+        list-style: none;
+        width: 100%;
+        cursor: pointer;
+
+        a {
+          color: #fff;
+          display: flex;
+          align-items: center;
+          padding: .4rem 1rem;
+          border-bottom-left-radius: 2rem;
+          border-top-left-radius: 2rem;
+          margin: .5rem 0;
+          font-size: .8rem;
+
+          .ng-fa-icon {
+            margin-right: 1rem;
+            font-size: 1rem;
+          }
+        }
+
+        .active {
+          background: red !important;
+        }
+
+        &:hover {
+          background: red;
+          border-bottom-left-radius: 2rem;
+          border-top-left-radius: 2rem;
+        }
+      }
+    }
+  }
+}
+
+.collapse-menu {
+  h2 {
+    padding: .6rem .2rem !important;
+    font-size: .8rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  li {
+    a {
+      flex-direction: column!important;
+      align-items: center!important;
+
+      .ng-fa-icon {
+        font-size: 1.3rem !important;
+        margin: 0 !important;
+      }
+
+      span {
+        font-size: .5rem !important;
+        text-align: center;
+      }
+    }
+
+    .active {
+      border-radius: .5rem !important;
+      padding: .7rem !important;
+    }
+
+    &:hover {
+      border-radius: .5rem !important;
+    }
+  }
+}
