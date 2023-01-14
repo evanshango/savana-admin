@@ -41,9 +41,51 @@ a {
 }
 
 button {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: .4rem 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  text-overflow: ellipsis;
+  color: #fff;
+  overflow: hidden;
+  min-width: 4.5rem !important;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
   &:disabled {
     cursor: not-allowed !important;
+    background: #636363;
   }
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-error {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-warn {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
 }
 
 textarea {
@@ -63,3 +105,80 @@ textarea {
   }
 }
 
+table {
+  width: 100%;
+}
+
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+
+th {
+  background: #535353;
+  color: white;
+  font-weight: bold;
+}
+
+td, th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+  font-size: 18px;
+  min-width: 9rem;
+
+  &:last-child, &:first-child, &:nth-last-child(2) {
+    min-width: 14rem !important;
+    width: 14rem !important;
+    max-width: 14rem !important;
+  }
+}
+
+.header {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  //padding: 1rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: .5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.content {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: .5rem;
+}
+
+.actions {
+  text-align: center;
+}
+
+.action-btn {
+  text-align: center;
+
+  button {
+    font-size: .8rem !important;
+  }
+
+  button:first-child {
+    margin-right: 1rem;
+  }
+}
+
+.text-error {
+  margin-top: .3rem;
+  font-size: .7rem;
+  color: red;
+  font-weight: bold;
+}
+
+.form-footer{
+  padding-top: 1.5rem;
+  padding-bottom: .7rem;
+
+  button{
+    width: 100%;
+  }
+}

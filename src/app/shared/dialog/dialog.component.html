@@ -1,0 +1,13 @@
+<div class="dialog-container">
+  <div class="dialog-header">
+    {{dialogTitle}}
+    <span (click)="closeDialog()">&times;</span>
+  </div>
+  <div class="dialog-content">
+    <ng-content></ng-content>
+  </div>
+  <div class="dialog-actions" *ngIf="showActionArea === true">
+    <button type="button" class="btn-error" (click)="hideDialog()">Cancel</button>
+    <button type="button" class="btn-success">Confirm</button>
+  </div>
+</div>

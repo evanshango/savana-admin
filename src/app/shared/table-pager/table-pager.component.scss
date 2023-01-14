@@ -1,0 +1,12 @@
+.pager{
+  &-content{
+    padding: 1rem 0;
+    border: 1px solid #cccccc;
+    border-radius: .2rem;
+
+    span{
+      padding: 1rem;
+      font-weight: bold;
+    }
+  }
+}
