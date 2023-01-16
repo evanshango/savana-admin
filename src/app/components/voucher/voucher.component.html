@@ -4,67 +4,57 @@
       <h2>Vouchers</h2>
       <small>**Click on the Add Voucher Button to add a Voucher</small>
     </span>
-    <button class="btn-success" type="button" (click)="dialogService.showDialog = true">Add Voucher</button>
-    <app-dialog *ngIf="dialogService.showDialog" [dialogTitle]="'Add Voucher'"
-                [showActionArea]="false" (clearDialog)="closeDialog($event)">
-      <div class="voucher-content">
-        <form [formGroup]="voucherForm" (ngSubmit)="onSubmit()">
-          <app-text-input formControlName="title" [label]="'Title'"></app-text-input>
-          <app-text-input formControlName="discount" [label]="'Discount'" [type]="'number'"></app-text-input>
-          <app-text-input formControlName="maxUse" [label]="'Maximum Use'" [type]="'number'"></app-text-input>
-          <div class="type-value" formGroupName="expiresAfter">
-            <div class="type-content">
-              <label for="type">Duration Type</label>
-              <select formControlName="type">
-                <option value="" disabled selected hidden>Choose Type...</option>
-                <option *ngFor="let option of typeOptions" ngValue="{{option.value}}" id="type">{{option.name}}</option>
-              </select>
-              <small class='text-error' *ngIf='!expiresAfterFG.valid && expiresAfterFG.get("type")?.touched'>
-                <span *ngIf="expiresAfterFG.get('type')?.errors?.['required']">*Duration Type is required</span>
-              </small>
-            </div>
-            <app-text-input formControlName="value" [label]="'Value'" [type]="'number'"></app-text-input>
-          </div>
-          <div class="form-footer">
-            <button class="btn-primary" type="submit" [disabled]="voucherForm.invalid || isSubmitting">Confirm</button>
-          </div>
-        </form>
-      </div>
-    </app-dialog>
+    <button type="button" class="btn-success" (click)="openDialog(null)">Add Voucher</button>
   </div>
   <div class="content voucher-content">
     <app-table-header [tableHeader]="'Vouchers present in the System'" [selectLabel]="'Voucher Status'"
-                      (statusValue)="onStatusChange($event)">
+                      (statusValue)="onStatusChange($event)" [resetForm]="resetForm">
     </app-table-header>
-    <table>
-      <thead>
-      <tr>
-        <th>Voucher</th>
-        <th>Discount (%)</th>
-        <th>Usage Count</th>
-        <th>Max Use</th>
-        <th>Expires On</th>
-        <th>Created On</th>
-        <th class="actions">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let voucher of pagedList?.items">
-        <td>{{voucher.voucher}}</td>
-        <td>{{voucher.discount}}</td>
-        <td>{{voucher.useCount}}</td>
-        <td>{{voucher.maxUse}}</td>
-        <td>{{voucher.expiresOn | date: 'MMM d, y HH:mm'}}</td>
-        <td>{{voucher.createdAt | date: 'MMM d, y HH:mm'}}</td>
-        <td class="action-btn">
-          <app-action-button [item]="voucher"></app-action-button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div style="overflow-x: auto; width: 100%">
+      <table>
+        <thead>
+        <tr>
+          <th>Voucher</th>
+          <th>Discount (%)</th>
+          <th>Usage Count</th>
+          <th>Max Use</th>
+          <th style="text-align: center">Expired</th>
+          <th style="min-width: 12rem">Expires On</th>
+          <th>Created On</th>
+          <th class="actions">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let voucher of pagedList?.items">
+          <td>{{voucher.voucher}}</td>
+          <td>{{voucher.discount}}</td>
+          <td>{{voucher.useCount}}</td>
+          <td>{{voucher.maxUse}}</td>
+          <td [class]="voucher.expired ? 'expired' : 'unexpired'" style="text-transform: uppercase">
+            <span>{{voucher.expired}}</span>
+          </td>
+          <td>{{voucher.expiresOn | date: 'MMM d, y HH:mm'}}</td>
+          <td>{{voucher.createdAt | date: 'MMM d, y HH:mm'}}</td>
+          <td class="action-btn" *ngIf="!voucher.active">
+            <button type="button" class="btn-primary" (click)="activateVoucher(voucher)">Activate Voucher</button>
+          </td>
+          <td class="action-btn" *ngIf="voucher.active">
+            <button type="button" class="btn-primary" (click)="openDialog(voucher)">Edit</button>
+            <button type="button" class="btn-error" (click)="deleteVoucher(voucher.voucher)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
     <app-table-pager [pageSize]="pagedList.metaData.pageSize" [totalCount]="pagedList.metaData.totalCount"
                      [pageNo]="pagedList.metaData.pageNo" *ngIf="pagedList?.items"
                      [totalPages]="pagedList.metaData.totalPages" (pageChanged)="onPageChange($event)">
     </app-table-pager>
   </div>
+  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
+              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
+    <app-voucher-form [voucher]="itemToUpdate" (reloadVouchers)="reloadVouchers()"
+                      [voucherToDelete]="voucherToDelete" [voucherToActivate]="voucherToActivate">
+    </app-voucher-form>
+  </app-dialog>
 </div>

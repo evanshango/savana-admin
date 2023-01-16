@@ -3,6 +3,11 @@
     height: 100%;
   }
 
+  &-content {
+    width: 100%;
+    //overflow-x: auto;
+  }
+
   &-header {
     min-height: 6rem;
     padding: 1rem;
@@ -30,39 +35,28 @@
       }
     }
   }
+}
 
-  &-content {
-    overflow-x: auto;
-    width: 100%;
+.expired, .unexpired {
+  color: white;
+  text-align: center;
 
-    table {
-      width: 100%;
-    }
+  span {
+    font-weight: bold;
+    padding: .4rem 1rem;
+    font-size: .8rem;
+    border-radius: 1rem;
+  }
+}
 
-    .type {
-      &-value {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 2rem;
+.expired {
+  span {
+    background: red;
+  }
+}
 
-        @media screen and (max-width: 498px){
-          grid-template-columns: 1fr;
-        }
-      }
-
-      &-content{
-        display: flex;
-        flex-direction: column;
-
-        label{
-          margin: .6rem 0;
-        }
-
-        select{
-          padding: 1rem;
-          border-radius: .3rem;
-        }
-      }
-    }
+.unexpired {
+  span {
+    background: #28a745;
   }
 }

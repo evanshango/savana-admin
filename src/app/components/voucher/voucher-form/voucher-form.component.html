@@ -1,0 +1,30 @@
+<div *ngIf="voucherToDelete">
+  <p style="font-size: 1rem">Are you sure you want to delete voucher <strong>{{voucherToDelete}}</strong></p>
+</div>
+<div *ngIf="voucherToActivate">
+  <p style="font-size: 1rem">Are you sure you want to activate voucher <strong>{{voucherToActivate}}</strong></p>
+</div>
+<div class="voucher-dialog-content" *ngIf="!(voucherToDelete || voucherToActivate)">
+  <form [formGroup]="voucherForm" (ngSubmit)="onSubmit()">
+    <app-text-input formControlName="title" [label]="'Title'"></app-text-input>
+    <app-text-input formControlName="voucher" [label]="'Voucher'" [enabled]="true" *ngIf="voucher"></app-text-input>
+    <app-text-input formControlName="discount" [label]="'Discount'" [type]="'number'"></app-text-input>
+    <app-text-input formControlName="maxUse" [label]="'Maximum Use'" [type]="'number'"></app-text-input>
+    <div class="type-value" formGroupName="expiresAfter">
+      <div class="type-content">
+        <label for="type">Duration Type</label>
+        <select formControlName="type">
+          <option value="" disabled selected hidden>Choose Type...</option>
+          <option *ngFor="let option of typeOptions" ngValue="{{option.value}}" id="type">{{option.name}}</option>
+        </select>
+        <small class='text-error' *ngIf='!expiresAfterFG.valid && expiresAfterFG.get("type")?.touched'>
+          <span *ngIf="expiresAfterFG.get('type')?.errors?.['required']">*Duration Type is required</span>
+        </small>
+      </div>
+      <app-text-input formControlName="value" [label]="'Value'" [type]="'number'"></app-text-input>
+    </div>
+    <div class="form-footer" *ngIf="formDirty">
+      <button class="btn-primary" type="submit" [disabled]="voucherForm.invalid || isSubmitting">Confirm</button>
+    </div>
+  </form>
+</div>

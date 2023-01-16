@@ -29,4 +29,16 @@ export class VoucherService {
   addVoucher(voucher: any): Observable<IVoucherResponse> {
     return this.client.post<IVoucherResponse>(`${this.BASE_URL}/v1/vouchers`, voucher)
   }
+
+  updateVoucher(update: any, voucher: string): Observable<IVoucherResponse> {
+    return this.client.put<IVoucherResponse>(`${this.BASE_URL}/v1/vouchers/${voucher}`, update)
+  }
+
+  deleteVoucher(voucher: string): Observable<any> {
+    return this.client.delete(`${this.BASE_URL}/v1/vouchers/${voucher}`)
+  }
+
+  activateVoucher(voucher: string): Observable<IVoucherResponse> {
+    return this.client.put<IVoucherResponse>(`${this.BASE_URL}/v1/vouchers/${voucher}/activate`, {})
+  }
 }

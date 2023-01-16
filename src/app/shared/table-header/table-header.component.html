@@ -1,9 +1,11 @@
 <div class="table-header">
   <p>{{tableHeader}}</p>
   <div class="header-content">
-    <label for="status">{{selectLabel}}</label>
-    <select (change)="onChange($any($event.target).value)">
-      <option *ngFor="let st of status" value="{{st.value}}" id="status">{{st.name}}</option>
-    </select>
+    <form [formGroup]="statusForm">
+      <label for="status">{{selectLabel}}</label>
+      <select formControlName="status" (change)="onChange(statusForm.value)">
+        <option *ngFor="let st of status" value="{{st.value}}" id="status">{{st.name}}</option>
+      </select>
+    </form>
   </div>
 </div>

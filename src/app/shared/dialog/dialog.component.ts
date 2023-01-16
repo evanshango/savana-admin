@@ -1,29 +1,28 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DialogService} from "./dialog.service";
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit{
+export class DialogComponent implements OnInit {
   @Output() clearDialog = new EventEmitter<boolean>()
+  @Output() confirmAction = new EventEmitter<void>()
   @Input() dialogTitle: string
   @Input() showActionArea: boolean
-  @Input() item?: any
 
-  constructor(public dialogService: DialogService) {
+  constructor() {
   }
 
   ngOnInit() {
-    console.log(this.item)
-  }
 
-  hideDialog() {
-    this.dialogService.showDialog = false
   }
 
   closeDialog() {
     this.clearDialog.emit(false)
+  }
+
+  performAction() {
+    this.confirmAction.emit()
   }
 }

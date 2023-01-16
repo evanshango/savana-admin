@@ -10,6 +10,7 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
   @ViewChild('input', {static: true}) input: ElementRef
   @Input() type = 'text'
   @Input() label: string
+  @Input() enabled: boolean
   @Input() isReadOnly = false
   @Input() min = 0
   @Input() max: number

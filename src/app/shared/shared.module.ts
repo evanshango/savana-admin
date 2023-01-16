@@ -5,6 +5,7 @@ import {ActionButtonComponent} from './action-button/action-button.component';
 import {TablePagerComponent} from './table-pager/table-pager.component';
 import {DialogComponent} from './dialog/dialog.component';
 import { TextInputComponent } from './text-input/text-input.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { TextInputComponent } from './text-input/text-input.component';
   exports: [
     TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent
   ],
-  imports: [CommonModule]
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class SharedModule {
 }

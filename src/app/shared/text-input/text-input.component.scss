@@ -18,6 +18,10 @@
       background: #dcdcdc;
     }
 
+    &:disabled{
+      cursor: not-allowed;
+    }
+
     @media screen and (max-width: 568px) {
       font-size: .9rem;
     }
