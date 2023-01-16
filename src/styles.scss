@@ -114,16 +114,18 @@ tr:nth-of-type(odd) {
 }
 
 th {
-  background: #535353;
+  background: #565867;
   color: white;
   font-weight: bold;
+  border-top-right-radius: .3rem;
+  border-top-left-radius: .3rem;
 }
 
 td, th {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
-  font-size: 18px;
+  font-size: 1rem;
   min-width: 9rem;
 
   &:last-child, &:first-child, &:nth-last-child(2) {

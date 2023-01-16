@@ -20,23 +20,23 @@
     display: flex;
     flex-direction: column;
 
-    @media screen and (max-width: 1968px){
+    @media screen and (max-width: 1968px) {
       min-width: 45%;
     }
 
-    @media screen and (max-width: 1688px){
+    @media screen and (max-width: 1688px) {
       min-width: 55%;
     }
 
-    @media screen and (max-width: 1438px){
+    @media screen and (max-width: 1438px) {
       min-width: 65%;
     }
 
-    @media screen and (max-width: 1178px){
+    @media screen and (max-width: 1178px) {
       min-width: 75%;
     }
 
-    @media screen and (max-width: 968px){
+    @media screen and (max-width: 968px) {
       min-width: 90%;
     }
   }
@@ -52,7 +52,11 @@
     color: #333 !important;
     justify-content: space-between;
 
-    span{
+    h3 {
+      font-size: 1.4rem;
+    }
+
+    span {
       cursor: pointer;
       width: 2rem;
       text-align: center;

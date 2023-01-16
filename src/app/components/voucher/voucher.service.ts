@@ -20,6 +20,7 @@ export class VoucherService {
     params = params.append('Page', vParams.page)
     params = params.append('PageSize', vParams.pageSize)
     params = params.append('Enabled', vParams.enabled)
+    params = params.append('Voucher', vParams.voucher)
 
     return this.client.get<PaginationResponse<IVoucherResponse[]>>(
       `${this.BASE_URL}/v1/vouchers`, {observe: 'response', params}

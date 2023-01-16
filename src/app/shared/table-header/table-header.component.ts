@@ -1,5 +1,5 @@
 import {AfterContentChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {status} from "../common";
+import {pages, status} from "../common";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -9,32 +9,67 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class TableHeaderComponent implements OnInit, AfterContentChecked {
   @Output() statusValue = new EventEmitter<boolean>()
-  @Input() resetForm: boolean;
-  @Input() tableHeader: string
+  @Output() search = new EventEmitter<string>()
+  @Output() pageSize = new EventEmitter<number>()
+  @Input() resetVoucherStatus: boolean;
+  @Input() resetVoucherSearch: boolean
   @Input() selectLabel: string
   statusForm: FormGroup;
+  searchForm: FormGroup
+  pageForm: FormGroup
   status = status
+  pages = pages
 
   constructor() {
+  }
+
+  ngOnInit(): void {
+    this._createPageForm()
+    this._createStatusForm()
+    this._createSearchForm()
   }
 
   onChange(value: any) {
     this.statusValue.emit(value['status'])
   }
 
-  ngOnInit(): void {
-    this._createStatusForm()
+  ngAfterContentChecked(): void {
+    if (this.resetVoucherStatus) {
+      this.statusForm.reset({status: null})
+    }
+
+    if (this.resetVoucherSearch) {
+      this.searchForm.reset()
+    }
+  }
+
+  performSearch() {
+    this.search.emit(this.searchTerm)
+  }
+
+  get searchTerm() {
+    return this.searchForm.value['search']
+  }
+
+  private _createSearchForm() {
+    this.searchForm = new FormGroup({
+      search: new FormControl('', [Validators.required])
+    })
   }
 
   private _createStatusForm() {
     this.statusForm = new FormGroup({
-      status: new FormControl(true, [Validators.required])
+      status: new FormControl(null, [Validators.required])
     })
   }
 
-  ngAfterContentChecked(): void {
-    if (this.resetForm) {
-      this.statusForm.reset({status: true})
-    }
+  private _createPageForm() {
+    this.pageForm = new FormGroup({
+      page: new FormControl(20, Validators.required)
+    })
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.pageSize.emit(pageSize)
   }
 }

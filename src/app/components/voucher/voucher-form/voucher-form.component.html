@@ -1,8 +1,10 @@
 <div *ngIf="voucherToDelete">
-  <p style="font-size: 1rem">Are you sure you want to delete voucher <strong>{{voucherToDelete}}</strong></p>
+  <p style="font-size: 1rem">Are you sure you want to delete voucher with code <strong>{{voucherToDelete}}</strong></p>
 </div>
 <div *ngIf="voucherToActivate">
-  <p style="font-size: 1rem">Are you sure you want to activate voucher <strong>{{voucherToActivate}}</strong></p>
+  <p style="font-size: 1rem">
+    Are you sure you want to activate voucher with code <strong>{{voucherToActivate}}</strong>
+  </p>
 </div>
 <div class="voucher-dialog-content" *ngIf="!(voucherToDelete || voucherToActivate)">
   <form [formGroup]="voucherForm" (ngSubmit)="onSubmit()">

@@ -1,10 +1,21 @@
 <div class="table-header">
-  <p>{{tableHeader}}</p>
+  <div class="table-title">
+    <span>Items Per Page*</span>
+    <select (change)="onPageSizeChange($any($event.currentTarget).value)">
+      <option *ngFor="let page of pages" value="{{page}}" id="page">{{page}}</option>
+    </select>
+  </div>
+  <div class="search-area">
+    <form [formGroup]="searchForm" (submit)="performSearch()">
+      <input type="text" formControlName="search">
+      <button type="submit" class="btn-success" [disabled]="!searchForm.dirty">Search</button>
+    </form>
+  </div>
   <div class="header-content">
     <form [formGroup]="statusForm">
-      <label for="status">{{selectLabel}}</label>
       <select formControlName="status" (change)="onChange(statusForm.value)">
-        <option *ngFor="let st of status" value="{{st.value}}" id="status">{{st.name}}</option>
+        <option [ngValue]="null" selected disabled hidden>{{selectLabel}}...</option>
+        <option *ngFor="let option of status" ngValue="{{option.value}}" id="type">{{option.name}}</option>
       </select>
     </form>
   </div>

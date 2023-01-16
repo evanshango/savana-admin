@@ -18,7 +18,8 @@ export class VoucherComponent implements OnInit {
   voucherToDelete: string
   voucherToActivate: string
   showActionArea: boolean
-  resetForm: boolean
+  resetVoucherStatus: boolean
+  resetVoucherSearch: boolean
 
   constructor(public dialogService: DialogService, private voucherService: VoucherService) {
   }
@@ -43,13 +44,13 @@ export class VoucherComponent implements OnInit {
   reloadVouchers() {
     this.voucherPrams = new VoucherParams()
     this._fetchVouchers()
-    this.resetForm = true
+    this.resetVoucherStatus = true
   }
 
   openDialog(voucher: IVoucherResponse) {
     this.itemToUpdate = voucher
     this.showActionArea = false
-    this.dialogTitle = this.itemToUpdate ? 'Edit Voucher' : 'Add voucher'
+    this.dialogTitle = this.itemToUpdate ? 'Edit Voucher' : 'Add Voucher'
     this.dialogService.showDialog = true
   }
 
@@ -102,5 +103,16 @@ export class VoucherComponent implements OnInit {
         this._performReload()
       }
     })
+  }
+
+  performSearch(searchTerm: string) {
+    this.voucherPrams.voucher = searchTerm.length > 3 ? searchTerm : ''
+    this._fetchVouchers()
+  }
+
+  fetchItemsPerPage(pageSize: number) {
+    this.voucherPrams = new VoucherParams()
+    this.voucherPrams.pageSize = pageSize
+    this._fetchVouchers()
   }
 }
