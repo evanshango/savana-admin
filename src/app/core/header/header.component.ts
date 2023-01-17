@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {faBars, faSignOutAlt, faSquarePlus, faUserAlt, faUserCog} from '@fortawesome/free-solid-svg-icons'
 import {AccountService} from "../../account/account.service";
-import {ISigninResponse} from "../../shared/interfaces/signin-response";
+import {ISignin} from "../../shared/interfaces/signin";
 import {Observable} from "rxjs";
 
 @Component({
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   @Output() menuClicked = new EventEmitter<boolean>()
   menuIconClicked = false
   @Input() windowWidth: number
-  user$: Observable<ISigninResponse>
+  user$: Observable<ISignin>
   isShown: boolean
   menuIcon = faBars
   accountIcon = faUserCog

@@ -1,0 +1,19 @@
+.description-area {
+  margin: .6rem 0;
+  width: 100%;
+
+  textarea{
+    margin: .6rem 0;
+    max-width: 100%;
+    font-size: 1.1rem;
+    border-radius: .3rem;
+    border: 1.2px solid #636363;
+    color: black;
+    resize: none;
+    font-family: inherit;
+
+    @media screen and (max-width: 568px) {
+      font-size: .9rem;
+    }
+  }
+}

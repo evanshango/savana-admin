@@ -1,4 +1,4 @@
-export interface IVoucherResponse {
+export interface IVoucher {
   title: string,
   voucher: string,
   discount: number,

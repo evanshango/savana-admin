@@ -2,18 +2,16 @@ import {Component, ElementRef, Input, OnInit, Self, ViewChild} from '@angular/co
 import {ControlValueAccessor, NgControl} from "@angular/forms";
 
 @Component({
-  selector: 'app-text-input',
-  templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.scss']
+  selector: 'app-text-area',
+  templateUrl: './text-area.component.html',
+  styleUrls: ['./text-area.component.scss']
 })
-export class TextInputComponent implements OnInit, ControlValueAccessor {
-  @ViewChild('input', {static: true}) input: ElementRef
-  @Input() type = 'text'
+export class TextAreaComponent implements OnInit, ControlValueAccessor {
+  @ViewChild('description', {static: true}) textarea: ElementRef
+  @Input() rows: number
+  @Input() cols: number
   @Input() label: string
-  @Input() enabled: boolean
-  @Input() isReadOnly = false
-  @Input() min = 0
-  @Input() max: number
+  @Input() minLength = 0
 
   constructor(@Self() public controlDir: NgControl) {
     this.controlDir.valueAccessor = this
@@ -29,13 +27,13 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
     control?.updateValueAndValidity()
   }
 
-  onChange(event: any) {
+  onChange(value: any) {
 
   }
 
   onTouched() {
-    if (this.min < 0) {
-      this.min = 0
+    if (this.minLength < 0) {
+      this.minLength = 0
     }
   }
 
@@ -48,6 +46,6 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
-    this.input.nativeElement.value = obj || ''
+    this.textarea.nativeElement.value = obj || ''
   }
 }

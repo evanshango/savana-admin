@@ -6,14 +6,15 @@ import {TablePagerComponent} from './table-pager/table-pager.component';
 import {DialogComponent} from './dialog/dialog.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { TextAreaComponent } from './text-area/text-area.component';
 
 @NgModule({
   declarations: [
-    TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent
+    TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent
   ],
-  exports: [
-    TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent
-  ],
+    exports: [
+        TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent
+    ],
     imports: [CommonModule, ReactiveFormsModule]
 })
 export class SharedModule {

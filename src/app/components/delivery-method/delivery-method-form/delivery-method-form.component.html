@@ -1,0 +1,21 @@
+<div *ngIf="action === 'delete'">
+  <p style="font-size: 1rem">Are you sure you want to delete delivery method with title
+    <strong>{{method.title}}</strong>
+  </p>
+</div>
+<div *ngIf="action === 'activate'">
+  <p style="font-size: 1rem">
+    Are you sure you want to activate delivery method with title <strong>{{method.title}}</strong>
+  </p>
+</div>
+<div class="method-dialog-content" *ngIf="!(action === 'delete' || action === 'activate')">
+  <form [formGroup]="methodForm" (ngSubmit)="onSubmit()">
+    <app-text-input formControlName="title" [label]="'Title'"></app-text-input>
+    <app-text-input formControlName="deliveryTime" [label]="'Delivery Time'"></app-text-input>
+    <app-text-input formControlName="price" [label]="'Price'" [type]="'number'"></app-text-input>
+    <app-text-area formControlName="description" [label]="'Description'"></app-text-area>
+    <div class="form-footer" *ngIf="formDirty">
+      <button class="btn-primary" type="submit" [disabled]="methodForm.invalid || isSubmitting">Confirm</button>
+    </div>
+  </form>
+</div>

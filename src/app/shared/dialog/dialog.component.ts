@@ -7,9 +7,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class DialogComponent implements OnInit {
   @Output() clearDialog = new EventEmitter<boolean>()
-  @Output() confirmAction = new EventEmitter<void>()
-  @Input() dialogTitle: string
+  @Output() confirmAction = new EventEmitter<string>()
   @Input() showActionArea: boolean
+  @Input() dialogTitle: string
+  @Input() action: string
 
   constructor() {
   }
@@ -23,6 +24,6 @@ export class DialogComponent implements OnInit {
   }
 
   performAction() {
-    this.confirmAction.emit()
+    this.confirmAction.emit(this.action)
   }
 }

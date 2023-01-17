@@ -8,7 +8,11 @@ const routes: Routes = [
     path: '', component: DashboardComponent, canActivate: [AuthGuard], children: [
       {path: '', redirectTo: 'dashboard', pathMatch: 'prefix'},
       {path: 'dashboard', loadChildren: () => import('./../components/home/home.module').then(m => m.HomeModule)},
-      {path: '', loadChildren: () => import('./../components/voucher/voucher.module').then(m => m.VoucherModule)}
+      {path: '', loadChildren: () => import('./../components/voucher/voucher.module').then(m => m.VoucherModule)},
+      {
+        path: '',
+        loadChildren: () => import('./../components/delivery-method/delivery-method.module').then(m => m.DeliveryMethodModule)
+      }
     ]
   },
 ]

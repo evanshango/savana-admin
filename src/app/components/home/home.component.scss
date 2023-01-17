@@ -1,0 +1,94 @@
+.home {
+  &-content {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  &-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    height: auto;
+    overflow: hidden;
+
+    .card {
+      &-area {
+        padding: 1rem;
+        width: 100%;
+        background: white;
+        box-shadow: 0 6px 10px -11px rgba(0, 0, 0, .7);
+        position: relative;
+        border-radius: .5rem;
+
+        h2{
+          text-transform: uppercase;
+          font-size: 1rem;
+          font-weight: bolder;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        hr {
+          margin-top: .7rem;
+        }
+
+        &:hover{
+          transform: scale(1.03);
+        }
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .item {
+          display: grid;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+          padding: .5rem;
+          border-radius: .4rem;
+          grid-template-columns: repeat(2, 1fr);
+          margin-top: .3rem;
+
+          .item-title {
+            font-weight: normal;
+            font-size: 1rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+
+          .item-info {
+            margin-left: auto;
+            font-size: 1.2rem;
+            font-weight: bolder;
+          }
+
+          &:hover {
+            cursor: pointer;
+            background: #cccccc;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 1478px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 878px) {
+      grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 658px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

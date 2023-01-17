@@ -21,7 +21,7 @@ export const SidebarMenu: any = [
     title: 'General', data: [
       {name: 'Dashboard', link: '/dashboard', icon: faHouse},
       {name: 'Vouchers', link: '/vouchers', icon: faGift},
-      {name: 'Delivery Methods', link: '/delivery', icon: faBusAlt}
+      {name: 'Delivery Methods', link: '/delivery-methods', icon: faBusAlt}
     ]
   },
   {

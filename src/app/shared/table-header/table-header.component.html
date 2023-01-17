@@ -2,7 +2,7 @@
   <div class="table-title">
     <span>Items Per Page*</span>
     <select (change)="onPageSizeChange($any($event.currentTarget).value)">
-      <option *ngFor="let page of pages" value="{{page}}" id="page">{{page}}</option>
+      <option *ngFor="let page of pages" value="{{page}}" id="page" [selected]="page === 20">{{page}}</option>
     </select>
   </div>
   <div class="search-area">

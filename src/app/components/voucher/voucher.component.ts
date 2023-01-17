@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DialogService} from "../../shared/dialog/dialog.service";
-import {IVoucherResponse} from "../../shared/interfaces/voucher-response";
+import {IVoucher} from "../../shared/interfaces/voucher";
 import {VoucherParams} from "../../shared/models/voucher-params";
 import {VoucherService} from "./voucher.service";
 import {PaginationResponse} from "../../shared/models/pagination-response";
@@ -12,14 +12,14 @@ import {PaginationResponse} from "../../shared/models/pagination-response";
 })
 export class VoucherComponent implements OnInit {
   voucherPrams = new VoucherParams()
-  pagedList: PaginationResponse<IVoucherResponse[]>
-  itemToUpdate: IVoucherResponse
+  pagedList: PaginationResponse<IVoucher[]>
+  itemToUpdate: IVoucher
   dialogTitle: string
   voucherToDelete: string
   voucherToActivate: string
   showActionArea: boolean
-  resetVoucherStatus: boolean
-  resetVoucherSearch: boolean
+  resetStatus: boolean
+  resetSearch: boolean
 
   constructor(public dialogService: DialogService, private voucherService: VoucherService) {
   }
@@ -44,10 +44,10 @@ export class VoucherComponent implements OnInit {
   reloadVouchers() {
     this.voucherPrams = new VoucherParams()
     this._fetchVouchers()
-    this.resetVoucherStatus = true
+    this.resetStatus = true
   }
 
-  openDialog(voucher: IVoucherResponse) {
+  openDialog(voucher: IVoucher) {
     this.itemToUpdate = voucher
     this.showActionArea = false
     this.dialogTitle = this.itemToUpdate ? 'Edit Voucher' : 'Add Voucher'
@@ -78,7 +78,7 @@ export class VoucherComponent implements OnInit {
     }
   }
 
-  activateVoucher(voucher: IVoucherResponse) {
+  activateVoucher(voucher: IVoucher) {
     this.voucherToActivate = voucher.voucher
     this.showActionArea = true
     this.dialogTitle = 'Activate Voucher'
@@ -111,7 +111,6 @@ export class VoucherComponent implements OnInit {
   }
 
   fetchItemsPerPage(pageSize: number) {
-    this.voucherPrams = new VoucherParams()
     this.voucherPrams.pageSize = pageSize
     this._fetchVouchers()
   }

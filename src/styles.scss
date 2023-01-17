@@ -129,9 +129,9 @@ td, th {
   min-width: 9rem;
 
   &:last-child, &:first-child, &:nth-last-child(2) {
-    min-width: 14rem !important;
-    width: 14rem !important;
-    max-width: 14rem !important;
+    min-width: 14rem;
+    width: 14rem;
+    max-width: 14rem;
   }
 }
 
@@ -145,6 +145,35 @@ td, th {
   border-radius: .5rem;
   margin-bottom: 1rem;
   position: relative;
+  min-height: 6rem;
+  padding: 1rem;
+
+  span {
+    h2 {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    small {
+      font-weight: bold;
+      color: #28a745;
+      font-style: italic;
+    }
+  }
+
+  button {
+    border-radius: 2rem;
+  }
+
+  @media screen and (max-width: 512px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    button {
+      width: 100%;
+      margin-top: .5rem;
+    }
+  }
 }
 
 .content {
@@ -176,11 +205,16 @@ td, th {
   font-weight: bold;
 }
 
-.form-footer{
+.form-footer {
   padding-top: 1.5rem;
   padding-bottom: .7rem;
 
-  button{
+  button {
     width: 100%;
   }
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  width: 100%;
 }

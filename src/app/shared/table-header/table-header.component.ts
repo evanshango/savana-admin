@@ -11,12 +11,11 @@ export class TableHeaderComponent implements OnInit, AfterContentChecked {
   @Output() statusValue = new EventEmitter<boolean>()
   @Output() search = new EventEmitter<string>()
   @Output() pageSize = new EventEmitter<number>()
-  @Input() resetVoucherStatus: boolean;
-  @Input() resetVoucherSearch: boolean
+  @Input() resetStatus: boolean;
+  @Input() resetSearch: boolean
   @Input() selectLabel: string
   statusForm: FormGroup;
   searchForm: FormGroup
-  pageForm: FormGroup
   status = status
   pages = pages
 
@@ -24,7 +23,6 @@ export class TableHeaderComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit(): void {
-    this._createPageForm()
     this._createStatusForm()
     this._createSearchForm()
   }
@@ -34,11 +32,11 @@ export class TableHeaderComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked(): void {
-    if (this.resetVoucherStatus) {
+    if (this.resetStatus) {
       this.statusForm.reset({status: null})
     }
 
-    if (this.resetVoucherSearch) {
+    if (this.resetSearch) {
       this.searchForm.reset()
     }
   }
@@ -60,12 +58,6 @@ export class TableHeaderComponent implements OnInit, AfterContentChecked {
   private _createStatusForm() {
     this.statusForm = new FormGroup({
       status: new FormControl(null, [Validators.required])
-    })
-  }
-
-  private _createPageForm() {
-    this.pageForm = new FormGroup({
-      page: new FormControl(20, Validators.required)
     })
   }
 

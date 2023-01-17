@@ -6,38 +6,6 @@
   &-content {
     width: 100%;
   }
-
-  &-header {
-    min-height: 6rem;
-    padding: 1rem;
-
-    span {
-      h2 {
-        font-weight: bold;
-        font-size: 1.5rem;
-      }
-
-      small {
-        font-weight: bold;
-        color: #28a745;
-        font-style: italic;
-      }
-    }
-
-    button{
-      border-radius: 2rem;
-    }
-
-    @media screen and (max-width: 512px) {
-      flex-direction: column;
-      align-items: flex-start;
-
-      button {
-        width: 100%;
-        margin-top: .5rem;
-      }
-    }
-  }
 }
 
 .expired, .unexpired {

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {VoucherService} from "../voucher.service";
-import {IVoucherResponse} from "../../../shared/interfaces/voucher-response";
+import {IVoucher} from "../../../shared/interfaces/voucher";
 import {DialogService} from "../../../shared/dialog/dialog.service";
 
 @Component({
@@ -11,7 +11,7 @@ import {DialogService} from "../../../shared/dialog/dialog.service";
 })
 export class VoucherFormComponent implements OnInit {
   @Output() reloadVouchers = new EventEmitter<any>()
-  @Input() voucher: IVoucherResponse
+  @Input() voucher: IVoucher
   @Input() voucherToDelete: string
   @Input() voucherToActivate: string
   typeOptions = [{name: 'Days', value: 'days'}, {name: 'Hours', value: 'hours'}]

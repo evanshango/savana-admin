@@ -4,7 +4,7 @@
     <div [ngClass]="{'sidebar-min': menuClicked, 'sidebar': !menuClicked}">
       <app-sidebar [menuClicked]="menuClicked" [windowWidth]="currentWindowWidth"></app-sidebar>
     </div>
-    <div class="content">
+    <div class="content" [style]="!menuClicked ? 'width: calc(100vw - 300px);' : 'width: calc(100vw - 5rem);'">
       <router-outlet></router-outlet>
     </div>
   </div>

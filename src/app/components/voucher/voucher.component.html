@@ -1,5 +1,5 @@
 <div class="voucher-main">
-  <div class="header voucher-header">
+  <div class="header">
     <span>
       <h2>Vouchers</h2>
       <small>**Click on the Add Voucher Button to add a Voucher</small>
@@ -8,10 +8,10 @@
   </div>
   <div class="content voucher-content">
     <app-table-header [selectLabel]="'Voucher Status'" (statusValue)="onStatusChange($event)"
-                      [resetVoucherStatus]="resetVoucherStatus" (search)="performSearch($event)"
-                      [resetVoucherSearch]=" resetVoucherSearch" (pageSize)="fetchItemsPerPage($event)">
+                      [resetStatus]="resetStatus" (search)="performSearch($event)" [resetSearch]=" resetSearch"
+                      (pageSize)="fetchItemsPerPage($event)">
     </app-table-header>
-    <div style="overflow-x: auto; width: 100%">
+    <div class="table-wrapper">
       <table>
         <thead>
         <tr>
@@ -54,8 +54,8 @@
   </div>
   <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
               (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
-    <app-voucher-form [voucher]="itemToUpdate" (reloadVouchers)="reloadVouchers()"
-                      [voucherToDelete]="voucherToDelete" [voucherToActivate]="voucherToActivate">
+    <app-voucher-form [voucher]="itemToUpdate" (reloadVouchers)="reloadVouchers()" [voucherToDelete]="voucherToDelete"
+                      [voucherToActivate]="voucherToActivate">
     </app-voucher-form>
   </app-dialog>
 </div>

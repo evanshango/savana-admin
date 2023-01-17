@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {map, Observable, of, ReplaySubject} from "rxjs";
-import {ISigninResponse} from "../shared/interfaces/signin-response";
+import {ISignin} from "../shared/interfaces/signin";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {TOKEN_KEY} from "../shared/common";
@@ -11,14 +11,14 @@ import {TOKEN_KEY} from "../shared/common";
 })
 export class AccountService {
   BASE_URL = environment.baseUrl
-  private userSource = new ReplaySubject<ISigninResponse>(1)
+  private userSource = new ReplaySubject<ISignin>(1)
   userSource$ = this.userSource.asObservable()
 
   constructor(private client: HttpClient, private router: Router) {
   }
 
   signInUser(req: any): Observable<void> {
-    return this.client.post<ISigninResponse>(`${this.BASE_URL}/v1/auth/signin`, req).pipe(map(res => {
+    return this.client.post<ISignin>(`${this.BASE_URL}/v1/auth/signin`, req).pipe(map(res => {
         if (res) {
           sessionStorage.setItem(TOKEN_KEY, res.token)
           this.userSource.next(res)
