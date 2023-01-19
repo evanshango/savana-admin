@@ -1,0 +1,27 @@
+<div *ngIf="action === 'delete'">
+  <p style="font-size: 1rem">Are you sure you want to delete role with title <strong>{{role.uniqueName}}</strong></p>
+</div>
+<div *ngIf="action === 'activate'">
+  <p style="font-size: 1rem">
+    Are you sure you want to activate Role with title <strong>{{role.uniqueName}}</strong>
+  </p>
+</div>
+<div class="role-dialog-content" *ngIf="!(action === 'delete' || action === 'activate')">
+  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+    <app-text-input formControlName="name" [label]="'Title'"></app-text-input>
+    <app-text-input formControlName="uniqueName" [label]="'Unique Name'" *ngIf="role" [enabled]="true"></app-text-input>
+    <div class="status-content">
+      <label for="status">Role Enabled</label>
+      <select formControlName="active">
+        <option *ngFor="let option of status" value="{{option.value}}" id="status">{{option.name}}</option>
+      </select>
+      <small class='text-error' *ngIf='roleForm.get("active")?.touched'>
+        <span *ngIf="roleForm.get('active')?.errors?.['required']">*Role Enabled Option is required</span>
+      </small>
+    </div>
+    <app-text-area formControlName="description" [label]="'Description'"></app-text-area>
+    <div class="form-footer" *ngIf="formDirty">
+      <button class="btn-primary" type="submit" [disabled]="roleForm.invalid || isSubmitting">Confirm</button>
+    </div>
+  </form>
+</div>

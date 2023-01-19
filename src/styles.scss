@@ -218,3 +218,18 @@ td, th {
   overflow-x: auto;
   width: 100%;
 }
+
+.status-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: .6rem;
+
+  label{
+    margin: .6rem 0;
+  }
+
+  select{
+    padding: 1rem;
+    border-radius: .3rem;
+  }
+}

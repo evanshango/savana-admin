@@ -50,10 +50,6 @@ export class DeliveryMethodComponent implements OnInit {
     this._fetchDeliveryMethods()
   }
 
-  private _fetchDeliveryMethods() {
-    this.deliverMethodService.getDeliveryMethods(this.deliveryParams).subscribe(res => this.pagedList = res)
-  }
-
   activateMethod(method: IDeliveryMethod) {
     this.action = 'activate'
     this.method = method
@@ -95,6 +91,10 @@ export class DeliveryMethodComponent implements OnInit {
   reloadMethods() {
     this._fetchDeliveryMethods()
     this.resetStatus = true
+  }
+
+  private _fetchDeliveryMethods() {
+    this.deliverMethodService.getDeliveryMethods(this.deliveryParams).subscribe(res => this.pagedList = res)
   }
 
   private _deleteDeliveryMethod() {
