@@ -80,7 +80,7 @@ export class RoleComponent implements OnInit {
   }
 
   private _fetchRoles() {
-    this.roleService.getRoles(this.roleParams).subscribe(res => this.pagedList = res)
+    this.roleService.getPaginatedRoles(this.roleParams).subscribe(res => this.pagedList = res)
   }
 
   private _performReload() {

@@ -1,0 +1,11 @@
+<ul class="nav-tabs">
+  <div class="nav-header">
+    <span class="nav-item" *ngFor="let tab of tabs; let i = index" [ngClass]="{'active': activatedTabIndex === i}"
+          (click)="onTabClick(i)">
+      {{tab}}
+    </span>
+  </div>
+  <div style="margin: .5rem 0">
+    <ng-content></ng-content>
+  </div>
+</ul>

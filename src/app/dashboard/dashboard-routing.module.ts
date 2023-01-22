@@ -10,10 +10,12 @@ const routes: Routes = [
       {path: 'dashboard', loadChildren: () => import('./../components/home/home.module').then(m => m.HomeModule)},
       {path: '', loadChildren: () => import('./../components/voucher/voucher.module').then(m => m.VoucherModule)},
       {
-        path: '',
-        loadChildren: () => import('./../components/delivery-method/delivery-method.module').then(m => m.DeliveryMethodModule)
+        path: '', loadChildren: () => import('./../components/delivery-method/delivery-method.module')
+          .then(m => m.DeliveryMethodModule)
       },
-      {path: '', loadChildren: () => import('./../components/role/role.module').then(m => m.RoleModule)}
+      {path: '', loadChildren: () => import('./../components/role/role.module').then(m => m.RoleModule)},
+      {path: '', loadChildren: () => import('./../components/group/group.module').then(m => m.GroupModule)},
+      {path: '', loadChildren: () => import('./../components/member/member.module').then(m => m.MemberModule)},
     ]
   },
 ]

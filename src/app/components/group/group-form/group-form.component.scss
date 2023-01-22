@@ -1,0 +1,38 @@
+.group-dialog-content {
+  .role-area{
+    .roles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: .6rem;
+
+      .role-selection, .role-selected {
+        height: 15rem;
+        border-radius: .3rem;
+        border: 1.2px solid #636363;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+
+        h3{
+          background: #cccccc;
+          padding: .5rem;
+          margin-bottom: .3rem;
+          text-align: center;
+        }
+
+        span {
+          padding: .5rem;
+          margin: 0 .5rem;
+          border-radius: .3rem;
+
+          &:hover {
+            background: #636363;
+            cursor: pointer;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

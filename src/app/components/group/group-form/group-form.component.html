@@ -1,0 +1,22 @@
+<div class="group-dialog-content">
+  <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+    <app-text-input formControlName="name" [label]="'Name'"></app-text-input>
+    <app-text-area formControlName="description" [label]="'Description'"></app-text-area>
+    <div class="role-area">
+      <span>Roles</span>
+      <div class="roles">
+        <div class="role-selection">
+          <h3>Click to Add</h3>
+          <span *ngFor="let role of roles" (click)="addRole(role)">{{role?.uniqueName}}</span>
+        </div>
+        <div class="role-selected">
+          <h3>Click to Remove</h3>
+          <span *ngFor="let role of selectedRoles" (click)="removeRole(role)">{{role?.uniqueName}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-footer" *ngIf="formDirty && groupForm.valid && !isSubmitted">
+      <button class="btn-primary" type="submit" [disabled]="groupForm.invalid || isSubmitting">Confirm</button>
+    </div>
+  </form>
+</div>

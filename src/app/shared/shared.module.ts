@@ -7,13 +7,14 @@ import {DialogComponent} from './dialog/dialog.component';
 import { TextInputComponent } from './text-input/text-input.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { TextAreaComponent } from './text-area/text-area.component';
+import { TabComponent } from './tab/tab.component';
 
 @NgModule({
   declarations: [
-    TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent
+    TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent, TabComponent
   ],
     exports: [
-        TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent
+        TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent, TabComponent
     ],
     imports: [CommonModule, ReactiveFormsModule]
 })

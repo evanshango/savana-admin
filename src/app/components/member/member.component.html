@@ -1,0 +1,55 @@
+<div class="members-main">
+  <div class="header" *ngIf="showHeader !== undefined && showHeader === true">
+    <span>
+      <h2>Members</h2>
+      <small>**Click on the Add Member Button to add a Member</small>
+    </span>
+    <button type="button" class="btn-success">Add Member</button>
+  </div>
+  <div class="groups-content" [ngClass]="{'content' : showContentCard}">
+    <app-table-header [selectLabel]="'Member Status'" (statusValue)="onStatusChange($event)" [resetStatus]="resetStatus"
+                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)">
+    </app-table-header>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>FirstName</th>
+          <th>LastName</th>
+          <th>Email</th>
+          <th>Phone No</th>
+          <th>Gender</th>
+          <th>Groups</th>
+          <th>Created On</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of pagedList?.items">
+          <td>{{user.firstName | titlecase}}</td>
+          <td>{{user.lastName | titlecase}}</td>
+          <td>{{user.email | lowercase}}</td>
+          <td>{{user.phoneNo}}</td>
+          <td>{{user.gender}}</td>
+          <td>{{user.groupCount}}</td>
+          <td>{{user.createdAt | date: 'MMM d, y HH:mm'}}</td>
+          <td class="action-btn" *ngIf="!user.active">
+            <button type="button" class="btn-primary">Activate User</button>
+          </td>
+          <td class="action-btn" *ngIf="user.active">
+            <button type="button" class="btn-primary" [routerLink]="'/users/'+user.id">View</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-table-pager [pageSize]="pagedList.metaData.pageSize" [totalCount]="pagedList.metaData.totalCount"
+                     [pageNo]="pagedList.metaData.pageNo" *ngIf="pagedList?.items" (pageChanged)="onPageChange($event)"
+                     [totalPages]="pagedList.metaData.totalPages">
+    </app-table-pager>
+  </div>
+<!--  <app-dialog [dialogTitle]="'Add User'" [showActionArea]="false" *ngIf="dialogService.showDialog"-->
+<!--              (clearDialog)="closeDialog($event)">-->
+<!--    <app-user-form (reloadGroups)="reloadGroups()"></app-user-form>-->
+<!--  </app-dialog>-->
+</div>

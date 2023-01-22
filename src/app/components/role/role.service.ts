@@ -15,7 +15,7 @@ export class RoleService {
   constructor(private client: HttpClient) {
   }
 
-  getRoles(roleParams: RoleParams): Observable<PaginationResponse<IRole[]>> {
+  getPaginatedRoles(roleParams: RoleParams): Observable<PaginationResponse<IRole[]>> {
     let params = new HttpParams()
     params = params.append('Page', roleParams.page)
     params = params.append('PageSize', roleParams.pageSize)
@@ -27,7 +27,20 @@ export class RoleService {
     if (roleParams.name !== '') {
       params = params.append('Name', roleParams.name)
     }
+
     return this.client.get<PaginationResponse<IRole[]>>(
+      `${this.BASE_URL}/v1/roles`, {observe: 'response', params}
+    ).pipe(map(response => response.body))
+  }
+
+  getUnPaginatedRoles(roleParams: RoleParams): Observable<IRole[]> {
+    let params = new HttpParams()
+
+    if (roleParams.paginated != undefined){
+      params = params.append('Paginated', roleParams.paginated)
+    }
+
+    return this.client.get<IRole[]>(
       `${this.BASE_URL}/v1/roles`, {observe: 'response', params}
     ).pipe(map(response => response.body))
   }

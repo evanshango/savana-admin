@@ -1,0 +1,17 @@
+<div class="group-detail-main">
+  <div class="header group-detail-header">
+    <span>
+      <h3 style="margin-bottom: .5rem">Group {{group?.name}} Information Details</h3>
+      <span>{{group?.description}}</span>
+    </span>
+    <button class="btn-success" routerLink="/groups">Go Back</button>
+  </div>
+  <div class="content group-detail-content">
+    <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" *ngIf="group" [activatedTabIndex]="activatedTabIndex">
+      <app-group-form *ngIf="activatedTabIndex === 0" [group]="group"></app-group-form>
+      <app-member *ngIf="activatedTabIndex === 1" [showHeader]=false
+                  [slug]="group.slug" [showContentCard]=" false">
+      </app-member>
+    </app-tab>
+  </div>
+</div>

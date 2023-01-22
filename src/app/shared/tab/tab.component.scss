@@ -1,0 +1,55 @@
+.nav {
+  &-tabs {
+    margin: .3rem 0;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  &-header {
+    display: flex;
+    width: 100%;
+    position: relative;
+
+    .nav-item {
+      padding: 1rem;
+      font-size: 1rem;
+      color: #007bff;
+      min-width: 6rem;
+      text-align: center;
+      border-bottom: 1px solid #cccccc;
+
+
+      &:hover {
+        cursor: pointer;
+        border-top-left-radius: .2rem;
+        border-top-right-radius: .2rem;
+      }
+
+      @media screen and (max-width: 768px) {
+        font-size: .8rem;
+        padding: .8rem;
+      }
+    }
+
+    .active {
+      color: #636363;
+      border-top: 1px solid #cccccc;
+      border-left: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
+      border-top-left-radius: .5rem;
+      border-top-right-radius: .5rem;
+      border-bottom: transparent;
+      pointer-events: none;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+
+    &::after{
+      content: '';
+      border-bottom: 1px solid #cccccc;
+      width: 100%;
+    }
+  }
+}
