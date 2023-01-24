@@ -20,6 +20,7 @@
           <th>Phone No</th>
           <th>Gender</th>
           <th>Groups</th>
+          <th>Status</th>
           <th>Created On</th>
           <th>Actions</th>
         </tr>
@@ -32,6 +33,7 @@
           <td>{{user.phoneNo}}</td>
           <td>{{user.gender}}</td>
           <td>{{user.groupCount}}</td>
+          <td>{{user.active ? 'Enabled' : 'Disabled'}}</td>
           <td>{{user.createdAt | date: 'MMM d, y HH:mm'}}</td>
           <td class="action-btn" *ngIf="!user.active">
             <button type="button" class="btn-primary">Activate User</button>
@@ -48,8 +50,4 @@
                      [totalPages]="pagedList.metaData.totalPages">
     </app-table-pager>
   </div>
-<!--  <app-dialog [dialogTitle]="'Add User'" [showActionArea]="false" *ngIf="dialogService.showDialog"-->
-<!--              (clearDialog)="closeDialog($event)">-->
-<!--    <app-user-form (reloadGroups)="reloadGroups()"></app-user-form>-->
-<!--  </app-dialog>-->
 </div>

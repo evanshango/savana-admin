@@ -9,7 +9,7 @@
 <div class="role-dialog-content" *ngIf="!(action === 'delete' || action === 'activate')">
   <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
     <app-text-input formControlName="name" [label]="'Title'"></app-text-input>
-    <app-text-input formControlName="uniqueName" [label]="'Unique Name'" *ngIf="role" [enabled]="true"></app-text-input>
+    <app-text-input formControlName="uniqueName" [label]="'Unique Name'" *ngIf="role" [isDisabled]="true"></app-text-input>
     <div class="status-content">
       <label for="status">Role Enabled</label>
       <select formControlName="active">

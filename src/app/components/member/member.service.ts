@@ -41,4 +41,12 @@ export class MemberService {
       `${this.BASE_URL}/v1/users`, {observe: 'response', params}
     ).pipe(map(response => response.body))
   }
+
+  getMemberById(userId: string): Observable<IUser> {
+    return this.client.get<IUser>(`${this.BASE_URL}/v1/users/${userId}`)
+  }
+
+  updateMemberGroups(userId: string, groups: any): Observable<IUser>{
+    return this.client.put<IUser>(`${this.BASE_URL}/v1/users/${userId}/groups`, groups)
+  }
 }

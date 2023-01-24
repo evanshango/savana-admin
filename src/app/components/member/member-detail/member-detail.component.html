@@ -1,0 +1,18 @@
+<div class="member-detail">
+  <div class="header">
+    <span style="font-size: 1.2rem">
+      User <strong>{{user?.firstName}} {{user?.lastName}}</strong> Information Details
+    </span>
+    <button class="btn-success" [ngClass]="{'btn-error': isEditClicked}" (click)="editInfo()"
+            *ngIf="activatedTabIndex === 0">
+      {{isEditClicked ? 'Cancel Edit' : 'Edit Info'}}
+    </button>
+  </div>
+  <div class="content member-detail-content">
+    <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" *ngIf="user" [activatedTabIndex]="activatedTabIndex">
+      <app-member-form [user]="user" *ngIf="activatedTabIndex === 0"
+                       [isEdit]="isEditClicked" (cancelEdit)="isEditClicked = false">
+      </app-member-form>
+    </app-tab>
+  </div>
+</div>

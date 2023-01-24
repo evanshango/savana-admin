@@ -38,7 +38,7 @@ export class AccountService {
   }
 
   async signOutUser(path: string): Promise<void> {
-    sessionStorage.removeItem(TOKEN_KEY)
+    sessionStorage.clear()
     this.userSource.next(null as any)
     await this.router.navigateByUrl(path)
   }

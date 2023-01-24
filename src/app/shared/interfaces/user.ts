@@ -10,5 +10,5 @@ export interface IUser {
   groupCount: number
   groups: IGroup[]
   active: boolean
-  createdAt: Date
+  createdAt: string
 }

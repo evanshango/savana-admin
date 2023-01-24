@@ -11,11 +11,14 @@ import {MemberModule} from "../member/member.module";
 
 
 @NgModule({
-  declarations: [
-    GroupComponent,
-    GroupFormComponent,
-    GroupDetailComponent
-  ],
+    declarations: [
+        GroupComponent,
+        GroupFormComponent,
+        GroupDetailComponent
+    ],
+    exports: [
+        GroupFormComponent
+    ],
     imports: [
         CommonModule,
         GroupRoutingModule,

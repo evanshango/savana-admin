@@ -56,14 +56,18 @@
     position: relative;
 
     .action-icon {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      min-width: 150px;
+
       .ng-fa-icon {
-        background: #cccccc;
+        color: #737373;
         cursor: pointer;
-        padding: 1.1rem;
-        border-radius: 50%;
-        border: 1px solid #cccccc;
+        padding: .4rem;
         display: flex;
         align-items: center;
+        border-radius: 50%;
         justify-content: center;
       }
     }
@@ -75,26 +79,28 @@
       background-color: white;
       right: .7rem;
       top: 70px;
-      width: 220px;
+      width: 250px;
       border-bottom-left-radius: 10px;
       border-bottom-right-radius: 10px;
 
-      p {
-        padding: .8rem 0;
-
-        .ng-fa-icon {
-          margin-right: 1rem;
-          font-size: 1rem;
-          color: #636363;
-          border-radius: 50%;
-          border: none;
-          background: #cccccc;
-          padding: .3rem .5rem;
-        }
+      hr {
+        margin: .5rem 0;
       }
 
-      hr {
-        margin: 1rem 0;
+      .action-info {
+        display: flex;
+        align-items: center;
+
+        .ng-fa-icon{
+          background: #cccccc;
+          border-radius: 50%;
+          padding: 1rem;
+          color: #636363;
+        }
+
+        span {
+          margin-left: 1rem;
+        }
       }
     }
   }
@@ -102,11 +108,9 @@
 
 .sign-out {
   cursor: pointer;
-  font-weight: bold;
   font-size: 1rem;
-
-  &:hover {
-    background: #cccccc;
-    border-radius: .4rem;
-  }
+  padding: .5rem;
+  color: #636363;
+  background: #cccccc;
+  border-radius: .4rem;
 }

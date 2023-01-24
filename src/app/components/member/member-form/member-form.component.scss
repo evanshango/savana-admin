@@ -1,0 +1,28 @@
+.member-form-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  width: 100%;
+  position: relative;
+
+  hr{
+    height: 100%;
+    width: 2px;
+    position: absolute;
+    transform: translate(50%,-50%);
+    top: 50%; right: 50%;
+
+    @media screen and (max-width: 1258px) {
+      display: none;
+    }
+  }
+
+  .form-footer {
+    width: 60% !important;
+    margin: auto;
+  }
+
+  @media screen and (max-width: 1198px) {
+    grid-template-columns: 1fr;
+  }
+}

@@ -18,17 +18,17 @@ export class GroupDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedTabIndex = getTabIndex()
+    this.activatedTabIndex = getTabIndex('groups')
     let groupSlug = this.activatedRoute.snapshot.paramMap.get('slug')
     if (groupSlug) this._fetchGroupBySlug(groupSlug)
   }
 
-  private _fetchGroupBySlug(groupSlug: string) {
-    this.groupService.getGroup(groupSlug).subscribe(res => this.group = res)
-  }
-
   onTabChange(tabIndex: number) {
     this.activatedTabIndex = tabIndex
-    setTabIndex(this.activatedTabIndex)
+    setTabIndex(this.activatedTabIndex, 'groups')
+  }
+
+  private _fetchGroupBySlug(groupSlug: string) {
+    this.groupService.getGroup(groupSlug).subscribe(res => this.group = res)
   }
 }

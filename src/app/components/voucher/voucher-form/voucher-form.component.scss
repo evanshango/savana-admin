@@ -18,20 +18,6 @@
           grid-template-columns: 1fr;
         }
       }
-
-      &-content{
-        display: flex;
-        flex-direction: column;
-
-        label{
-          margin: .6rem 0;
-        }
-
-        select{
-          padding: 1rem;
-          border-radius: .3rem;
-        }
-      }
     }
   }
 }

@@ -9,7 +9,7 @@
 <div class="voucher-dialog-content" *ngIf="!(voucherToDelete || voucherToActivate)">
   <form [formGroup]="voucherForm" (ngSubmit)="onSubmit()">
     <app-text-input formControlName="title" [label]="'Title'"></app-text-input>
-    <app-text-input formControlName="voucher" [label]="'Voucher'" [enabled]="true" *ngIf="voucher"></app-text-input>
+    <app-text-input formControlName="voucher" [label]="'Voucher'" [isDisabled]="true" *ngIf="voucher"></app-text-input>
     <app-text-input formControlName="discount" [label]="'Discount'" [type]="'number'"></app-text-input>
     <app-text-input formControlName="maxUse" [label]="'Maximum Use'" [type]="'number'"></app-text-input>
     <div class="type-value" formGroupName="expiresAfter">

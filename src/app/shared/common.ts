@@ -3,14 +3,21 @@ export const status = [
   {name: 'Inactive', value: false}
 ]
 
+export const gender = [
+  {name: 'Male', value: 'Male'},
+  {name: 'Female', value: 'Female'},
+]
+
 export const pages = [10, 20, 30, 40, 50]
 
 export const TOKEN_KEY = 'svTk'
 export const TAB_INDEX = 'tab'
 
-export const getTabIndex = (): number => {
-  const tabIndex = sessionStorage.getItem(TAB_INDEX)
+export const getTabIndex = (component: string): number => {
+  const tabIndex = sessionStorage.getItem(`${TAB_INDEX}-${component}`)
   return tabIndex ? +tabIndex : 0
 }
 
-export const setTabIndex = (tabIndex: number): void => sessionStorage.setItem(TAB_INDEX, tabIndex.toString())
+export const setTabIndex = (tabIndex: number, component: string): void => {
+  return sessionStorage.setItem(`${TAB_INDEX}-${component}`, tabIndex.toString())
+}
