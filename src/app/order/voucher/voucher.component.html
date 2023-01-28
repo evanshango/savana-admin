@@ -15,6 +15,7 @@
       <table>
         <thead>
         <tr>
+          <th style="width: .5rem; max-width: .5rem">#</th>
           <th>Voucher</th>
           <th>Discount (%)</th>
           <th>Usage Count</th>
@@ -26,7 +27,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let voucher of pagedList?.items">
+        <tr *ngFor="let voucher of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
           <td>{{voucher.voucher}}</td>
           <td>{{voucher.discount}}</td>
           <td>{{voucher.useCount}}</td>

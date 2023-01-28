@@ -19,7 +19,7 @@ import {faAccusoft} from "@fortawesome/free-brands-svg-icons";
 export const SidebarMenu: any = [
   {
     title: 'General', data: [
-      {name: 'Dashboard', link: '/dashboard', icon: faHouse},
+      {name: 'Dashboard', link: '/', icon: faHouse},
       {name: 'Vouchers', link: '/vouchers', icon: faGift},
       {name: 'Delivery Methods', link: '/delivery-methods', icon: faBusAlt}
     ]

@@ -1,10 +1,36 @@
-.pager{
-  &-content{
+.pager {
+  &-content {
     padding: 1rem 0;
     border: 1px solid #cccccc;
     border-radius: .2rem;
+    align-items: center;
 
-    span{
+    .pager-buttons {
+      width: 100% !important;
+      margin: auto;
+
+      button {
+        margin: 0 !important;
+        background: #565867;
+        border-radius: 4px !important;
+
+        &:disabled {
+          cursor: not-allowed;
+          background: #cccccc;
+          color: black;
+        }
+      }
+
+      @media screen and (max-width: 558px){
+        font-size: .5rem;
+
+        button{
+          font-size: .6rem!important;
+        }
+      }
+    }
+
+    span {
       padding: 1rem;
       font-weight: bold;
     }

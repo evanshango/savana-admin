@@ -8,7 +8,6 @@ import {Component, Input, OnInit} from '@angular/core';
 export class DashboardComponent implements OnInit {
   currentWindowWidth: number
   @Input() menuClicked: boolean
-  hideSideBar: boolean
 
   ngOnInit(): void {
     this.currentWindowWidth = window.innerWidth
@@ -22,9 +21,5 @@ export class DashboardComponent implements OnInit {
 
   toggleSidebar(): void {
     this.menuClicked = !this.menuClicked
-  }
-
-  hideBar(event: any) {
-    this.hideSideBar = event
   }
 }

@@ -38,7 +38,8 @@ export class GroupComponent implements OnInit {
   }
 
   onPageChange(page: number) {
-    console.log(page)
+    this.groupParams.page = page
+    this._fetchGroups()
   }
 
   closeDialog($event: boolean) {

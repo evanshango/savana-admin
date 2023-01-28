@@ -1,3 +1,9 @@
 <div class="pager-content">
-  <span>Showing {{totalCount}} Items of Page {{pageNo}} of {{totalPages}} Page(s)</span>
+  <div class="action-btn pager-buttons">
+    <button type="button" [disabled]="pageNo === 1" (click)="prevPage(pageNo > 1 ? pageNo - 1 : pageNo)">
+      Prev &#8678;
+    </button>
+    <span>Page {{pageNo}} of {{totalPages}} {{totalPages > 1 ? 'Pages' : 'Page'}}</span>
+    <button type="button" [disabled]="pageNo === totalPages" (click)="nextPage(pageNo + 1)">Next &#8680;</button>
+  </div>
 </div>

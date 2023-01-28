@@ -15,6 +15,7 @@
       <table>
         <thead>
         <tr>
+          <th style="width: .5rem; max-width: .5rem">#</th>
           <th style="min-width: 20rem">Title</th>
           <th style="width: 20rem; min-width: 15rem">Timeline</th>
           <th style="width: 15rem; min-width: 10rem">Price</th>
@@ -23,7 +24,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let method of pagedList?.items">
+        <tr *ngFor="let method of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
           <td>{{method.title}}</td>
           <td>{{method.deliveryTime}}</td>
           <td>{{method.price | currency}}</td>

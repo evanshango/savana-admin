@@ -2,20 +2,15 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {DashboardComponent} from "./dashboard.component";
 import {AuthGuard} from "../core/guards/auth.guard";
+import {HomeComponent} from "./components/home/home.component";
 
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, canActivate: [AuthGuard], children: [
-      {path: '', redirectTo: 'dashboard', pathMatch: 'prefix'},
-      {path: 'dashboard', loadChildren: () => import('./../components/home/home.module').then(m => m.HomeModule)},
-      {path: '', loadChildren: () => import('./../components/voucher/voucher.module').then(m => m.VoucherModule)},
-      {
-        path: '', loadChildren: () => import('./../components/delivery-method/delivery-method.module')
-          .then(m => m.DeliveryMethodModule)
-      },
-      {path: '', loadChildren: () => import('./../components/role/role.module').then(m => m.RoleModule)},
-      {path: '', loadChildren: () => import('./../components/group/group.module').then(m => m.GroupModule)},
-      {path: '', loadChildren: () => import('./../components/member/member.module').then(m => m.MemberModule)},
+      {path: '', component: HomeComponent, pathMatch: 'prefix'},
+      {path: '', loadChildren: () => import('../order/order.module').then(m => m.OrderModule)},
+      {path: '', loadChildren: () => import('../management/management.module').then(m => m.ManagementModule)},
+      {path: '', loadChildren: () => import('../brand/brand.module').then(m => m.BrandModule)}
     ]
   },
 ]

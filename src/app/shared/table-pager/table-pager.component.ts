@@ -15,4 +15,11 @@ export class TablePagerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  prevPage(page: number) {
+    this.pageChanged.emit(page)
+  }
+
+  nextPage(page: number) {
+    this.pageChanged.emit(page)
+  }
 }

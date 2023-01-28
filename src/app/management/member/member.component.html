@@ -14,6 +14,7 @@
       <table>
         <thead>
         <tr>
+          <th>#</th>
           <th>FirstName</th>
           <th>LastName</th>
           <th>Email</th>
@@ -26,7 +27,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of pagedList?.items">
+        <tr *ngFor="let user of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
           <td>{{user.firstName | titlecase}}</td>
           <td>{{user.lastName | titlecase}}</td>
           <td>{{user.email | lowercase}}</td>

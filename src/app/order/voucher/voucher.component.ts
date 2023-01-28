@@ -37,8 +37,9 @@ export class VoucherComponent implements OnInit {
     this.voucherService.getVouchers(this.voucherPrams).subscribe(res => this.pagedList = res)
   }
 
-  onPageChange($event: any) {
-    console.log($event)
+  onPageChange(page: any) {
+    this.voucherPrams.page = page
+    this._fetchVouchers()
   }
 
   reloadVouchers() {

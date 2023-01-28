@@ -14,6 +14,7 @@
       <table>
         <thead>
         <tr>
+          <th>#</th>
           <th>Name</th>
           <th style="width: 15rem">Unique Name</th>
           <th style="width: 30rem">Description</th>
@@ -22,7 +23,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let role of pagedList?.items">
+        <tr *ngFor="let role of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
           <td>{{role.name}}</td>
           <td>{{role.uniqueName}}</td>
           <td style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">{{role.description}}</td>
