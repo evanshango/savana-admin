@@ -1,3 +1,8 @@
+import {findIconDefinition, library} from "@fortawesome/fontawesome-svg-core";
+import {fab} from "@fortawesome/free-brands-svg-icons";
+import {fas, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {far} from "@fortawesome/free-regular-svg-icons";
+
 export const status = [
   {name: 'Active', value: true},
   {name: 'Inactive', value: false}
@@ -20,4 +25,17 @@ export const getTabIndex = (component: string): number => {
 
 export const setTabIndex = (tabIndex: number, component: string): void => {
   return sessionStorage.setItem(`${TAB_INDEX}-${component}`, tabIndex.toString())
+}
+
+export const icons = (): IconDefinition[] => {
+  let icons: IconDefinition[] = []
+  library.add(fab, fas, far)
+  let entries = Object.values(library).flatMap(value => Object.entries(value))
+  entries.forEach(value => Object.keys(value[1]).map(val => {
+      const prefix: any = value[0]
+      const name: any = val
+      icons.push(findIconDefinition({prefix: prefix, iconName: name}))
+    })
+  )
+  return icons
 }

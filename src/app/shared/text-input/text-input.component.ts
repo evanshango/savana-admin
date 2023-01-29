@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, Self, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, Self, ViewChild} from '@angular/core';
 import {ControlValueAccessor, NgControl} from "@angular/forms";
 
 @Component({
@@ -8,6 +8,7 @@ import {ControlValueAccessor, NgControl} from "@angular/forms";
 })
 export class TextInputComponent implements OnInit, ControlValueAccessor {
   @ViewChild('input', {static: true}) input: ElementRef
+  @Output() onKeyUp = new EventEmitter<string>()
   @Input() type = 'text'
   @Input() label: string
   @Input() isDisabled: boolean
@@ -49,5 +50,9 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
 
   writeValue(obj: any): void {
     this.input.nativeElement.value = obj || ''
+  }
+
+  keyUp(value: string) {
+    this.onKeyUp.emit(value)
   }
 }

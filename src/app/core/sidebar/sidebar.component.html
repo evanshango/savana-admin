@@ -2,6 +2,7 @@
   <h2>{{action.title}}</h2>
   <div class="action-links">
     <ul *ngFor="let menuItem of action.data">
+<!--      {{logIcon(menuItem['icon'])}}-->
       <li>
         <a [routerLink]="menuItem['link']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <fa-icon [icon]="menuItem['icon']"></fa-icon>

@@ -1,0 +1,55 @@
+<div class="brands-main">
+  <div class="header">
+    <span>
+      <h2>Brands</h2>
+      <small>**Click on the Add Brand Button to add a Brand</small>
+    </span>
+    <button type="button" class="btn-success" (click)="openDialog(null, 'add')">Add Brand</button>
+  </div>
+  <div class="content groups-content">
+    <app-table-header [selectLabel]="'Brand Status'" (statusValue)="onStatusChange($event)" [resetStatus]="resetStatus"
+                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)">
+    </app-table-header>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th style="width: 15rem">Name</th>
+          <th style="width: 10rem">Slug</th>
+          <th style="width: 10rem">Products</th>
+          <th>Created On</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let brand of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{brand.name}}</td>
+          <td>{{brand.slug}}</td>
+          <td>{{brand.products}}</td>
+          <td>{{brand.createdAt | date: 'MMM d, y HH:mm'}}</td>
+          <td class="action-btn" *ngIf="!brand.active">
+            <button type="button" class="btn-primary" (click)="activateBrand(brand, 'activate')">
+              Activate Brand
+            </button>
+          </td>
+          <td class="action-btn" *ngIf="brand.active">
+            <button type="button" class="btn-primary" (click)="openDialog(brand, 'edit')">Edit</button>
+            <button type="button" class="btn-error" (click)="deleteBrand(brand, 'delete')">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-table-pager [pageSize]="pagedList.metaData.pageSize" [totalCount]="pagedList.metaData.totalCount"
+                     [pageNo]="pagedList.metaData.pageNo" *ngIf="pagedList?.items" (pageChanged)="onPageChange($event)"
+                     [totalPages]="pagedList.metaData.totalPages">
+    </app-table-pager>
+  </div>
+  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
+              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
+    <app-brand-form [brand]="selectedBrand" (reloadBrands)="reloadBrands()" [action]="action">
+    </app-brand-form>
+  </app-dialog>
+</div>

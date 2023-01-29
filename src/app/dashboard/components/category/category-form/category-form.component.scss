@@ -1,0 +1,36 @@
+.category-form {
+  form {
+    .select-area {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.icon-list {
+  height: 20rem;
+  overflow-y: auto;
+  border: 1px solid #cccccc;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top: none;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+    margin: .3rem 0;
+
+    .ng-fa-icon {
+      font-size: 1.4rem !important;
+      color: #636363;
+    }
+
+    &:hover {
+      background: #cccccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}

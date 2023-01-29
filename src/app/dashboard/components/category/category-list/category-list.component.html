@@ -1,0 +1,67 @@
+<div class="categories-main">
+  <div class="header">
+    <span>
+      <h2>Categories</h2>
+      <small>**Click on the Add Category Button to add a Category</small>
+    </span>
+    <button type="button" class="btn-success" (click)="openDialog(null, 'add')">Add Category</button>
+  </div>
+  <div class="content categories-content">
+    <app-table-header [selectLabel]="'Category Status'" (statusValue)="onStatusChange($event)"
+                      [resetStatus]="resetStatus"
+                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)">
+    </app-table-header>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th style="width: 15rem">Name</th>
+          <th style="width: 10rem">Slug</th>
+          <th style="width: 15rem; text-align: center">Icon</th>
+          <th style="width: 10rem; text-align: center">Color</th>
+          <th>Created On</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let category of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{category.name}}</td>
+          <td>{{category.slug}}</td>
+          <td style="text-align: center; font-size: 1.4rem; color: #434343">
+            <fa-icon [icon]="getIcon(category.icon)"
+                     style="border: 1px solid #cccccc; padding: .5rem 1rem; border-radius: 5px">
+            </fa-icon>
+          </td>
+          <td style="display: flex; justify-content: center">
+            <span [ngStyle]="{background: category.color, width: '3rem', height: '2rem', border: '1px solid #cccccc',
+            borderRadius: '5px', textAlign: 'center'}">
+            </span>
+          </td>
+          <td>{{category.createdAt | date: 'MMM d, y HH:mm'}}</td>
+          <td class="action-btn" *ngIf="!category.active">
+            <button type="button" class="btn-primary" (click)="activateCategory(category, 'activate')">
+              Activate
+            </button>
+          </td>
+          <td class="action-btn" *ngIf="category.active">
+            <button type="button" class="btn-primary" (click)="openDialog(category, 'edit')">Edit</button>
+            <button type="button" class="btn-error" (click)="deleteCategory(category, 'delete')">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-table-pager [pageSize]="pagedList.metaData.pageSize" [totalCount]="pagedList.metaData.totalCount"
+                     [pageNo]="pagedList.metaData.pageNo" *ngIf="pagedList?.items" (pageChanged)="onPageChange($event)"
+                     [totalPages]="pagedList.metaData.totalPages">
+    </app-table-pager>
+  </div>
+  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
+              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
+    <app-category-form [category]="selectedCategory" (reloadCategories)="reloadCategories()"
+                       [action]="action">
+    </app-category-form>
+  </app-dialog>
+</div>

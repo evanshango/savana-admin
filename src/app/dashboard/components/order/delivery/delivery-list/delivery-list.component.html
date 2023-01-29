@@ -1,0 +1,55 @@
+<div class="delivery-main">
+  <div class="header">
+    <span>
+      <h2>Delivery Methods</h2>
+      <small>**Click on the Button to add a Delivery Method</small>
+    </span>
+    <button type="button" class="btn-success" (click)="openDialog(null)">Add Delivery Method</button>
+  </div>
+  <div class="content delivery-content">
+    <app-table-header [selectLabel]="'Delivery Method Status'" (statusValue)="onStatusChange($event)"
+                      [resetStatus]="resetStatus" (search)="performSearch($event)" [resetSearch]=" resetSearch"
+                      (pageSize)="fetchItemsPerPage($event)">
+    </app-table-header>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th style="width: .5rem; max-width: .5rem">#</th>
+          <th style="min-width: 20rem">Title</th>
+          <th style="width: 20rem; min-width: 15rem">Timeline</th>
+          <th style="width: 15rem; min-width: 10rem">Price</th>
+          <th>Created On</th>
+          <th class="actions">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let method of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{method.title}}</td>
+          <td>{{method.deliveryTime}}</td>
+          <td>{{method.price | currency}}</td>
+          <td>{{method.createdAt | date: 'MMM d, y HH:mm'}}</td>
+          <td class="action-btn" *ngIf="!method.active">
+            <button type="button" class="btn-primary" (click)="activateMethod(method)">Activate</button>
+          </td>
+          <td class="action-btn" *ngIf="method.active">
+            <button type="button" class="btn-primary" (click)="openDialog(method)">Edit</button>
+            <button type="button" class="btn-error" (click)="deleteMethod(method)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-table-pager [pageSize]="pagedList.metaData.pageSize" [totalCount]="pagedList.metaData.totalCount"
+                     [pageNo]="pagedList.metaData.pageNo" *ngIf="pagedList?.items"
+                     [totalPages]="pagedList.metaData.totalPages" (pageChanged)="onPageChange($event)">
+    </app-table-pager>
+  </div>
+  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
+              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction($event)" [action]="action">
+    <app-delivery-form [method]="method" (reloadMethods)="reloadMethods()"
+                              [action]="action">
+    </app-delivery-form>
+  </app-dialog>
+</div>

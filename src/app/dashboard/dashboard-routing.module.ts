@@ -8,9 +8,13 @@ const routes: Routes = [
   {
     path: '', component: DashboardComponent, canActivate: [AuthGuard], children: [
       {path: '', component: HomeComponent, pathMatch: 'prefix'},
-      {path: '', loadChildren: () => import('../order/order.module').then(m => m.OrderModule)},
-      {path: '', loadChildren: () => import('../management/management.module').then(m => m.ManagementModule)},
-      {path: '', loadChildren: () => import('../brand/brand.module').then(m => m.BrandModule)}
+      {path: '', loadChildren: () => import('./components/order/delivery/delivery.module').then(m => m.DeliveryModule)},
+      {path: '', loadChildren: () => import('./components/order/voucher/voucher.module').then(m => m.VoucherModule)},
+      {path: '', loadChildren: () => import('./components/management/role/role.module').then(m => m.RoleModule)},
+      {path: '', loadChildren: () => import('./components/management/group/group.module').then(m => m.GroupModule)},
+      {path: '', loadChildren: () => import('./components/management/member/member.module').then(m => m.MemberModule)},
+      {path: '', loadChildren: () => import('./components/brand/brand.module').then(m => m.BrandModule)},
+      {path: '', loadChildren: () => import('./components/category/category.module').then(m => m.CategoryModule)},
     ]
   },
 ]

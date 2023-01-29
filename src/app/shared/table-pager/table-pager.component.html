@@ -4,6 +4,8 @@
       Prev &#8678;
     </button>
     <span>Page {{pageNo}} of {{totalPages}} {{totalPages > 1 ? 'Pages' : 'Page'}}</span>
-    <button type="button" [disabled]="pageNo === totalPages" (click)="nextPage(pageNo + 1)">Next &#8680;</button>
+    <button type="button" [disabled]="pageNo === totalPages || totalPages === 0" (click)="nextPage(pageNo + 1)">
+      Next &#8680;
+    </button>
   </div>
 </div>

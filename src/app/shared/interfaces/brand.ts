@@ -1,5 +1,5 @@
 export interface IBrand {
-  brandId: string,
+  id: string,
   name: string,
   slug: string,
   products: number

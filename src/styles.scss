@@ -143,6 +143,10 @@ td, th {
     max-width: 14rem;
   }
 
+  &:last-child, &:nth-last-child(2){
+    text-align: center;
+  }
+
   &:last-child{
     text-align: center;
   }

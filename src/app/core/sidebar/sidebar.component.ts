@@ -14,4 +14,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
+  logIcon(icon: any) {
+    console.log(icon)
+  }
 }
