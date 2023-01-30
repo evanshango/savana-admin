@@ -60,7 +60,9 @@ export class CategoryListComponent implements OnInit {
   activateCategory(category: ICategory, action: string) {
     this.action = action
     this.selectedCategory = category
-    this.showActionArea = false
+    this.showActionArea = true
+    this.dialogTitle = 'Activate Category'
+    this.dialogService.showDialog = true
   }
 
   deleteCategory(category: ICategory, action: string) {
@@ -76,10 +78,15 @@ export class CategoryListComponent implements OnInit {
   }
 
   confirmAction() {
-    /**
-     * TODO
-     * Handle category delete and activate
-     */
+    if (this.action === 'delete') {
+      this._deleteCategory()
+      return
+    }
+
+    if (this.action === 'activate'){
+      this._activateCategory()
+      return;
+    }
   }
 
   reloadCategories() {
@@ -87,11 +94,37 @@ export class CategoryListComponent implements OnInit {
     this._fetchCategories()
   }
 
+  getIcon(iconName: string): IconDefinition {
+    return this.icons.find(ic => ic.iconName === iconName);
+  }
+
   private _fetchCategories(): void {
     this.categoryService.getCategories(this.categoryParams).subscribe({next: res => this.pagedList = res})
   }
 
-  getIcon(iconName: string): IconDefinition {
-    return this.icons.find(ic => ic.iconName === iconName);
+  private _deleteCategory() {
+    this.categoryService.deleteCategory(this.selectedCategory.slug).subscribe({
+      next: () => this._performReload()
+    })
+  }
+
+  private _activateCategory() {
+    this.selectedCategory.active = true
+    this.categoryService.updateCategory(this.selectedCategory, this.selectedCategory.slug).subscribe(
+      {
+        next: () => {
+          this.resetStatus = true
+          this._performReload()
+        }
+      }
+    )
+  }
+
+  private _performReload() {
+    setTimeout(() => {
+      this.selectedCategory = null
+      this.dialogService.showDialog = false
+      this.reloadCategories()
+    }, 1000)
   }
 }

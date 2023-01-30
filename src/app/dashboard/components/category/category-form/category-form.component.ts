@@ -40,7 +40,7 @@ export class CategoryFormComponent implements OnInit {
       return
     }
 
-    if (this.action === 'edit'){
+    if (this.action === 'edit') {
       this._updateCategory()
     }
   }
@@ -74,7 +74,9 @@ export class CategoryFormComponent implements OnInit {
   }
 
   private _updateCategory() {
-
+    this.categoryService.updateCategory(this.categoryForm.value, this.category.slug!).subscribe({
+      next: res => this._dismissDialog(res)
+    })
   }
 
   private _dismissDialog(res: ICategory) {

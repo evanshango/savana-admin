@@ -12,7 +12,8 @@ import {ICategory} from "../../../shared/interfaces/category";
 export class CategoryService {
   BASE_URL: string = environment.baseUrl
 
-  constructor(private client: HttpClient) { }
+  constructor(private client: HttpClient) {
+  }
 
   getCategories(categoryParams: CategoryParams): Observable<PaginationResponse<ICategory[]>> {
     let params = new HttpParams()
@@ -38,5 +39,13 @@ export class CategoryService {
 
   addCategory(category: any): Observable<ICategory> {
     return this.client.post<ICategory>(`${this.BASE_URL}/v1/categories`, category)
+  }
+
+  updateCategory(category: any, categorySlug: string): Observable<ICategory> {
+    return this.client.put<ICategory>(`${this.BASE_URL}/v1/categories/${categorySlug}`, category)
+  }
+
+  deleteCategory(categorySlug: string): Observable<void>{
+    return this.client.delete<void>(`${this.BASE_URL}/v1/categories/${categorySlug}`)
   }
 }
