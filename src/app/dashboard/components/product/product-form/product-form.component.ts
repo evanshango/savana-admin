@@ -37,6 +37,10 @@ export class ProductFormComponent implements OnInit {
     console.log(this.productForm.value.detail)
   }
 
+  get detail(){
+    return this.productForm.get('detail')
+  }
+
   private _createProductForm() {
     this.productForm = this.fb.group({
       name: ['', Validators.required],

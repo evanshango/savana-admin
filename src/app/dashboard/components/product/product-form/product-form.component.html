@@ -17,6 +17,9 @@
       border: '1px solid #838383', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px',fontSize: '1rem'}"
                     [trimOnValidation]="true" [placeholder]="'Enter Product Detail...'">
       </quill-editor>
+      <small class='text-error' *ngIf='(detail.touched)'>
+        <span *ngIf="detail.errors?.['required']">*Product detail is required</span>
+      </small>
     </div>
     <div class="form-btn">
       <button class="btn-primary" style="margin-left: auto; padding: .5rem 3rem" type="submit" (click)="onSubmit()">
