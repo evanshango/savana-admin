@@ -1,0 +1,38 @@
+.product-form {
+  form {
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+
+      @media screen and (max-width: 638px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    .detail-area {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin: .6rem 0;
+      }
+    }
+
+    .form-btn {
+      margin-top: 1.5rem;
+      display: flex;
+
+      button {
+        padding: .7rem 3rem;
+        margin-left: auto;
+
+        @media screen and (max-width: 638px) {
+          margin: auto;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

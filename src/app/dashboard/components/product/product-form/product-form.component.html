@@ -1,0 +1,27 @@
+<div class="product-form">
+  <form [formGroup]="productForm">
+    <div class="form-row">
+      <app-text-input formControlName="name" [label]="'Name'"></app-text-input>
+      <app-text-input formControlName="stock" [label]="'Stock'" [type]="'number'"></app-text-input>
+      <app-text-input formControlName="price" [label]="'Price'" [type]="'number'"></app-text-input>
+    </div>
+    <div class="form-row">
+      <app-text-input formControlName="brand" [label]="'Brand'"></app-text-input>
+      <app-text-input formControlName="categories" [label]="'Categories'"></app-text-input>
+      <app-text-input formControlName="owner" [label]="'Owner'"></app-text-input>
+    </div>
+    <app-text-area formControlName="description" [label]="'Description'" [rows]="3"></app-text-area>
+    <div class="detail-area">
+      <label for="detail">Detail</label>
+      <quill-editor id="detail" formControlName="detail" [modules]="modules" [styles]="{minHeight: '30rem',
+      border: '1px solid #838383', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px',fontSize: '1rem'}"
+                    [trimOnValidation]="true" [placeholder]="'Enter Product Detail...'">
+      </quill-editor>
+    </div>
+    <div class="form-btn">
+      <button class="btn-primary" style="margin-left: auto; padding: .5rem 3rem" type="submit" (click)="onSubmit()">
+        Confirm
+      </button>
+    </div>
+  </form>
+</div>

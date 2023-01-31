@@ -1,0 +1,67 @@
+<div class="products-main">
+  <div class="header">
+    <span>
+      <h2>Products</h2>
+      <small>**Click on the Add Product Button to add a Product</small>
+    </span>
+    <button type="button" class="btn-success" routerLink="/products/new" >Add Product</button>
+  </div>
+  <div class="content products-content">
+    <app-table-header [selectLabel]="'Product Status'" (statusValue)="onStatusChange($event)"
+                      [resetStatus]="resetStatus"
+                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)">
+    </app-table-header>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th style="width: 15rem">Name</th>
+          <th>Image</th>
+          <th style="width: 10rem">In Stock</th>
+          <th>Brand</th>
+          <th style="width: 10rem; text-align: center">Initial Price</th>
+          <th style="width: 10rem; text-align: center">Final Price</th>
+          <th>Discount</th>
+          <th>Owner</th>
+          <th>Created On</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let product of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{product.name}}</td>
+          <td>Prod Image</td>
+          <td>{{product.inStock}}</td>
+          <td>{{product.brand}}</td>
+          <td>{{product.initialPrice}}</td>
+          <td>{{product.finalPrice}}</td>
+          <td>{{product.discount}}</td>
+          <td>{{product.owner}}</td>
+          <td>{{product.createdAt | date: 'MMM d, y HH:mm'}}</td>
+          <td class="action-btn" *ngIf="!product.active">
+            <button type="button" class="btn-primary" (click)="activateProduct(product, 'activate')">
+              Activate
+            </button>
+          </td>
+          <td class="action-btn" *ngIf="product.active">
+            <button type="button" class="btn-primary">Edit</button>
+            <button type="button" class="btn-error" (click)="deleteProduct(product, 'delete')">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-table-pager [pageSize]="pagedList.metaData.pageSize" [totalCount]="pagedList.metaData.totalCount"
+                     [pageNo]="pagedList.metaData.pageNo" *ngIf="pagedList?.items" (pageChanged)="onPageChange($event)"
+                     [totalPages]="pagedList.metaData.totalPages">
+    </app-table-pager>
+  </div>
+  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="true" *ngIf="dialogService.showDialog"
+              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
+<!--    <app-category-form [category]="selectedCategory" (reloadCategories)="reloadCategories()"-->
+<!--                       [action]="action">-->
+<!--    </app-category-form>-->
+  </app-dialog>
+</div>
