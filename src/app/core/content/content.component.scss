@@ -1,0 +1,36 @@
+.main {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-rows: 70px 1fr;
+  transition: all .5s;
+  grid-template-areas:
+    'navbar navbar'
+    'sidebar content';
+
+  &-navbar {
+    background: white;
+    grid-area: navbar;
+    box-shadow: 0 6px 10px -11px rgba(0, 0, 0, .7);
+  }
+
+  &-sidebar {
+    background-image: linear-gradient(235deg, #565867, #191a25);
+    box-shadow: 0 6px 10px -2px rgba(0, 0, 0, .75);
+    overflow-y: auto;
+    color: white;
+    grid-area: sidebar;
+    text-align: justify;
+  }
+
+  &-content {
+    overflow: auto;
+    padding: .3rem 1rem 1rem 1rem;
+    grid-area: content;
+    text-align: justify;
+  }
+}
+
+.collapse {
+  grid-template-columns: 6rem 1fr;
+}

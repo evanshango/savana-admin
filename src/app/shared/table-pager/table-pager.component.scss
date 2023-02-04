@@ -8,11 +8,13 @@
     .pager-buttons {
       width: 100% !important;
       margin: auto;
+      padding: 0 .5rem;
 
       button {
         margin: 0 !important;
         background: #565867;
         border-radius: 4px !important;
+        color: white;
 
         &:disabled {
           cursor: not-allowed;
@@ -23,9 +25,11 @@
 
       @media screen and (max-width: 558px){
         font-size: .5rem;
+        display: flex;
+        flex-direction: column;
 
         button{
-          font-size: .6rem!important;
+          font-size: .5rem!important;
         }
       }
     }
@@ -33,6 +37,9 @@
     span {
       padding: 1rem;
       font-weight: bold;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 }

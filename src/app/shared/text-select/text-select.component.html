@@ -1,0 +1,20 @@
+<div class="options-area">
+  <div class="selection-card">
+    <ul class="selection-options">
+      <li class="selection-item" *ngFor="let item of pagedList.items">
+        <div (click)="onItemSelected(item['id'], item['name'])">{{item['name']}}</div>
+      </li>
+    </ul>
+    <ng-container *ngIf="pagedList.metaData as pg">
+      <div class="selection-pagination" *ngIf="pg.totalPages > 1">
+        <button class="btn-success" type="button" (click)="prevPage()" [disabled]="pg.pageNo === 1">
+          Prev
+        </button>
+        <button class="btn-success" type="button" (click)="nextPage()"
+                [disabled]="pg.pageNo === pg.totalPages || pg.totalPages === 0">
+          Next
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>

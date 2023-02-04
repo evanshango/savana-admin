@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {DashboardComponent} from "./dashboard.component";
-import {AuthGuard} from "../core/guards/auth.guard";
-import {HomeComponent} from "./components/home/home.component";
+import {AuthGuard} from "../common/guards/auth.guard";
+import {ContentComponent} from "../core/content/content.component";
 
 const routes: Routes = [
   {
-    path: '', component: DashboardComponent, canActivate: [AuthGuard], children: [
-      {path: '', component: HomeComponent, pathMatch: 'prefix'},
+    path: '', component: ContentComponent, canActivate: [AuthGuard], children: [
+      {path: '', loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule)},
       {path: '', loadChildren: () => import('./components/order/delivery/delivery.module').then(m => m.DeliveryModule)},
       {path: '', loadChildren: () => import('./components/order/voucher/voucher.module').then(m => m.VoucherModule)},
       {path: '', loadChildren: () => import('./components/management/role/role.module').then(m => m.RoleModule)},
@@ -17,7 +16,7 @@ const routes: Routes = [
       {path: '', loadChildren: () => import('./components/category/category.module').then(m => m.CategoryModule)},
       {path: '', loadChildren: () => import('./components/product/product.module').then(m => m.ProductModule)}
     ]
-  },
+  }
 ]
 
 @NgModule({

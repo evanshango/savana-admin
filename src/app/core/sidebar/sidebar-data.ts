@@ -43,7 +43,7 @@ export const SidebarMenu: any = [
     title: 'Actions', data: [
       {name: 'Orders', link: '/orders', icon: faShoppingCart},
       {name: 'Payments', link: '/payments', icon: faWallet},
-      {name: 'Notifications', link: '#', icon: faBell},
+      {name: 'Notifications', link: '/notifications', icon: faBell},
     ]
   },
   {

@@ -9,6 +9,7 @@ import {ProductFormComponent} from './product-form/product-form.component';
 import {ProductImageComponent} from './product-image/product-image.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuillModule} from "ngx-quill";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -17,9 +18,9 @@ import {QuillModule} from "ngx-quill";
     ProductFormComponent,
     ProductImageComponent
   ],
-  imports: [
-    CommonModule, ProductRoutingModule, SharedModule, ReactiveFormsModule, FormsModule, QuillModule.forRoot()
-  ],
+    imports: [
+        CommonModule, ProductRoutingModule, SharedModule, ReactiveFormsModule, FormsModule, QuillModule.forRoot(), FontAwesomeModule
+    ],
   providers: []
 })
 export class ProductModule {

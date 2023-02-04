@@ -1,9 +1,8 @@
 <div class="product-detail">
-  <div class="header">
-    <span style="font-size: 1.2rem" *ngIf="product">
+  <div class="header" *ngIf="product">
+    <span style="font-size: 1.2rem">
       Product <strong>{{product?.name}}</strong> Information Details
     </span>
-    <span style="font-size: 1.2rem" *ngIf="!product"><strong>Add a New Product</strong></span>
   </div>
   <div class="content product-detail-content">
     <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" [activatedTabIndex]="activatedTabIndex">

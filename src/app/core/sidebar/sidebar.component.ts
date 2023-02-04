@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SidebarMenu} from "./sidebar-data";
 
 @Component({
@@ -7,15 +7,12 @@ import {SidebarMenu} from "./sidebar-data";
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  @Input() menuClicked: boolean
-  @Input() windowWidth: number
+  @Output() collapse = new EventEmitter<boolean>()
+  @Input() windowWidth!: number
+  @Input() expand!: boolean
   actions: any = SidebarMenu
 
   ngOnInit(): void {
 
-  }
-
-  logIcon(icon: any) {
-    console.log(icon)
   }
 }

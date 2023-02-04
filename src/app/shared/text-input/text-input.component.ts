@@ -9,6 +9,8 @@ import {ControlValueAccessor, NgControl} from "@angular/forms";
 export class TextInputComponent implements OnInit, ControlValueAccessor {
   @ViewChild('input', {static: true}) input: ElementRef
   @Output() onKeyUp = new EventEmitter<string>()
+  @Output() onInputClick = new EventEmitter<{ action: string }>()
+  @Input() action: string
   @Input() type = 'text'
   @Input() label: string
   @Input() isDisabled: boolean
@@ -30,8 +32,7 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
     control?.updateValueAndValidity()
   }
 
-  onChange(event: any) {
-
+  onChange(value: any) {
   }
 
   onTouched() {
@@ -54,5 +55,9 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
 
   keyUp(value: string) {
     this.onKeyUp.emit(value)
+  }
+
+  onClick() {
+    this.onInputClick.emit({action: this.action})
   }
 }

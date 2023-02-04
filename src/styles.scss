@@ -2,6 +2,10 @@
 
 html {
   scroll-behavior: smooth;
+
+  @media screen and (max-width: 768px) {
+    font-size: .8rem !important;
+  }
 }
 
 body {
@@ -10,6 +14,10 @@ body {
   margin: 0;
   padding: 0;
   background: #f4f4f4;
+
+  @media screen and (max-width: 768px) {
+    font-size: .8rem !important;
+  }
 }
 
 a {
@@ -51,10 +59,6 @@ button {
   font-size: 1rem;
   line-height: 1.5;
   border-radius: .25rem;
-  text-overflow: ellipsis;
-  //color: #fff;
-  overflow: hidden;
-  min-width: 4.5rem !important;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
   &:disabled {
@@ -65,6 +69,16 @@ button {
   &:not(:disabled) {
     cursor: pointer;
   }
+
+  @media screen and (max-width: 398px) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.btn-success, .btn-primary, .btn-error, .btn-warn {
+  padding: .4rem 1.5rem;
 }
 
 .btn-success {
@@ -146,11 +160,11 @@ td, th {
     max-width: 14rem;
   }
 
-  &:last-child, &:nth-last-child(2){
+  &:last-child, &:nth-last-child(2) {
     text-align: center;
   }
 
-  &:last-child{
+  &:last-child {
     text-align: center;
   }
 }
@@ -168,10 +182,10 @@ td, th {
   padding: 1rem;
 
   span {
-    h2 {
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     small {
       font-weight: bold;
@@ -272,7 +286,74 @@ td, th {
 .ql-toolbar.ql-snow {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  border: 1px solid #212121!important;
-  border-bottom: none!important;
-  padding: .6rem!important;
+  border: 1px solid #212121 !important;
+  border-bottom: none !important;
+  padding: .6rem !important;
+}
+
+.options {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  label {
+    margin: .6rem 0;
+  }
+
+  .option-click {
+    width: 100%;
+
+    .option-area {
+      font-size: 1.1rem;
+      border-radius: .3rem;
+      border: 1.2px solid #636363;
+      color: #212529;
+      background: white;
+      cursor: text;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1rem;
+      align-items: center;
+      position: relative;
+      gap: .5rem;
+
+      .selected-options {
+        padding: .7rem;
+        color: #212529;
+        overflow-x: auto;
+
+        span {
+          background: #636363;
+          color: white;
+          padding: .5rem;
+          border-radius: 8px;
+          font-size: .7rem;
+          cursor: pointer;
+
+          &:not(:first-child) {
+            margin-left: .5rem;
+          }
+        }
+
+        &::-webkit-scrollbar {
+          height: 2px !important;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: red !important;
+        }
+
+        &:empty::before{
+          content: attr(data-placeholder);
+        }
+      }
+
+      .ng-fa-icon {
+        color: #636363;
+        cursor: pointer;
+        padding: .7rem 0;
+      }
+    }
+  }
 }

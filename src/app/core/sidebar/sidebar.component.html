@@ -1,10 +1,10 @@
-<div class="action-main" *ngFor="let action of actions" [ngClass]="{'collapse-menu': menuClicked}">
-  <h2>{{action.title}}</h2>
-  <div class="action-links">
+<div class="sidebar-main" [ngClass]="{'sidebar-min': !expand}" *ngFor="let action of actions">
+  <div class="section-header"><h3>{{action.title}}</h3></div>
+  <div class="sidebar-links">
     <ul *ngFor="let menuItem of action.data">
-<!--      {{logIcon(menuItem['icon'])}}-->
       <li>
-        <a [routerLink]="menuItem['link']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="menuItem['link']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+           (click)="(expand && windowWidth <= 768) && collapse.emit(false)">
           <fa-icon [icon]="menuItem['icon']"></fa-icon>
           <span>{{menuItem.name}}</span>
         </a>

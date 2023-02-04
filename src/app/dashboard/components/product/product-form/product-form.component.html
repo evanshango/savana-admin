@@ -1,19 +1,39 @@
 <div class="product-form">
-  <form [formGroup]="productForm">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <app-text-input formControlName="name" [label]="'Name'"></app-text-input>
       <app-text-input formControlName="stock" [label]="'Stock'" [type]="'number'"></app-text-input>
       <app-text-input formControlName="price" [label]="'Price'" [type]="'number'"></app-text-input>
     </div>
     <div class="form-row">
-      <app-text-input formControlName="brand" [label]="'Brand'"></app-text-input>
-      <app-text-input formControlName="categories" [label]="'Categories'"></app-text-input>
+      <div *ngIf="brandPagedList" style="position: relative">
+        <app-text-input formControlName="brand" [label]="'Brand'" [action]="'brand'"
+                        (onInputClick)="showOptions('brand')">
+        </app-text-input>
+        <app-text-select *ngIf="showBrands === true" [pagedList]="brandPagedList" [type]="'brand'" [label]="'Brand'"
+                         (pageSelected)="pageSelected($event)" (selected)="itemSelected($event)">
+        </app-text-select>
+      </div>
+      <div *ngIf="categoryPagedList as pagedList" class="options">
+        <label for="categories">Categories</label>
+        <div class="option-click">
+          <div class="option-area" id="categories">
+            <div class="selected-options" data-placeholder="Categories">
+              <span *ngFor="let cat of selectedCategories" (click)="remove(cat)"><small>{{cat?.name}}</small></span>
+            </div>
+            <fa-icon [icon]="caret" (click)="showOptions('category')"></fa-icon>
+          </div>
+        </div>
+        <app-text-select *ngIf="showCategory === true" [pagedList]="pagedList" [type]="'category'" [label]="'Category'"
+                         (pageSelected)="pageSelected($event)" (selected)="itemSelected($event)">
+        </app-text-select>
+      </div>
       <app-text-input formControlName="owner" [label]="'Owner'"></app-text-input>
     </div>
     <app-text-area formControlName="description" [label]="'Description'" [rows]="3"></app-text-area>
     <div class="detail-area">
       <label for="detail">Detail</label>
-      <quill-editor id="detail" formControlName="detail" [modules]="modules" [styles]="{minHeight: '30rem',
+      <quill-editor id="detail" formControlName="detail" [modules]="modules" [styles]="{minHeight: '40rem',
       border: '1px solid #838383', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px',fontSize: '1rem'}"
                     [trimOnValidation]="true" [placeholder]="'Enter Product Detail...'">
       </quill-editor>
@@ -21,10 +41,8 @@
         <span *ngIf="detail.errors?.['required']">*Product detail is required</span>
       </small>
     </div>
-    <div class="form-btn">
-      <button class="btn-primary" style="margin-left: auto; padding: .5rem 3rem" type="submit" (click)="onSubmit()">
-        Confirm
-      </button>
+    <div class="form-btn" *ngIf="productForm.valid">
+      <button class="btn-primary" style="margin-left: auto; padding: .5rem 3rem" type="submit">Confirm</button>
     </div>
   </form>
 </div>

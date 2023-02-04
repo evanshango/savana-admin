@@ -5,14 +5,14 @@ import {ISignin} from "../../shared/interfaces/signin";
 import {Observable} from "rxjs";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  @Output() menuClicked = new EventEmitter<boolean>()
+export class NavbarComponent implements OnInit {
+  @Output() collapse = new EventEmitter<boolean>()
   @Input() windowWidth: number
-  menuIconClicked = false
+  @Input() expand!: boolean
   user$: Observable<ISignin>
   isShown: boolean
   menuIcon = faBars
@@ -26,22 +26,16 @@ export class HeaderComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: any) {
-    if (!this.eRef.nativeElement.contains(event.target) && this.isShown){
-      this.isShown = false
-    }
+    if (!this.eRef.nativeElement.contains(event.target) && this.isShown) this.isShown = false
   }
 
   ngOnInit() {
     this.user$ = this.accountService.userSource$
   }
 
-  toggleMenu() {
-    this.menuIconClicked = !this.menuIconClicked
-    this.menuClicked.emit(this.menuIconClicked)
-  }
-
-  showAction() {
-    this.isShown = !this.isShown
+  collapseEvent() {
+    this.expand = !this.expand
+    this.collapse.emit(this.expand)
   }
 
   async signOutUser() {
