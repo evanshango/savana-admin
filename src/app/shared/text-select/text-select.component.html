@@ -1,20 +1,38 @@
-<div class="options-area">
-  <div class="selection-card">
-    <ul class="selection-options">
-      <li class="selection-item" *ngFor="let item of pagedList.items">
-        <div (click)="onItemSelected(item['id'], item['name'])">{{item['name']}}</div>
-      </li>
-    </ul>
-    <ng-container *ngIf="pagedList.metaData as pg">
-      <div class="selection-pagination" *ngIf="pg.totalPages > 1">
-        <button class="btn-success" type="button" (click)="prevPage()" [disabled]="pg.pageNo === 1">
-          Prev
-        </button>
-        <button class="btn-success" type="button" (click)="nextPage()"
-                [disabled]="pg.pageNo === pg.totalPages || pg.totalPages === 0">
-          Next
-        </button>
+<div class="select-area">
+  <label for="{{label}}">{{label}}</label>
+  <div style="width: 100%; position: relative">
+    <div class="select-action">
+      <div class="option-area" id="{{label}}">
+        <div class="selected-options" *ngIf="!multiple">
+          <h4>{{items[0]?.name}}</h4>
+        </div>
+        <div class="selected-options" *ngIf="multiple">
+          <span *ngFor="let item of items" (click)="onItemSelected(item['id'], item['name'], 'remove')">
+            <small>{{item.name}}</small>
+          </span>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center" (click)="isShown = !isShown">
+          <fa-icon [icon]="caret"></fa-icon>
+        </div>
       </div>
-    </ng-container>
+    </div>
+    <div class="select-card" *ngIf="isShown">
+      <ul class="select-items">
+        <li class="select-item" *ngFor="let item of pagedList.items">
+          <div (click)="onItemSelected(item['id'], item['name'], '')">{{item.name}}</div>
+        </li>
+      </ul>
+      <ng-container *ngIf="pagedList.metaData as pg">
+        <div class="select-pagination" *ngIf="pg.totalPages > 1">
+          <button class="btn-success" type="button" (click)="prevPage()" [disabled]="pg.pageNo === 1">
+            Prev
+          </button>
+          <button class="btn-success" type="button" (click)="nextPage()"
+                  [disabled]="pg.pageNo === pg.totalPages || pg.totalPages === 0">
+            Next
+          </button>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>

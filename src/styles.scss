@@ -301,59 +301,59 @@ td, th {
     margin: .6rem 0;
   }
 
-  .option-click {
-    width: 100%;
-
-    .option-area {
-      font-size: 1.1rem;
-      border-radius: .3rem;
-      border: 1.2px solid #636363;
-      color: #212529;
-      background: white;
-      cursor: text;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1rem;
-      align-items: center;
-      position: relative;
-      gap: .5rem;
-
-      .selected-options {
-        padding: .7rem;
-        color: #212529;
-        overflow-x: auto;
-
-        span {
-          background: #636363;
-          color: white;
-          padding: .5rem;
-          border-radius: 8px;
-          font-size: .7rem;
-          cursor: pointer;
-
-          &:not(:first-child) {
-            margin-left: .5rem;
-          }
-        }
-
-        &::-webkit-scrollbar {
-          height: 2px !important;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: red !important;
-        }
-
-        &:empty::before{
-          content: attr(data-placeholder);
-        }
-      }
-
-      .ng-fa-icon {
-        color: #636363;
-        cursor: pointer;
-        padding: .7rem 0;
-      }
-    }
-  }
+  //.option-click {
+  //  width: 100%;
+  //
+  //  .option-area {
+  //    font-size: 1.1rem;
+  //    border-radius: .3rem;
+  //    border: 1.2px solid #636363;
+  //    color: #212529;
+  //    background: white;
+  //    cursor: text;
+  //    width: 100%;
+  //    display: grid;
+  //    grid-template-columns: 1fr 1rem;
+  //    align-items: center;
+  //    position: relative;
+  //    gap: .5rem;
+  //
+  //    .selected-options {
+  //      padding: .7rem;
+  //      color: #212529;
+  //      overflow-x: auto;
+  //
+  //      span {
+  //        background: #636363;
+  //        color: white;
+  //        padding: .5rem;
+  //        border-radius: 8px;
+  //        font-size: .7rem;
+  //        cursor: pointer;
+  //
+  //        &:not(:first-child) {
+  //          margin-left: .5rem;
+  //        }
+  //      }
+  //
+  //      &::-webkit-scrollbar {
+  //        height: 2px !important;
+  //      }
+  //
+  //      &::-webkit-scrollbar-thumb {
+  //        background: red !important;
+  //      }
+  //
+  //      &:empty::before{
+  //        content: attr(data-placeholder);
+  //      }
+  //    }
+  //
+  //    .ng-fa-icon {
+  //      color: #636363;
+  //      cursor: pointer;
+  //      padding: .7rem 0;
+  //    }
+  //  }
+  //}
 }

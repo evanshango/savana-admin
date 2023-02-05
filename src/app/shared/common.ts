@@ -39,3 +39,8 @@ export const icons = (): IconDefinition[] => {
   )
   return icons
 }
+
+export interface ISelected {
+  id: string
+  name: string
+}

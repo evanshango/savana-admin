@@ -8,12 +8,7 @@ import {CategoryParams} from "../../../../shared/models/category-params";
 import {BrandParams} from "../../../../shared/models/brand-params";
 import {IBrand} from "../../../../shared/interfaces/brand";
 import {BrandService} from "../../brand/brand.service";
-import {faCaretDown} from "@fortawesome/free-solid-svg-icons";
-
-interface ICat {
-  id: string
-  name: string
-}
+import {ISelected} from "../../../../shared/common";
 
 @Component({
   selector: 'app-product-form',
@@ -23,12 +18,9 @@ interface ICat {
 export class ProductFormComponent implements OnInit {
   @Input() product: IProduct
   productForm: FormGroup;
-  caret = faCaretDown
-  showBrands: boolean
-  showCategory: boolean
-  selectedBrand: string = ''
-  selectedBrandId: string
-  selectedCategories: ICat[] = []
+  selectedBrand: ISelected = null
+  selectedBrandId: string = ''
+  selectedCategories: ISelected[] = []
   selectedCategoryIds: string[] = []
   brandParams = new BrandParams()
   categoryParams = new CategoryParams()
@@ -75,19 +67,23 @@ export class ProductFormComponent implements OnInit {
     return this.productForm.get('brand')
   }
 
-  itemSelected(item: { type: string, id: string, name: string }) {
-    if (item.type === 'brand') {
-      this.selectedBrand = item.name ? item.name : ''
-      this.selectedBrandId = item.id ? item.id : ''
-      this.productForm.patchValue({brand: this.selectedBrand})
-      this.showBrands = false
-    } else if (item.type === 'category') {
-      this._updateCategories({id: item.id, name: item.name})
-      this.showCategory = false
+  selected(item: { type: string, id: string, name: string, tag?: string, multiple: boolean }): void {
+    switch (item.multiple) {
+      case true:
+        if (item.tag === 'remove') {
+          this._removeCategories({id: item.id, name: item.name})
+        } else {
+          this._updateCategories({id: item.id, name: item.name})
+        }
+        this.productForm.patchValue({categories: this.selectedCategoryIds})
+        break
+      case false:
+        this._updateBrand({id: item.id, name: item.name})
+        break
     }
   }
 
-  pageSelected($event: { type: string; page: number }) {
+  pageChange($event: { type: string; page: number }) {
     if ($event.type === 'brand') {
       this.brandParams.page = $event.page
       this._fetchBrands()
@@ -98,11 +94,6 @@ export class ProductFormComponent implements OnInit {
       this._fetchCategories()
       return;
     }
-  }
-
-  showOptions(action: string) {
-    this.showBrands = action === 'brand' && !this.showBrands
-    this.showCategory = action === 'category' && !this.showCategory
   }
 
   private _createProductForm() {
@@ -130,20 +121,24 @@ export class ProductFormComponent implements OnInit {
     })
   }
 
-  private _updateCategories(item: { id: string, name: string }) {
-    if (!this.selectedCategories.find(c => c.name === item.name)) {
-      this.selectedCategories.push({id: item.id, name: item.name})
-      this.selectedCategoryIds.push(item.id)
-      this.productForm.patchValue({categories: this.selectedCategories})
-    }
-  }
-
-  remove(cat: { id: string; name: string }) {
-    let existingIndex = this.selectedCategories.findIndex(c => c.id === cat.id)
+  private _removeCategories(category: { name: string; id: string }) {
+    let existingIndex = this.selectedCategories.findIndex(c => c.id === category.id)
     if (existingIndex > -1) {
       this.selectedCategories.splice(existingIndex, 1)
       this.selectedCategoryIds.splice(existingIndex, 1)
     }
-    this.productForm.patchValue({categories: this.selectedCategories})
+  }
+
+  private _updateCategories(category: { name: string; id: string }) {
+    if (!this.selectedCategories.find(i => i.id === category.id)) {
+      this.selectedCategories.push({id: category.id, name: category.name})
+      this.selectedCategoryIds.push(category.id)
+    }
+  }
+
+  private _updateBrand(brand: { name: string; id: string }) {
+    this.selectedBrand = {id: brand.id, name: brand.name}
+    this.selectedBrandId = brand.id
+    this.productForm.patchValue({brand: this.selectedBrandId})
   }
 }

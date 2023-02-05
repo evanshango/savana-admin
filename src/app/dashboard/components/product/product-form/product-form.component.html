@@ -6,26 +6,14 @@
       <app-text-input formControlName="price" [label]="'Price'" [type]="'number'"></app-text-input>
     </div>
     <div class="form-row">
-      <div *ngIf="brandPagedList" style="position: relative">
-        <app-text-input formControlName="brand" [label]="'Brand'" [action]="'brand'"
-                        (onInputClick)="showOptions('brand')">
-        </app-text-input>
-        <app-text-select *ngIf="showBrands === true" [pagedList]="brandPagedList" [type]="'brand'" [label]="'Brand'"
-                         (pageSelected)="pageSelected($event)" (selected)="itemSelected($event)">
+      <div *ngIf="brandPagedList as pagedList" style="position: relative">
+        <app-text-select [pagedList]="pagedList" [type]="'brand'" [label]="'Brand'" (pageSelected)="pageChange($event)"
+                         (selected)="selected($event)" [items]="[selectedBrand]" [multiple]="false">
         </app-text-select>
       </div>
       <div *ngIf="categoryPagedList as pagedList" class="options">
-        <label for="categories">Categories</label>
-        <div class="option-click">
-          <div class="option-area" id="categories">
-            <div class="selected-options" data-placeholder="Categories">
-              <span *ngFor="let cat of selectedCategories" (click)="remove(cat)"><small>{{cat?.name}}</small></span>
-            </div>
-            <fa-icon [icon]="caret" (click)="showOptions('category')"></fa-icon>
-          </div>
-        </div>
-        <app-text-select *ngIf="showCategory === true" [pagedList]="pagedList" [type]="'category'" [label]="'Category'"
-                         (pageSelected)="pageSelected($event)" (selected)="itemSelected($event)">
+        <app-text-select [pagedList]="pagedList" [type]="'category'" [label]="'Categories'" [items]="selectedCategories"
+                         (selected)="selected($event)" (pageSelected)="pageChange($event)" [multiple]="true">
         </app-text-select>
       </div>
       <app-text-input formControlName="owner" [label]="'Owner'"></app-text-input>

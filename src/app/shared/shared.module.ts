@@ -9,6 +9,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { TextAreaComponent } from './text-area/text-area.component';
 import { TabComponent } from './tab/tab.component';
 import { TextSelectComponent } from './text-select/text-select.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { TextSelectComponent } from './text-select/text-select.component';
     exports: [
         TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent, TabComponent, TextSelectComponent
     ],
-    imports: [CommonModule, ReactiveFormsModule]
+    imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule]
 })
 export class SharedModule {
 }
