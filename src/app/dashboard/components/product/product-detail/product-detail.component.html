@@ -1,13 +1,22 @@
 <div class="product-detail">
   <div class="header" *ngIf="product">
     <span style="font-size: 1.2rem">
-      Product <strong>{{product?.name}}</strong> Information Details
+      Product <strong>{{product?.name}}</strong> {{index === 1 ? 'Available Images' : 'Information Details'}}
     </span>
   </div>
-  <div class="content product-detail-content">
-    <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" [activatedTabIndex]="activatedTabIndex">
-      <app-product-form [product]="product" *ngIf="activatedTabIndex === 0"></app-product-form>
-      <app-product-image [product]="product" *ngIf="activatedTabIndex === 1 && product"></app-product-image>
+  <div class="content">
+    <app-tab (onTabChange)="onTabChange($event)" [tabs]="product ? tabs : [tabs[0]]" [active]="index">
+      <ng-container *ngIf="index === 0">
+        <app-product-form [product]="product"></app-product-form>
+      </ng-container>
+      <ng-container *ngIf="index === 1 && product" style="height: 100%">
+        <app-file-select *ngIf="!(product.displayImage || product.showCaseImages.length > 0)"
+                         [productId]="product.id" (reloadPage)="reloadProduct($event)">
+        </app-file-select>
+        <app-product-image *ngIf="product.displayImage || product.showCaseImages.length > 0" [product]="product"
+                           (reloadProduct)="reloadProduct($event)">
+        </app-product-image>
+      </ng-container>
     </app-tab>
   </div>
 </div>

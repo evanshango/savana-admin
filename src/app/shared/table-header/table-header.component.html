@@ -6,10 +6,7 @@
     </select>
   </div>
   <div class="search-area">
-    <form [formGroup]="searchForm" (submit)="performSearch()">
-      <input type="text" formControlName="search">
-      <button type="submit" class="btn-success" [disabled]="!searchForm.dirty">Search</button>
-    </form>
+    <input type="text" [placeholder]="placeholder" (change)="onSearch($any($event.target).value)">
   </div>
   <div class="header-content">
     <form [formGroup]="statusForm">

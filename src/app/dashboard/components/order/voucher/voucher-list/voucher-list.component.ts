@@ -17,9 +17,9 @@ export class VoucherListComponent implements OnInit {
   dialogTitle: string
   voucherToDelete: string
   voucherToActivate: string
-  showActionArea: boolean
+  loading: boolean
+  actionArea: boolean
   resetStatus: boolean
-  resetSearch: boolean
 
   constructor(public dialogService: DialogService, private voucherService: VoucherService) {
   }
@@ -50,7 +50,7 @@ export class VoucherListComponent implements OnInit {
 
   openDialog(voucher: IVoucher) {
     this.itemToUpdate = voucher
-    this.showActionArea = false
+    this.actionArea = false
     this.dialogTitle = this.itemToUpdate ? 'Edit Voucher' : 'Add Voucher'
     this.dialogService.showDialog = true
   }
@@ -58,16 +58,18 @@ export class VoucherListComponent implements OnInit {
   closeDialog($event: boolean) {
     this.dialogService.showDialog = $event
     this.voucherToActivate = this.voucherToDelete = null
+    this.loading = false
   }
 
   deleteVoucher(voucher: string) {
     this.voucherToDelete = voucher
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Delete Voucher'
     this.dialogService.showDialog = true
   }
 
   confirmAction() {
+    this.loading = true
     if (this.voucherToDelete) {
       this._deleteVoucher()
       return
@@ -81,7 +83,7 @@ export class VoucherListComponent implements OnInit {
 
   activateVoucher(voucher: IVoucher) {
     this.voucherToActivate = voucher.voucher
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Activate Voucher'
     this.dialogService.showDialog = true
   }
@@ -106,7 +108,7 @@ export class VoucherListComponent implements OnInit {
     })
   }
 
-  performSearch(searchTerm: string) {
+  search(searchTerm: string) {
     this.voucherPrams.voucher = searchTerm.length > 3 ? searchTerm : ''
     this._fetchVouchers()
   }

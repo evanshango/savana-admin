@@ -35,7 +35,8 @@
           </small>
         </div>
         <app-text-input formControlName="createdAt" [label]="'Created On'" [isReadOnly]="true"
-                        [isDisabled]="true"></app-text-input>
+                        [isDisabled]="true">
+        </app-text-input>
       </div>
       <button class="btn-primary" type="submit" [disabled]="userForm.invalid || isSubmitting"
               *ngIf="formDirty && isEdit" style="margin-top: 2rem">

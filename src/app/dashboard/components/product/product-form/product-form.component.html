@@ -29,8 +29,11 @@
         <span *ngIf="detail.errors?.['required']">*Product detail is required</span>
       </small>
     </div>
-    <div class="form-btn" *ngIf="productForm.valid">
-      <button class="btn-primary" style="margin-left: auto; padding: .5rem 3rem" type="submit">Confirm</button>
+    <div class="form-btn" *ngIf="productForm.dirty">
+      <button class="btn-primary" style="margin-left: auto; padding: .5rem 3rem" type="submit"
+              [disabled]="productForm.invalid">
+        Confirm
+      </button>
     </div>
   </form>
 </div>

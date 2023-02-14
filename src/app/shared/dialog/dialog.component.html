@@ -1,13 +1,14 @@
 <div class="dialog-container">
   <div class="dialog-header">
-    <h3>{{dialogTitle}}</h3>
-    <span (click)="closeDialog()">&times;</span>
+    <h3>{{extras?.title}}</h3>
+    <span (click)="closeDialog()" [ngStyle]="{cursor: extras?.loading ? 'not-allowed' : 'pointer'}"
+          *ngIf="!extras.loading">&times;</span>
   </div>
   <div class="dialog-content">
     <ng-content></ng-content>
   </div>
-  <div class="dialog-actions" *ngIf="showActionArea === true">
-    <button type="button" class="btn-error" (click)="closeDialog()">No</button>
-    <button type="button" class="btn-success" (click)="performAction()">Yes</button>
+  <div class="dialog-actions" *ngIf="extras.actionArea === true">
+    <button type="button" class="btn-error" (click)="closeDialog()" [disabled]="extras?.loading">No</button>
+    <button type="button" class="btn-success" (click)="performAction()" [disabled]="extras?.loading">Yes</button>
   </div>
 </div>

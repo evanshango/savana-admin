@@ -7,7 +7,8 @@
   </div>
   <div class="content groups-content">
     <app-table-header [selectLabel]="'Group Status'" (statusValue)="onStatusChange($event)" [resetStatus]="resetStatus"
-                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)">
+                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)"
+                      [placeholder]="'Group Name...'">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -47,7 +48,7 @@
                      [totalPages]="pagedList.metaData.totalPages">
     </app-table-pager>
   </div>
-  <app-dialog [dialogTitle]="'Add Group'" [showActionArea]="false" *ngIf="dialogService.showDialog"
+  <app-dialog [extras]="{actionArea: false, title: 'Add Group', loading: loading}" *ngIf="dialogService.showDialog"
               (clearDialog)="closeDialog($event)">
     <app-group-form (reloadGroups)="reloadGroups()"></app-group-form>
   </app-dialog>

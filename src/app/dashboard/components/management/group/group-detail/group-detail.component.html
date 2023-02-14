@@ -7,7 +7,7 @@
     <button class="btn-success" routerLink="/groups">Go Back</button>
   </div>
   <div class="content group-detail-content">
-    <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" *ngIf="group" [activatedTabIndex]="activatedTabIndex">
+    <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" *ngIf="group" [active]="activatedTabIndex">
       <app-group-form *ngIf="activatedTabIndex === 0" [group]="group"></app-group-form>
       <app-member *ngIf="activatedTabIndex === 1" [showHeader]=false
                   [slug]="group.slug" [showContentCard]=" false">

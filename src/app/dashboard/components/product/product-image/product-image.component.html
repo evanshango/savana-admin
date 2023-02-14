@@ -1,1 +1,36 @@
-<p>product-image works!</p>
+<div class="product-images">
+  <input type="file" #input (change)="onChange(input.files)" accept="image/*" (click)="input.value = null">
+  <div class="image-wrapper">
+    <div class="display-image" *ngIf="!product.displayImage">
+      <p (click)="addFile(input, 'addSingle', 'add')">Click to Add Display Image</p>
+    </div>
+    <div class="image-area" *ngFor="let img of images">
+      <div class="wrapper-preview" *ngIf="img">
+        <img [src]="img.value" [alt]="img.key">
+        <span class="btn-primary" (click)="updateImage(img.value, input)">Update</span>
+      </div>
+      <div class="image-label"><small>{{img?.key}}</small></div>
+    </div>
+    <div class="showcase-images" *ngIf="product.showCaseImages.length > 0">
+      <p (click)="addFile(input, 'addMulti', 'add')">Click to Add ShowCase Images</p>
+    </div>
+  </div>
+  <app-dialog [extras]="{actionArea: true, title: dialogTitle, loading: loading}" (confirmAction)="confirmAction()"
+              *ngIf="dialogSvc.showDialog" (clearDialog)="closeDialog($event)">
+    <div class="update-area" [ngStyle]="imgURL ? {gridTemplateColumns: '1fr .2fr 1fr'} : {gridTemplateColumns: '1fr'}"
+         *ngIf="tagType === 'addSingle' || imgURL">
+      <div class="prev-image" *ngIf="imgURL">
+        <img [src]="imgURL" alt="Previous Image">
+      </div>
+      <div style="width: 100%; text-align: center; font-size: 2rem" *ngIf="imgURL && preview">&#8680;</div>
+      <div class="new-image" *ngIf="preview">
+        <img [src]="preview && preview" alt="New Image">
+      </div>
+    </div>
+    <div class="previews">
+      <div class="image-preview" *ngFor="let prev of getPreviews(previews)">
+        <img [src]="prev" alt="Preview">
+      </div>
+    </div>
+  </app-dialog>
+</div>

@@ -14,6 +14,7 @@ export class GroupListComponent implements OnInit {
   pagedList: PaginationResponse<IGroup[]>
   groupParams: GroupParams = new GroupParams()
   resetStatus: boolean
+  loading: boolean
 
   constructor(private groupService: GroupService, public dialogService: DialogService) {
   }
@@ -44,6 +45,7 @@ export class GroupListComponent implements OnInit {
 
   closeDialog($event: boolean) {
     this.dialogService.showDialog = $event
+    this.loading = false
   }
 
   private _fetchGroups() {
@@ -51,6 +53,7 @@ export class GroupListComponent implements OnInit {
   }
 
   reloadGroups() {
+    this.loading = true
     this.groupParams = new GroupParams()
     this._fetchGroups()
   }

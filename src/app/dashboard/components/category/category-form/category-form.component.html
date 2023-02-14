@@ -7,16 +7,18 @@
   </p>
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" *ngIf="!(action === 'delete' || action === 'activate')">
     <app-text-input formControlName="name" [label]="'Category Name'"></app-text-input>
-    <app-text-input formControlName="color" [label]="'Category Color'" [type]="'color'"></app-text-input>
-    <ng-container>
-      <app-text-input formControlName="icon" [label]="'Category Icon'" (onKeyUp)="iconChange($event)"></app-text-input>
-      <ul class="icon-list" *ngIf="showOptions">
-        <li *ngFor="let icon of iconTypes()" (click)="setIcon(icon.iconName)">
-          <span>{{icon.iconName}}</span>
-          <fa-icon [icon]="icon"></fa-icon>
-        </li>
-      </ul>
-    </ng-container>
+    <div class="input-area">
+      <label for="image">Category Image</label>
+      <input type="file" #input (change)="onChange(input.files[0])" [multiple]="false" accept="image/*" id="image">
+      <div class=" choose-area" *ngIf="!(preview || category?.imageUrl)">
+        <img src="assets/upload.svg" alt="Upload" class="upload-icon" (click)="input.click()">
+        <p>Choose a Category Image</p>
+      </div>
+      <div class="preview-area" *ngIf="(category && category.imageUrl) || preview">
+        <img [src]="preview ? preview : category?.imageUrl" [alt]="category ? category?.name : 'Category Image'">
+        <div class="btn-primary" (click)="input.click()">Update</div>
+      </div>
+    </div>
     <div class="form-footer" *ngIf="categoryForm.dirty && categoryForm.valid">
       <button class="btn-primary" type="submit" [disabled]="categoryForm.invalid || isSubmitting">
         Confirm Submit

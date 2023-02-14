@@ -7,8 +7,8 @@
   </div>
   <div class="content delivery-content">
     <app-table-header [selectLabel]="'Delivery Method Status'" (statusValue)="onStatusChange($event)"
-                      [resetStatus]="resetStatus" (search)="performSearch($event)" [resetSearch]=" resetSearch"
-                      (pageSize)="fetchItemsPerPage($event)">
+                      [resetStatus]="resetStatus" (search)="search($event)" (pageSize)="fetchItemsPerPage($event)"
+                      [placeholder]="'Delivery Method Name...'">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -45,10 +45,10 @@
                      [totalPages]="pagedList.metaData.totalPages" (pageChanged)="onPageChange($event)">
     </app-table-pager>
   </div>
-  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
-              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction($event)" [action]="action">
+  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading, action: action}"
+              *ngIf="dialogService.showDialog" (clearDialog)="closeDialog($event)" (confirmAction)="confirm($event)">
     <app-delivery-form [method]="method" (reloadMethods)="reloadMethods()"
-                              [action]="action">
+                       [action]="action">
     </app-delivery-form>
   </app-dialog>
 </div>

@@ -1,0 +1,41 @@
+<div class="images">
+  <div class="info-area" (click)="dialogSvc.showDialog = true"><p>No Files available. Click to Add</p></div>
+  <app-dialog [extras]="{actionArea: true, title: 'Add Images', loading: loading}" (confirmAction)="confirmAction()"
+              *ngIf="dialogSvc.showDialog" (clearDialog)="closeDialog($event)">
+    <div class="type-content">
+      <label for="type">Image Type</label>
+      <select (change)="onTypeChange($any($event.currentTarget).value)">
+        <option value="" selected disabled hidden>Choose Type...</option>
+        <option *ngFor="let option of options" value="{{option}}" id="type">{{option}}</option>
+      </select>
+    </div>
+    <div class="input-area" *ngIf="type !== ''">
+      <input type="file" #input (change)="onChange(input.files, type)" [multiple]="type!=='Display'" accept="image/*">
+      <div class=" choose-area" *ngIf="!(preview || previews.size > 0)">
+        <img src="assets/upload.svg" alt="Upload" class="upload-icon" (click)="input.click()">
+        <p>Choose {{type === 'Display' ? 'a Display Image' : 'ShowCase Images'}}</p>
+      </div>
+      <ng-container *ngIf="preview || previews.size > 0">
+        <div class="preview">
+          <div [ngClass]="type === 'Display' ? 'single-preview-area' : 'multi-preview-area'">
+            <ng-container *ngIf="preview">
+              <div class="image-preview" *ngIf="type === 'Display' && preview">
+                <img [src]="preview" alt="Preview">
+                <div class="action-btn">
+                  <span class="btn-primary" (click)="input.click()">Update</span>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="previews.size > 0">
+              <div class="image-preview" *ngFor="let prev of getPreviews(previews)">
+                <img [src]="prev" alt="Preview">
+                <div class="action-btn"><span class="btn-primary" (click)="input.click()">Update</span></div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </app-dialog>
+</div>
+

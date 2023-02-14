@@ -122,26 +122,34 @@
   align-items: center;
   padding: .5rem 0;
 
-  form {
-    position: relative;
+  input {
     width: 100%;
-
-    input {
-      width: 100%;
-      padding: .7rem;
-      border-radius: 2rem;
-      border: 1px solid #636363;
-      color: #212529;
-    }
-
-    button {
-      position: absolute;
-      border-top-right-radius: 2rem;
-      border-bottom-right-radius: 2rem;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      border: none;
-    }
+    padding: .7rem;
+    border-radius: 2rem;
+    border: 1px solid #636363;
+    color: #212529;
   }
+
+  //form {
+  //  position: relative;
+  //  width: 100%;
+  //
+  //  input {
+  //    width: 100%;
+  //    padding: .7rem;
+  //    border-radius: 2rem;
+  //    border: 1px solid #636363;
+  //    color: #212529;
+  //  }
+  //
+  //  button {
+  //    position: absolute;
+  //    border-top-right-radius: 2rem;
+  //    border-bottom-right-radius: 2rem;
+  //    right: 0;
+  //    top: 0;
+  //    bottom: 0;
+  //    border: none;
+  //  }
+  //}
 }

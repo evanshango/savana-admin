@@ -10,13 +10,14 @@ import { TextAreaComponent } from './text-area/text-area.component';
 import { TabComponent } from './tab/tab.component';
 import { TextSelectComponent } from './text-select/text-select.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { FileSelectComponent } from './file-select/file-select.component';
 
 @NgModule({
   declarations: [
-    TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent, TabComponent, TextSelectComponent
+    TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent, TabComponent, TextSelectComponent, FileSelectComponent
   ],
     exports: [
-        TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent, TabComponent, TextSelectComponent
+        TableHeaderComponent, ActionButtonComponent, TablePagerComponent, DialogComponent, TextInputComponent, TextAreaComponent, TabComponent, TextSelectComponent, FileSelectComponent
     ],
     imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule]
 })

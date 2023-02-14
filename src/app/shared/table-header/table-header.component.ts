@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {pages, status} from "../common";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -7,15 +7,14 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   templateUrl: './table-header.component.html',
   styleUrls: ['./table-header.component.scss']
 })
-export class TableHeaderComponent implements OnInit, AfterContentChecked {
+export class TableHeaderComponent implements OnInit {
   @Output() statusValue = new EventEmitter<boolean>()
   @Output() search = new EventEmitter<string>()
   @Output() pageSize = new EventEmitter<number>()
   @Input() resetStatus: boolean;
-  @Input() resetSearch: boolean
+  @Input() placeholder: string
   @Input() selectLabel: string
   statusForm: FormGroup;
-  searchForm: FormGroup
   status = status
   pages = pages
 
@@ -24,44 +23,23 @@ export class TableHeaderComponent implements OnInit, AfterContentChecked {
 
   ngOnInit(): void {
     this._createStatusForm()
-    this._createSearchForm()
   }
 
   onChange(value: any) {
     this.statusValue.emit(value['status'])
   }
 
-  ngAfterContentChecked(): void {
-    if (this.resetStatus) {
-      this.statusForm.reset({status: null})
-    }
-
-    if (this.resetSearch) {
-      this.searchForm.reset()
-    }
+  onPageSizeChange(pageSize: number) {
+    this.pageSize.emit(pageSize)
   }
 
-  performSearch() {
-    this.search.emit(this.searchTerm)
-  }
-
-  get searchTerm() {
-    return this.searchForm.value['search']
-  }
-
-  private _createSearchForm() {
-    this.searchForm = new FormGroup({
-      search: new FormControl('', [Validators.required])
-    })
+  onSearch(searchTerm: string) {
+    this.search.emit(searchTerm)
   }
 
   private _createStatusForm() {
     this.statusForm = new FormGroup({
       status: new FormControl(null, [Validators.required])
     })
-  }
-
-  onPageSizeChange(pageSize: number) {
-    this.pageSize.emit(pageSize)
   }
 }

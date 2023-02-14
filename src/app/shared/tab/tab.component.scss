@@ -10,7 +10,7 @@
     width: 100%;
     position: relative;
 
-    .nav-item {
+    .item {
       padding: 1rem;
       font-size: 1rem;
       color: #007bff;
@@ -51,5 +51,9 @@
       border-bottom: 1px solid #cccccc;
       width: 100%;
     }
+  }
+
+  &-content{
+    margin: .5rem 0;
   }
 }

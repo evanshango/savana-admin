@@ -4,8 +4,6 @@ import {ICategory} from "../../../../shared/interfaces/category";
 import {PaginationResponse} from "../../../../shared/models/pagination-response";
 import {CategoryParams} from "../../../../shared/models/category-params";
 import {CategoryService} from "../category.service";
-import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
-import {icons} from "../../../../shared/common";
 
 @Component({
   selector: 'app-category',
@@ -15,11 +13,11 @@ import {icons} from "../../../../shared/common";
 export class CategoryListComponent implements OnInit {
   pagedList: PaginationResponse<ICategory[]>
   categoryParams: CategoryParams = new CategoryParams()
-  icons: IconDefinition[] = icons()
   selectedCategory: ICategory
-  showActionArea: boolean
+  actionArea: boolean
   resetStatus: boolean
   dialogTitle: string
+  loading: boolean
   action: string
 
   constructor(public dialogService: DialogService, private categoryService: CategoryService) {
@@ -30,9 +28,10 @@ export class CategoryListComponent implements OnInit {
   }
 
   openDialog(category: ICategory, action: string) {
+    this.loading = false
     this.selectedCategory = category
     this.action = action
-    this.showActionArea = false
+    this.actionArea = false
     this.dialogTitle = this.selectedCategory ? 'Edit Category' : 'Add Category'
     this.dialogService.showDialog = true
   }
@@ -42,7 +41,7 @@ export class CategoryListComponent implements OnInit {
     this._fetchCategories()
   }
 
-  performSearch(name: string) {
+  search(name: string) {
     this.categoryParams.name = name
     this._fetchCategories()
   }
@@ -60,7 +59,7 @@ export class CategoryListComponent implements OnInit {
   activateCategory(category: ICategory, action: string) {
     this.action = action
     this.selectedCategory = category
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Activate Category'
     this.dialogService.showDialog = true
   }
@@ -68,34 +67,25 @@ export class CategoryListComponent implements OnInit {
   deleteCategory(category: ICategory, action: string) {
     this.action = action
     this.selectedCategory = category
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Delete Category'
     this.dialogService.showDialog = true
   }
 
   closeDialog($event: boolean) {
     this.dialogService.showDialog = $event
+    this.loading = false
   }
 
   confirmAction() {
-    if (this.action === 'delete') {
-      this._deleteCategory()
-      return
-    }
-
-    if (this.action === 'activate'){
-      this._activateCategory()
-      return;
-    }
+    this.loading = true
+    if (this.action === 'delete') this._deleteCategory()
+    if (this.action === 'activate') this._activateCategory()
   }
 
   reloadCategories() {
     this.categoryParams = new CategoryParams()
     this._fetchCategories()
-  }
-
-  getIcon(iconName: string): IconDefinition {
-    return this.icons.find(ic => ic.iconName === iconName);
   }
 
   private _fetchCategories(): void {
@@ -109,15 +99,15 @@ export class CategoryListComponent implements OnInit {
   }
 
   private _activateCategory() {
-    this.selectedCategory.active = true
-    this.categoryService.updateCategory(this.selectedCategory, this.selectedCategory.slug).subscribe(
-      {
-        next: () => {
-          this.resetStatus = true
-          this._performReload()
-        }
+    let formData = new FormData()
+    formData.append('name', this.selectedCategory.name)
+    formData.append('active', 'true')
+    this.categoryService.updateCategory(formData, this.selectedCategory.slug).subscribe({
+      next: () => {
+        this.resetStatus = true
+        this._performReload()
       }
-    )
+    })
   }
 
   private _performReload() {

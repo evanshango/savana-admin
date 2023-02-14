@@ -64,6 +64,7 @@ button {
   &:disabled {
     cursor: not-allowed !important;
     background: #636363;
+    border: none;
   }
 
   &:not(:disabled) {
@@ -201,6 +202,8 @@ td, th {
   @media screen and (max-width: 512px) {
     flex-direction: column;
     align-items: flex-start;
+    font-size: .8rem;
+    min-height: 4rem;
 
     button {
       width: 100%;
@@ -213,6 +216,7 @@ td, th {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 1rem;
   border-radius: .5rem;
+  min-height: calc(100% - 7rem);
 }
 
 .actions {
@@ -300,60 +304,167 @@ td, th {
   label {
     margin: .6rem 0;
   }
+}
 
-  //.option-click {
-  //  width: 100%;
-  //
-  //  .option-area {
-  //    font-size: 1.1rem;
-  //    border-radius: .3rem;
-  //    border: 1.2px solid #636363;
-  //    color: #212529;
-  //    background: white;
-  //    cursor: text;
-  //    width: 100%;
-  //    display: grid;
-  //    grid-template-columns: 1fr 1rem;
-  //    align-items: center;
-  //    position: relative;
-  //    gap: .5rem;
-  //
-  //    .selected-options {
-  //      padding: .7rem;
-  //      color: #212529;
-  //      overflow-x: auto;
-  //
-  //      span {
-  //        background: #636363;
-  //        color: white;
-  //        padding: .5rem;
-  //        border-radius: 8px;
-  //        font-size: .7rem;
-  //        cursor: pointer;
-  //
-  //        &:not(:first-child) {
-  //          margin-left: .5rem;
-  //        }
-  //      }
-  //
-  //      &::-webkit-scrollbar {
-  //        height: 2px !important;
-  //      }
-  //
-  //      &::-webkit-scrollbar-thumb {
-  //        background: red !important;
-  //      }
-  //
-  //      &:empty::before{
-  //        content: attr(data-placeholder);
-  //      }
-  //    }
-  //
-  //    .ng-fa-icon {
-  //      color: #636363;
-  //      cursor: pointer;
-  //      padding: .7rem 0;
-  //    }
-  //  }
-  //}
+.table-image {
+  border-radius: .4rem;
+  border: 1px solid #cccccc;
+  width: 55px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  .item-image {
+    height: 40px;
+    width: 50px;
+    border-radius: 8px;
+    border: 1px solid #cccccc;
+  }
+}
+
+.add-image {
+  font-size: .6rem;
+  padding: .5rem .7rem;
+  font-weight: bold;
+
+  &:hover::before {
+    content: 'Click To';
+  }
+}
+
+.input-area {
+  padding: 1rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-weight: normal;
+
+    @media screen and (max-width: 668px) {
+      font-size: .8rem;
+    }
+  }
+
+  small {
+    font-style: italic;
+    color: #838383;
+    padding: .5rem 0;
+  }
+
+  input {
+    display: none !important;
+  }
+
+  .choose-area {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    height: 20rem;
+
+    .upload-icon {
+      width: 100px;
+      cursor: pointer;
+    }
+
+    p {
+      font-style: italic;
+      color: #28a745;
+      font-weight: bold;
+    }
+  }
+
+  .preview-area {
+    position: relative;
+    height: 20rem;
+    width: 100%;
+    margin-top: .5rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      border: 1px solid #cccccc;
+      object-fit: cover;
+    }
+
+    div {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      grid-template-columns: 1fr;
+      transform: translate(-50%, -50%);
+      justify-items: center;
+      display: none;
+    }
+
+    &:hover {
+      img {
+        opacity: .5;
+      }
+
+      div {
+        display: grid;
+        cursor: pointer;
+        margin: auto;
+        opacity: 1;
+        border-radius: 5rem;
+        font-size: .8rem;
+        font-weight: bold;
+        user-select: none;
+      }
+    }
+  }
+}
+
+.image-preview {
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    padding: .3rem;
+    border-radius: .7rem;
+    border: 1px solid #cccccc;
+  }
+
+  .action-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    grid-template-columns: 1fr;
+    transform: translate(-50%, -50%);
+    justify-items: center;
+    width: 100%;
+    display: none;
+  }
+
+  &:hover {
+    img {
+      opacity: .5;
+      background: #cccccc;
+    }
+
+    .action-btn {
+      display: grid;
+      cursor: pointer;
+      margin: auto;
+
+      span {
+        border-radius: 8rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 668px) {
+    width: 100%;
+  }
 }

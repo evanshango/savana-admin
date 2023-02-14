@@ -16,7 +16,8 @@ export class RoleListComponent implements OnInit {
   pagedList: PaginationResponse<IRole[]>
   dialogTitle: string
   action: string
-  showActionArea: boolean
+  loading: boolean
+  actionArea: boolean
   role: IRole
 
   constructor(private roleService: RoleService, public dialogService: DialogService) {
@@ -29,7 +30,7 @@ export class RoleListComponent implements OnInit {
   openDialog(role: IRole) {
     this.action = 'edit'
     this.role = role
-    this.showActionArea = false
+    this.actionArea = false
     this.dialogTitle = this.role ? 'Edit Role' : 'Add Role'
     this.dialogService.showDialog = true
   }
@@ -56,7 +57,7 @@ export class RoleListComponent implements OnInit {
   activateRole(role: IRole) {
     this.action = 'activate'
     this.role = role
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Activate Role'
     this.dialogService.showDialog = true
   }
@@ -65,9 +66,11 @@ export class RoleListComponent implements OnInit {
     this.dialogService.showDialog = $event
     this.role = null
     this.action = ''
+    this.loading = false
   }
 
-  confirmAction($event: string) {
+  confirm($event: string) {
+    this.loading = true
     if ($event === 'activate') {
       this._activateRole()
       return;

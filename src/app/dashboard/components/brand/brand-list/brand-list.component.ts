@@ -13,10 +13,11 @@ import {DialogService} from "../../../../shared/dialog/dialog.service";
 export class BrandListComponent implements OnInit {
   brandParams: BrandParams = new BrandParams()
   pagedList: PaginationResponse<IBrand[]>
-  showActionArea: boolean
+  actionArea: boolean
   selectedBrand: IBrand
   resetStatus: boolean
   dialogTitle: string
+  loading: boolean
   action: string
 
   constructor(private brandService: BrandService, public dialogService: DialogService) {
@@ -48,12 +49,13 @@ export class BrandListComponent implements OnInit {
 
   closeDialog($event: boolean) {
     this.dialogService.showDialog = $event
+    this.loading = false
   }
 
   openDialog(brand: IBrand, action: string) {
     this.action = action
     this.selectedBrand = brand
-    this.showActionArea = false
+    this.actionArea = false
     this.dialogTitle = this.selectedBrand ? 'Edit Brand' : 'Add Brand'
     this.dialogService.showDialog = true
   }
@@ -61,7 +63,7 @@ export class BrandListComponent implements OnInit {
   activateBrand(brand: IBrand, action: string) {
     this.action = action
     this.selectedBrand = brand
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Activate Brand'
     this.dialogService.showDialog = true
   }
@@ -69,12 +71,13 @@ export class BrandListComponent implements OnInit {
   deleteBrand(brand: IBrand, action: string) {
     this.action = action
     this.selectedBrand = brand
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Delete Brand'
     this.dialogService.showDialog = true
   }
 
   confirmAction() {
+    this.loading = true
     if (this.action === 'delete') {
       this._deleteBrand()
       return

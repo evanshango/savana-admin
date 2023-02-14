@@ -6,9 +6,9 @@
     <button type="button" class="btn-success" (click)="openDialog(null, 'add')">Add Category</button>
   </div>
   <div class="content categories-content">
-    <app-table-header [selectLabel]="'Category Status'" (statusValue)="onStatusChange($event)"
-                      [resetStatus]="resetStatus"
-                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)">
+    <app-table-header [selectLabel]="'Category Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
+                      [resetStatus]="resetStatus" (pageSize)="fetchItemsPerPage($event)"
+                      [placeholder]="'Category Name...'">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -17,8 +17,7 @@
           <th>#</th>
           <th style="width: 15rem">Name</th>
           <th style="width: 10rem">Slug</th>
-          <th style="width: 15rem; text-align: center">Icon</th>
-          <th style="width: 10rem; text-align: center">Color</th>
+          <th style="width: 15rem; text-align: center">Image</th>
           <th>Created On</th>
           <th>Actions</th>
         </tr>
@@ -29,14 +28,7 @@
           <td>{{category.name}}</td>
           <td>{{category.slug}}</td>
           <td style="text-align: center; font-size: 1.4rem; color: #434343">
-            <fa-icon [icon]="getIcon(category.icon)"
-                     style="border: 1px solid #cccccc; padding: .5rem 1rem; border-radius: 5px">
-            </fa-icon>
-          </td>
-          <td style="display: flex; justify-content: center">
-            <span [ngStyle]="{background: category.color, width: '3rem', height: '2rem', border: '1px solid #cccccc',
-            borderRadius: '5px', textAlign: 'center'}">
-            </span>
+            <div class="table-image"><img [src]="category.imageUrl" [alt]="category.name" class="item-image"></div>
           </td>
           <td>{{category.createdAt | date: 'MMM d, y HH:mm'}}</td>
           <td class="action-btn" *ngIf="!category.active">
@@ -57,7 +49,7 @@
                      [totalPages]="pagedList.metaData.totalPages">
     </app-table-pager>
   </div>
-  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
+  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading}" *ngIf="dialogService.showDialog"
               (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
     <app-category-form [category]="selectedCategory" (reloadCategories)="reloadCategories()"
                        [action]="action">

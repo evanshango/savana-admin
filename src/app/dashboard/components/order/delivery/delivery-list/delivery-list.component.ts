@@ -14,9 +14,9 @@ export class DeliveryListComponent implements OnInit {
   deliveryParams: DeliveryMethodParams = new DeliveryMethodParams()
   pagedList: PaginationResponse<IDeliveryMethod[]>
   resetStatus: boolean
-  resetSearch: boolean
   dialogTitle: string
-  showActionArea: boolean
+  actionArea: boolean
+  loading: boolean
   action: string
   method: IDeliveryMethod
 
@@ -30,7 +30,7 @@ export class DeliveryListComponent implements OnInit {
   openDialog(method: IDeliveryMethod) {
     this.action = 'edit'
     this.method = method
-    this.showActionArea = false
+    this.actionArea = false
     this.dialogTitle = this.method ? 'Edit Delivery Method' : 'Add Delivery Method'
     this.dialogService.showDialog = true
   }
@@ -40,7 +40,7 @@ export class DeliveryListComponent implements OnInit {
     this._fetchDeliveryMethods()
   }
 
-  performSearch(title: string) {
+  search(title: string) {
     this.deliveryParams.title = title.length > 3 ? title : ''
     this._fetchDeliveryMethods()
   }
@@ -53,7 +53,7 @@ export class DeliveryListComponent implements OnInit {
   activateMethod(method: IDeliveryMethod) {
     this.action = 'activate'
     this.method = method
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Activate Delivery Method'
     this.dialogService.showDialog = true
   }
@@ -61,7 +61,7 @@ export class DeliveryListComponent implements OnInit {
   deleteMethod(method: IDeliveryMethod) {
     this.action = 'delete'
     this.method = method
-    this.showActionArea = true
+    this.actionArea = true
     this.dialogTitle = 'Delete Delivery Method'
     this.dialogService.showDialog = true
   }
@@ -70,7 +70,8 @@ export class DeliveryListComponent implements OnInit {
     console.log(page)
   }
 
-  confirmAction($event: string) {
+  confirm($event: string) {
+    this.loading = true
     if ($event === 'delete') {
       this._deleteDeliveryMethod()
       return
@@ -86,6 +87,7 @@ export class DeliveryListComponent implements OnInit {
     this.dialogService.showDialog = $event
     this.method = null
     this.action = ''
+    this.loading = false
   }
 
   reloadMethods() {

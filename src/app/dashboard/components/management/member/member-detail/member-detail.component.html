@@ -9,7 +9,7 @@
     </button>
   </div>
   <div class="content member-detail-content">
-    <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" *ngIf="user" [activatedTabIndex]="activatedTabIndex">
+    <app-tab (onTabChange)="onTabChange($event)" [tabs]="tabs" *ngIf="user" [active]="activatedTabIndex">
       <app-member-form [user]="user" *ngIf="activatedTabIndex === 0"
                        [isEdit]="isEditClicked" (cancelEdit)="isEditClicked = false">
       </app-member-form>

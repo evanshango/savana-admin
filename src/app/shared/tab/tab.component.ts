@@ -7,7 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class TabComponent implements OnInit {
   @Output() onTabChange = new EventEmitter<number>()
-  @Input() activatedTabIndex: number
+  @Input() active: number
   @Input() tabs: string[]
   @Input() item: any
 
@@ -18,7 +18,7 @@ export class TabComponent implements OnInit {
 
   }
 
-  onTabClick(index: number): void {
+  click(index: number): void {
     this.onTabChange.emit(index)
   }
 }

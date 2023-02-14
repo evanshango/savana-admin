@@ -6,9 +6,8 @@
     <button type="button" class="btn-success" (click)="openDialog(null)">Add Voucher</button>
   </div>
   <div class="content voucher-content">
-    <app-table-header [selectLabel]="'Voucher Status'" (statusValue)="onStatusChange($event)"
-                      [resetStatus]="resetStatus" (search)="performSearch($event)" [resetSearch]="resetSearch"
-                      (pageSize)="fetchItemsPerPage($event)">
+    <app-table-header [selectLabel]="'Voucher Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
+                      [placeholder]="'Voucher...'" [resetStatus]="resetStatus" (pageSize)="fetchItemsPerPage($event)">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -53,7 +52,7 @@
                      [totalPages]="pagedList.metaData.totalPages" (pageChanged)="onPageChange($event)">
     </app-table-pager>
   </div>
-  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
+  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading}" *ngIf="dialogService.showDialog"
               (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
     <app-voucher-form [voucher]="itemToUpdate" (reloadVouchers)="reloadVouchers()" [voucherToDelete]="voucherToDelete"
                       [voucherToActivate]="voucherToActivate">

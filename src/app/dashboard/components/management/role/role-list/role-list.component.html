@@ -7,7 +7,8 @@
   </div>
   <div class="content roles-content">
     <app-table-header [selectLabel]="'Role Status'" (statusValue)="onStatusChange($event)" [resetStatus]="resetStatus"
-                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)">
+                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)"
+                      [placeholder]="'Role Name...'">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -43,8 +44,8 @@
                      [totalPages]="pagedList.metaData.totalPages">
     </app-table-pager>
   </div>
-  <app-dialog [dialogTitle]="dialogTitle" [showActionArea]="showActionArea" *ngIf="dialogService.showDialog"
-              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction($event)" [action]="action">
+  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading, action: action}"
+              *ngIf="dialogService.showDialog" (clearDialog)="closeDialog($event)" (confirmAction)="confirm($event)">
     <app-role-form [role]="role" (reloadRoles)="reloadRoles()" [action]="action"></app-role-form>
   </app-dialog>
 </div>

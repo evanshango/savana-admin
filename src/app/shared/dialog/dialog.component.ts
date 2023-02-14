@@ -6,11 +6,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  @Output() clearDialog = new EventEmitter<boolean>()
   @Output() confirmAction = new EventEmitter<string>()
-  @Input() showActionArea: boolean
-  @Input() dialogTitle: string
-  @Input() action: string
+  @Output() clearDialog = new EventEmitter<boolean>()
+  @Input() extras: { actionArea: boolean, title?: string, loading?: boolean, action?: string }
 
   constructor() {
   }
@@ -24,6 +22,6 @@ export class DialogComponent implements OnInit {
   }
 
   performAction() {
-    this.confirmAction.emit(this.action)
+    this.confirmAction.emit(this.extras.action && this.extras.action)
   }
 }
