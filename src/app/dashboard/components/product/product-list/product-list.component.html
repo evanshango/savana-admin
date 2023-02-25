@@ -1,14 +1,11 @@
 <div class="products-main">
   <div class="header">
-    <span>
-      <small>**Click on the Add Product Button to add a Product</small>
-    </span>
+    <h2>Products</h2>
     <button type="button" class="btn-success" routerLink="/products/add">Add Product</button>
   </div>
   <div class="content products-content">
     <app-table-header [selectLabel]="'Product Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
-                      [resetStatus]="resetStatus" (pageSize)="fetchItemsPerPage($event)"
-                      [placeholder]="'Product Name, Brand, Category, Owner...'">
+                      (pageSize)="fetchItemsPerPage($event)" [placeholder]="'Product Name, Brand, Category, Owner...'">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -35,7 +32,7 @@
             <div class="table-image" *ngIf="product.displayImage">
               <img [src]="product.displayImage" [alt]="product.name" class="item-image">
             </div>
-            <button class="btn-warn add-image" [routerLink]="'/products/'+product.id" [queryParams]="{tab: 1}"
+            <button class="btn-warn add-image" [routerLink]="'/products/'+product.id" [queryParams]="{tab: 0}"
                     *ngIf="!product.displayImage">
               Add Image
             </button>

@@ -143,7 +143,7 @@ td, th {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
-  font-size: 1rem;
+  font-size: .9rem;
 
   &:not(:first-child) {
     min-width: 9rem;
@@ -171,7 +171,6 @@ td, th {
 }
 
 .header {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   width: 100%;
   align-items: center;
@@ -179,8 +178,8 @@ td, th {
   border-radius: .5rem;
   margin-bottom: 1rem;
   position: relative;
-  min-height: 6rem;
   padding: 1rem;
+  border-bottom: 1px solid #cccccc;
 
   span {
     width: 100%;
@@ -466,5 +465,17 @@ td, th {
 
   @media screen and (max-width: 668px) {
     width: 100%;
+  }
+}
+
+.type {
+  &-value {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2rem;
+
+    @media screen and (max-width: 498px){
+      grid-template-columns: 1fr;
+    }
   }
 }

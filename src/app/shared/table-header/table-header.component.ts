@@ -11,7 +11,6 @@ export class TableHeaderComponent implements OnInit {
   @Output() statusValue = new EventEmitter<boolean>()
   @Output() search = new EventEmitter<string>()
   @Output() pageSize = new EventEmitter<number>()
-  @Input() resetStatus: boolean;
   @Input() placeholder: string
   @Input() selectLabel: string
   statusForm: FormGroup;

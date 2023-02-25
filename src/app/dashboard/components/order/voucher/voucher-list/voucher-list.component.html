@@ -1,13 +1,11 @@
 <div class="voucher-main">
   <div class="header">
-    <span>
-      <small>**Click on the Add Voucher Button to add a Voucher</small>
-    </span>
+    <h2>Vouchers</h2>
     <button type="button" class="btn-success" (click)="openDialog(null)">Add Voucher</button>
   </div>
   <div class="content voucher-content">
     <app-table-header [selectLabel]="'Voucher Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
-                      [placeholder]="'Voucher...'" [resetStatus]="resetStatus" (pageSize)="fetchItemsPerPage($event)">
+                      [placeholder]="'Voucher...'" (pageSize)="fetchItemsPerPage($event)">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -32,7 +30,7 @@
           <td>{{voucher.useCount}}</td>
           <td>{{voucher.maxUse}}</td>
           <td [class]="voucher.expired ? 'expired' : 'unexpired'" style="text-transform: uppercase">
-            <small>{{voucher.expired}}</small>
+            <small>{{voucher.expired ? 'expired' : 'active'}}</small>
           </td>
           <td>{{voucher.expiresOn | date: 'MMM d, y HH:mm'}}</td>
           <td>{{voucher.createdAt | date: 'MMM d, y HH:mm'}}</td>

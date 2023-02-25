@@ -40,7 +40,7 @@ export class RoleListComponent implements OnInit {
     this._fetchRoles()
   }
 
-  performSearch(roleName: string) {
+  search(roleName: string) {
     this.roleParams.name = roleName
     this._fetchRoles()
   }
@@ -51,7 +51,8 @@ export class RoleListComponent implements OnInit {
   }
 
   onPageChange(page: number) {
-    console.log(page)
+    this.roleParams.page = page
+    this._fetchRoles()
   }
 
   activateRole(role: IRole) {
@@ -83,23 +84,26 @@ export class RoleListComponent implements OnInit {
   }
 
   private _fetchRoles() {
-    this.roleService.getPaginatedRoles(this.roleParams).subscribe(res => this.pagedList = res)
+    this.roleService.getPaginatedRoles(this.roleParams).subscribe({next: res => this.pagedList = res})
   }
 
   private _performReload() {
     setTimeout(() => {
       this.role = null
       this.dialogService.showDialog = false
+      this.loading = false
       this.reloadRoles()
     }, 1000)
   }
 
   private _activateRole() {
     let update = {name: this.role.name, description: this.role.description, active: true}
-    this.roleService.updateRole(update, this.role.id).subscribe(res => {
-      if(res != null) {
-        this.roleParams = new RoleParams()
-        this._performReload()
+    this.roleService.updateRole(update, this.role.id).subscribe({
+      next: res => {
+        if (res != null) {
+          this.roleParams = new RoleParams()
+          this._performReload()
+        }
       }
     })
   }

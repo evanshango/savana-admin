@@ -1,4 +1,4 @@
-<div class="product-form">
+<div class="product-form" [ngClass]="{'no-product': !product}">
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <app-text-input formControlName="name" [label]="'Name'"></app-text-input>
@@ -21,7 +21,7 @@
     <app-text-area formControlName="description" [label]="'Description'" [rows]="3"></app-text-area>
     <div class="detail-area">
       <label for="detail">Detail</label>
-      <quill-editor id="detail" formControlName="detail" [modules]="modules" [styles]="{minHeight: '40rem',
+      <quill-editor id="detail" formControlName="detail" [modules]="modules" [styles]="{minHeight: product ? '40rem' : '45rem',
       border: '1px solid #838383', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px',fontSize: '1rem'}"
                     [trimOnValidation]="true" [placeholder]="'Enter Product Detail...'">
       </quill-editor>
@@ -31,9 +31,94 @@
     </div>
     <div class="form-btn" *ngIf="productForm.dirty">
       <button class="btn-primary" style="margin-left: auto; padding: .5rem 3rem" type="submit"
-              [disabled]="productForm.invalid">
-        Confirm
+              [disabled]="productForm.invalid">Confirm
       </button>
     </div>
   </form>
+  <div class="product-images" *ngIf="product">
+    <h3>Product Images</h3>
+    <div style="display: flex; align-items: center; width: 100%; justify-content: center; height: 100%"
+         *ngIf="!(product?.displayImage || product?.showCaseImages.length > 0)">
+      <div class=" choose-area">
+        <img src="assets/upload.svg" alt="Upload" class="upload-icon" (click)="openDialog('add')">
+        <p>Click to Choose Product Images</p>
+      </div>
+    </div>
+    <div class="preview-images" *ngIf="product.displayImage || product.showCaseImages.length > 0">
+      <input type="file" #input2 (change)="updateChange(input2.files)" accept="image/*" (click)="input2.value = null">
+      <div class="prod-display-image">
+        <div class="display-image" *ngIf="!product.displayImage">
+          <p (click)="addFile(input2,'addSingle', 'add')">Click to Add Display Image</p>
+        </div>
+        <div class="image-area" *ngFor="let img of images, let i = index">
+          <div class="wrapper-preview" *ngIf="img">
+            <img [src]="img.value" [alt]="img.key">
+            <span class="btn-primary" (click)="updateImage(img.value, input2, 'update')">Update</span>
+            <div class="image-label"><small>{{img?.key}}</small></div>
+          </div>
+        </div>
+        <div class="showcase-images" *ngIf="product?.showCaseImages.length > 0">
+          <p (click)="addFile(input2, 'addMulti', 'add')">Click to Add ShowCase Images</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading}" (confirmAction)="confirmAction()"
+              *ngIf="dialogSvc.showDialog" (clearDialog)="closeDialog($event)">
+    <ng-container *ngIf="(preview || previews.size > 0) && action === 'update'">
+      <div class="update-area"
+           [ngStyle]="imgURL ? {gridTemplateColumns: '1fr .2fr 1fr'} : {gridTemplateColumns: '1fr'}">
+        <div class="prev-image" *ngIf="imgURL">
+          <img [src]="imgURL" alt="Previous Image">
+        </div>
+        <div style="width: 100%; text-align: center; font-size: 2rem" *ngIf="imgURL && preview">&#8680;</div>
+        <div class="new-image" *ngIf="preview">
+          <img [src]="preview && preview" alt="New Image">
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="tagType === 'addSingle' || tagType === 'addMulti'" >
+      <div class="previews">
+        <div class="image-preview" *ngFor="let prev of getPreviews(previews)">
+          <img [src]="prev" alt="Preview">
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="action === 'add' && tagType === ''">
+      <div class="type-content">
+        <label for="type">Image Type</label>
+        <select (change)="onTypeChange($any($event.currentTarget).value)">
+          <option value="" selected disabled hidden>Choose Type...</option>
+          <option *ngFor="let option of options" value="{{option}}" id="type">{{option}}</option>
+        </select>
+      </div>
+      <div class="input-area" *ngIf="type !== ''">
+        <input type="file" #input (change)="onChange(input.files, type)" [multiple]="type!=='Display'" accept="image/*">
+        <div class=" choose-area" *ngIf="!(preview || previews.size > 0)">
+          <img src="assets/upload.svg" alt="Upload" class="upload-icon" (click)="input.click()">
+          <p>Choose {{type === 'Display' ? 'a Display Image' : 'ShowCase Images'}}</p>
+        </div>
+        <ng-container *ngIf="preview || previews.size > 0">
+          <div class="preview">
+            <div [ngClass]="type === 'Display' ? 'single-preview-area' : 'multi-preview-area'">
+              <ng-container *ngIf="preview">
+                <div class="image-preview" *ngIf="type === 'Display' && preview">
+                  <img [src]="preview" alt="Preview">
+                  <div class="action-btn">
+                    <span class="btn-primary" (click)="input.click()">Update</span>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="previews.size > 0">
+                <div class="image-preview" *ngFor="let prev of getPreviews(previews)">
+                  <img [src]="prev" alt="Preview">
+                  <div class="action-btn"><span class="btn-primary" (click)="input.click()">Update</span></div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </app-dialog>
 </div>

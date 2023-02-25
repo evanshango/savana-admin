@@ -1,0 +1,34 @@
+<div class="promo-form">
+  <p style="font-size: 1rem" *ngIf="action === 'activate'">
+    Are you sure you want to activate Promotion with title <strong>{{promo?.title}}</strong>
+  </p>
+  <p style="font-size: 1rem" *ngIf="action === 'delete'">
+    Are you sure you want to delete Promotion with title <strong>{{promo?.title}}</strong>
+  </p>
+  <form [formGroup]="promoForm" (ngSubmit)="onSubmit()" *ngIf="!(action === 'delete' || action === 'activate')">
+    <app-text-input formControlName="title" [label]="'Title'"></app-text-input>
+    <app-text-input formControlName="discount" [label]="'Discount'" [type]="'number'"></app-text-input>
+    <div *ngIf="productPagedList as pagedList" style="position: relative">
+      <app-text-select [pagedList]="pagedList" [type]="'product'" [label]="'Product'" (pageSelected)="pageChange($event)"
+                       (selected)="selected($event)" [items]="[selectedProduct]" [multiple]="false">
+      </app-text-select>
+    </div>
+    <div class="type-value" formGroupName="expiresAfter">
+      <div class="type-content">
+        <label for="type">Duration Type</label>
+        <select formControlName="type">
+          <option value="" disabled selected hidden>Choose Type...</option>
+          <option *ngFor="let option of typeOptions" ngValue="{{option.value}}" id="type">{{option.name}}</option>
+        </select>
+        <small class='text-error' *ngIf='!expiresAfterFG.valid && expiresAfterFG.get("type")?.touched'>
+          <span *ngIf="expiresAfterFG.get('type')?.errors?.['required']">*Duration Type is required</span>
+        </small>
+      </div>
+      <app-text-input formControlName="value" [label]="'Value'" [type]="'number'"></app-text-input>
+    </div>
+    <app-text-area formControlName="description" [label]="'Description'"></app-text-area>
+    <div class="form-footer" *ngIf="promoForm.dirty && promoForm.valid">
+      <button class="btn-primary" type="submit" [disabled]="promoForm.invalid || isSubmitting">Confirm Submit</button>
+    </div>
+  </form>
+</div>

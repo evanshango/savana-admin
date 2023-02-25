@@ -16,7 +16,6 @@ export class MemberListComponent implements OnInit{
   @Input() slug: string
   pagedList: PaginationResponse<IUser[]>
   userParams: UserParams = new UserParams()
-  resetStatus: boolean
 
   constructor(public dialogService: DialogService, private memberService: MemberService) {
   }
@@ -29,7 +28,7 @@ export class MemberListComponent implements OnInit{
     this._fetchMembers()
   }
 
-  performSearch(name: string) {
+  search(name: string) {
     this.userParams.name = name
     this._fetchMembers()
   }
@@ -44,6 +43,6 @@ export class MemberListComponent implements OnInit{
   }
 
   private _fetchMembers() {
-    this.memberService.getMembers(this.userParams, this.slug).subscribe(res => this.pagedList = res)
+    this.memberService.getMembers(this.userParams, this.slug).subscribe({next: res => this.pagedList = res})
   }
 }

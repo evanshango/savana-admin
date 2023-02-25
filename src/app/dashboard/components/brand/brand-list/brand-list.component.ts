@@ -14,13 +14,12 @@ export class BrandListComponent implements OnInit {
   brandParams: BrandParams = new BrandParams()
   pagedList: PaginationResponse<IBrand[]>
   actionArea: boolean
-  selectedBrand: IBrand
-  resetStatus: boolean
+  brand: IBrand
   dialogTitle: string
   loading: boolean
   action: string
 
-  constructor(private brandService: BrandService, public dialogService: DialogService) {
+  constructor(private brandSvc: BrandService, public dialogService: DialogService) {
   }
 
   ngOnInit(): void {
@@ -32,7 +31,7 @@ export class BrandListComponent implements OnInit {
     this._fetchBrands()
   }
 
-  performSearch(brandName: string) {
+  search(brandName: string) {
     this.brandParams.name = brandName
     this._fetchBrands()
   }
@@ -54,15 +53,15 @@ export class BrandListComponent implements OnInit {
 
   openDialog(brand: IBrand, action: string) {
     this.action = action
-    this.selectedBrand = brand
+    this.brand = brand
     this.actionArea = false
-    this.dialogTitle = this.selectedBrand ? 'Edit Brand' : 'Add Brand'
+    this.dialogTitle = this.brand ? 'Edit Brand' : 'Add Brand'
     this.dialogService.showDialog = true
   }
 
   activateBrand(brand: IBrand, action: string) {
     this.action = action
-    this.selectedBrand = brand
+    this.brand = brand
     this.actionArea = true
     this.dialogTitle = 'Activate Brand'
     this.dialogService.showDialog = true
@@ -70,7 +69,7 @@ export class BrandListComponent implements OnInit {
 
   deleteBrand(brand: IBrand, action: string) {
     this.action = action
-    this.selectedBrand = brand
+    this.brand = brand
     this.actionArea = true
     this.dialogTitle = 'Delete Brand'
     this.dialogService.showDialog = true
@@ -78,15 +77,7 @@ export class BrandListComponent implements OnInit {
 
   confirmAction() {
     this.loading = true
-    if (this.action === 'delete') {
-      this._deleteBrand()
-      return
-    }
-
-    if (this.action === 'activate') {
-      this._activateBrand()
-      return;
-    }
+   this.action === 'delete' ? this._deleteBrand() : this._activateBrand()
   }
 
   reloadBrands() {
@@ -95,30 +86,25 @@ export class BrandListComponent implements OnInit {
   }
 
   private _fetchBrands(): void {
-    this.brandService.getBrands(this.brandParams).subscribe({
+    this.brandSvc.getBrands(this.brandParams).subscribe({
       next: res => this.pagedList = res
     })
   }
 
   private _deleteBrand() {
-    this.brandService.deleteBrand(this.selectedBrand.slug).subscribe({next: () => this._performReload()})
+    this.brandSvc.deleteBrand(this.brand.slug).subscribe({next: () => this._performReload()})
   }
 
   private _activateBrand() {
-    this.selectedBrand.active = true
-    this.brandService.updateBrand(this.selectedBrand, this.selectedBrand.slug).subscribe(
-      {
-        next: () => {
-          this.resetStatus = true
-          this._performReload()
-        }
-      }
+    this.brand.active = true
+    this.brandSvc.updateBrand(this.brand, this.brand.slug).subscribe({next: () => this._performReload()}
     )
   }
 
   private _performReload() {
     setTimeout(() => {
-      this.selectedBrand = null
+      this.loading = false
+      this.brand = null
       this.dialogService.showDialog = false
       this.reloadBrands()
     }, 1000)

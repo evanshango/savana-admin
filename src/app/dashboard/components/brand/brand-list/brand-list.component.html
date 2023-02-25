@@ -1,14 +1,11 @@
 <div class="brands-main">
   <div class="header">
-    <span>
-      <small>**Click on the Add Brand Button to add a Brand</small>
-    </span>
+    <h2>Brands</h2>
     <button type="button" class="btn-success" (click)="openDialog(null, 'add')">Add Brand</button>
   </div>
   <div class="content groups-content">
-    <app-table-header [selectLabel]="'Brand Status'" (statusValue)="onStatusChange($event)" [resetStatus]="resetStatus"
-                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)"
-                      [placeholder]="'Brand Name...'">
+    <app-table-header [selectLabel]="'Brand Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
+                      [placeholder]="'Brand Name...'" (pageSize)="fetchItemsPerPage($event)">
     </app-table-header>
     <div class="table-wrapper">
       <table>
@@ -49,7 +46,7 @@
   </div>
   <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading}" *ngIf="dialogService.showDialog"
               (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
-    <app-brand-form [brand]="selectedBrand" (reloadBrands)="reloadBrands()" [action]="action">
+    <app-brand-form [brand]="brand" (reloadBrands)="reloadBrands()" [action]="action">
     </app-brand-form>
   </app-dialog>
 </div>

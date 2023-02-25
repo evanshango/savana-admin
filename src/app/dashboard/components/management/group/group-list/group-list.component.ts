@@ -13,7 +13,6 @@ import {DialogService} from "../../../../../shared/dialog/dialog.service";
 export class GroupListComponent implements OnInit {
   pagedList: PaginationResponse<IGroup[]>
   groupParams: GroupParams = new GroupParams()
-  resetStatus: boolean
   loading: boolean
 
   constructor(private groupService: GroupService, public dialogService: DialogService) {
@@ -28,7 +27,7 @@ export class GroupListComponent implements OnInit {
     this._fetchGroups()
   }
 
-  performSearch(groupName: string) {
+  search(groupName: string) {
     this.groupParams.name = groupName
     this._fetchGroups()
   }

@@ -13,14 +13,13 @@ import {CategoryService} from "../category.service";
 export class CategoryListComponent implements OnInit {
   pagedList: PaginationResponse<ICategory[]>
   categoryParams: CategoryParams = new CategoryParams()
-  selectedCategory: ICategory
+  category: ICategory
   actionArea: boolean
-  resetStatus: boolean
   dialogTitle: string
   loading: boolean
   action: string
 
-  constructor(public dialogService: DialogService, private categoryService: CategoryService) {
+  constructor(public dialogService: DialogService, private categorySvc: CategoryService) {
   }
 
   ngOnInit(): void {
@@ -29,10 +28,10 @@ export class CategoryListComponent implements OnInit {
 
   openDialog(category: ICategory, action: string) {
     this.loading = false
-    this.selectedCategory = category
+    this.category = category
     this.action = action
     this.actionArea = false
-    this.dialogTitle = this.selectedCategory ? 'Edit Category' : 'Add Category'
+    this.dialogTitle = this.category ? 'Edit Category' : 'Add Category'
     this.dialogService.showDialog = true
   }
 
@@ -58,7 +57,7 @@ export class CategoryListComponent implements OnInit {
 
   activateCategory(category: ICategory, action: string) {
     this.action = action
-    this.selectedCategory = category
+    this.category = category
     this.actionArea = true
     this.dialogTitle = 'Activate Category'
     this.dialogService.showDialog = true
@@ -66,7 +65,7 @@ export class CategoryListComponent implements OnInit {
 
   deleteCategory(category: ICategory, action: string) {
     this.action = action
-    this.selectedCategory = category
+    this.category = category
     this.actionArea = true
     this.dialogTitle = 'Delete Category'
     this.dialogService.showDialog = true
@@ -89,31 +88,27 @@ export class CategoryListComponent implements OnInit {
   }
 
   private _fetchCategories(): void {
-    this.categoryService.getCategories(this.categoryParams).subscribe({next: res => this.pagedList = res})
+    this.categorySvc.getCategories(this.categoryParams).subscribe({next: res => this.pagedList = res})
   }
 
   private _deleteCategory() {
-    this.categoryService.deleteCategory(this.selectedCategory.slug).subscribe({
+    this.categorySvc.deleteCategory(this.category.slug).subscribe({
       next: () => this._performReload()
     })
   }
 
   private _activateCategory() {
     let formData = new FormData()
-    formData.append('name', this.selectedCategory.name)
+    formData.append('name', this.category.name)
     formData.append('active', 'true')
-    this.categoryService.updateCategory(formData, this.selectedCategory.slug).subscribe({
-      next: () => {
-        this.resetStatus = true
-        this._performReload()
-      }
-    })
+    this.categorySvc.updateCategory(formData, this.category.slug).subscribe({next: () => this._performReload()})
   }
 
   private _performReload() {
     setTimeout(() => {
-      this.selectedCategory = null
+      this.category = null
       this.dialogService.showDialog = false
+      this.loading = false
       this.reloadCategories()
     }, 1000)
   }

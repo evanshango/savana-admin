@@ -13,14 +13,13 @@ import {DialogService} from "../../../../../shared/dialog/dialog.service";
 export class DeliveryListComponent implements OnInit {
   deliveryParams: DeliveryMethodParams = new DeliveryMethodParams()
   pagedList: PaginationResponse<IDeliveryMethod[]>
-  resetStatus: boolean
   dialogTitle: string
   actionArea: boolean
   loading: boolean
   action: string
   method: IDeliveryMethod
 
-  constructor(private deliverMethodService: DeliveryService, public dialogService: DialogService) {
+  constructor(private deliverMethodSvc: DeliveryService, public dialogService: DialogService) {
   }
 
   ngOnInit(): void {
@@ -67,20 +66,13 @@ export class DeliveryListComponent implements OnInit {
   }
 
   onPageChange(page: number) {
-    console.log(page)
+    this.deliveryParams.page = page
+    this._fetchDeliveryMethods()
   }
 
   confirm($event: string) {
     this.loading = true
-    if ($event === 'delete') {
-      this._deleteDeliveryMethod()
-      return
-    }
-
-    if ($event === 'activate') {
-      this._activateDeliveryMethod()
-      return;
-    }
+    $event === 'delete' ? this._deleteDeliveryMethod() : this._activateDeliveryMethod()
   }
 
   closeDialog($event: boolean) {
@@ -91,26 +83,34 @@ export class DeliveryListComponent implements OnInit {
   }
 
   reloadMethods() {
+    this.deliveryParams = new DeliveryMethodParams()
     this._fetchDeliveryMethods()
-    this.resetStatus = true
   }
 
   private _fetchDeliveryMethods() {
-    this.deliverMethodService.getDeliveryMethods(this.deliveryParams).subscribe(res => this.pagedList = res)
+    this.deliverMethodSvc.getDeliveryMethods(this.deliveryParams).subscribe({next: res => this.pagedList = res})
   }
 
   private _deleteDeliveryMethod() {
-    this.deliverMethodService.deleteDeliveryMethod(this.method.id).subscribe(() => this._performReload())
+    this.deliverMethodSvc.deleteDeliveryMethod(this.method.id).subscribe({next: () => this._performReload()})
   }
 
   private _activateDeliveryMethod() {
-
+    this.method.active = true
+    this.deliverMethodSvc.updateDeliveryMethod(this.method, this.method.id).subscribe({
+      next: res => {
+        if (res) {
+          this._performReload()
+        }
+      }
+    })
   }
 
   private _performReload() {
     setTimeout(() => {
-      this.method= null
+      this.method = null
       this.dialogService.showDialog = false
+      this.loading = false
       this.reloadMethods()
     }, 1000)
   }

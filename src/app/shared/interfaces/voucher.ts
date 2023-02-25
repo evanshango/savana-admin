@@ -1,3 +1,5 @@
+import {IExpiresAfter} from "./expires-after";
+
 export interface IVoucher {
   title: string,
   voucher: string,
@@ -9,9 +11,4 @@ export interface IVoucher {
   expired: boolean,
   active: boolean,
   createdAt: Date
-}
-
-interface IExpiresAfter {
-  type: string,
-  value: number
 }

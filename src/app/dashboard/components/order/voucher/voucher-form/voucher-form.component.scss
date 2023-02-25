@@ -7,17 +7,5 @@
     table {
       width: 100%;
     }
-
-    .type {
-      &-value {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 2rem;
-
-        @media screen and (max-width: 498px){
-          grid-template-columns: 1fr;
-        }
-      }
-    }
   }
 }

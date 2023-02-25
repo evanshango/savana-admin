@@ -3,10 +3,10 @@
   <div style="width: 100%; position: relative">
     <div class="select-action">
       <div class="option-area" id="{{label}}">
-        <div class="selected-options" *ngIf="!multiple">
-          <h4>{{items[0]?.name}}</h4>
+        <div class="selected-options" *ngIf="!multiple" data-text="Choose Item...">
+          <h4 *ngIf="items[0]">{{items[0]?.name}}</h4>
         </div>
-        <div class="selected-options" *ngIf="multiple">
+        <div class="selected-options" *ngIf="multiple" data-text="Choose Items...">
           <span *ngFor="let item of items" (click)="onItemSelected(item['id'], item['name'], 'remove')">
             <small>{{item.name}}</small>
           </span>

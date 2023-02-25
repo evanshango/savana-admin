@@ -14,7 +14,6 @@ export class ProductListComponent implements OnInit {
   productParams: ProductParams = new ProductParams()
   pagedList: PaginationResponse<IProduct[]>
   selectedProduct: IProduct
-  resetStatus: boolean
   loading: boolean
   dialogTitle: string
   action: string

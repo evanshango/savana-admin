@@ -6,7 +6,6 @@ import {ProductListComponent} from './product-list/product-list.component';
 import {SharedModule} from "../../../shared/shared.module";
 import {ProductDetailComponent} from './product-detail/product-detail.component';
 import {ProductFormComponent} from './product-form/product-form.component';
-import {ProductImageComponent} from './product-image/product-image.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuillModule} from "ngx-quill";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
@@ -15,8 +14,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
   declarations: [
     ProductListComponent,
     ProductDetailComponent,
-    ProductFormComponent,
-    ProductImageComponent
+    ProductFormComponent
   ],
     imports: [
         CommonModule, ProductRoutingModule, SharedModule, ReactiveFormsModule, FormsModule, QuillModule.forRoot(), FontAwesomeModule

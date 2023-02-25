@@ -1,14 +1,11 @@
 <div class="roles-main">
   <div class="header">
-    <span>
-      <small>**Click on the Add Role Button to add a Role</small>
-    </span>
+    <h2>Roles</h2>
     <button type="button" class="btn-success" (click)="openDialog(null)">Add Role</button>
   </div>
   <div class="content roles-content">
-    <app-table-header [selectLabel]="'Role Status'" (statusValue)="onStatusChange($event)" [resetStatus]="resetStatus"
-                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)"
-                      [placeholder]="'Role Name...'">
+    <app-table-header [selectLabel]="'Role Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
+                      (pageSize)="fetchItemsPerPage($event)" [placeholder]="'Role Name...'">
     </app-table-header>
     <div class="table-wrapper">
       <table>

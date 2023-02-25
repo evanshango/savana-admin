@@ -105,6 +105,9 @@
         background: #cccccc;
       }
     }
+    //&:empty::before {
+    //  content: attr(data-text);
+    //}
   }
 
   &-pagination {

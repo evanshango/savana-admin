@@ -1,0 +1,59 @@
+<div class="categories-main">
+  <div class="header">
+    <h2>Promotions</h2>
+    <button type="button" class="btn-success" (click)="openDialog(null, 'add')">Add Promotion</button>
+  </div>
+  <div class="content categories-content">
+    <app-table-header [selectLabel]="'Promo Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
+                      [placeholder]="'Promotion Title...'" (pageSize)="fetchItemsPerPage($event)">
+    </app-table-header>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+        <tr>
+          <th>#</th>
+          <th style="width: 15rem">Title</th>
+          <th style="width: 10rem">Product</th>
+          <th style="width: 10rem">Product Image</th>
+          <th style="width: 15rem; text-align: center">Discount</th>
+          <th style="width: 15rem; text-align: center">Expires On</th>
+          <th style="width: 15rem; text-align: center">Created On</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let promo of pagedList?.items; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{promo.title}}</td>
+          <td>{{promo.product}}</td>
+          <td style="text-align: center; font-size: 1.4rem; color: #434343">
+            <div class="table-image"><img [src]="promo.productImage" [alt]="promo.title" class="item-image"></div>
+          </td>
+          <td style="text-align: center">{{promo.discount}}</td>
+          <td style="text-align: center">{{promo.expiresAt | date: 'MMM d, y HH:mm'}}</td>
+          <td>{{promo.createdAt | date: 'MMM d, y HH:mm'}}</td>
+          <td class="action-btn" *ngIf="!promo.active">
+            <button type="button" class="btn-primary" (click)="activatePromo(promo, 'activate')">
+              Activate
+            </button>
+          </td>
+          <td class="action-btn" *ngIf="promo.active">
+            <button type="button" class="btn-primary" (click)="openDialog(promo, 'edit')">Edit</button>
+            <button type="button" class="btn-error" (click)="deletePromo(promo, 'delete')">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-table-pager [pageSize]="pagedList.metaData.pageSize" [totalCount]="pagedList.metaData.totalCount"
+                     [pageNo]="pagedList.metaData.pageNo" *ngIf="pagedList?.items" (pageChanged)="onPageChange($event)"
+                     [totalPages]="pagedList.metaData.totalPages">
+    </app-table-pager>
+  </div>
+  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading}" *ngIf="dialogSvc.showDialog"
+              (clearDialog)="closeDialog($event)" (confirmAction)="confirmAction()">
+    <app-promotion-form [promo]="selectedPromo" (reloadPromos)="reloadPromotions()"
+                        [action]="action">
+    </app-promotion-form>
+  </app-dialog>
+</div>

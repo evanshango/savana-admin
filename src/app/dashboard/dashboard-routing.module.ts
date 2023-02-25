@@ -14,7 +14,8 @@ const routes: Routes = [
       {path: '', loadChildren: () => import('./components/management/member/member.module').then(m => m.MemberModule)},
       {path: '', loadChildren: () => import('./components/brand/brand.module').then(m => m.BrandModule)},
       {path: '', loadChildren: () => import('./components/category/category.module').then(m => m.CategoryModule)},
-      {path: '', loadChildren: () => import('./components/product/product.module').then(m => m.ProductModule)}
+      {path: '', loadChildren: () => import('./components/product/product.module').then(m => m.ProductModule)},
+      {path: '', loadChildren: () => import('./components/promotion/promotion.module').then(m => m.PromotionModule)}
     ]
   }
 ]

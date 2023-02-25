@@ -19,7 +19,6 @@ export class VoucherListComponent implements OnInit {
   voucherToActivate: string
   loading: boolean
   actionArea: boolean
-  resetStatus: boolean
 
   constructor(public dialogService: DialogService, private voucherService: VoucherService) {
   }
@@ -45,7 +44,6 @@ export class VoucherListComponent implements OnInit {
   reloadVouchers() {
     this.voucherPrams = new VoucherParams()
     this._fetchVouchers()
-    this.resetStatus = true
   }
 
   openDialog(voucher: IVoucher) {
@@ -96,14 +94,17 @@ export class VoucherListComponent implements OnInit {
     setTimeout(() => {
       this.voucherToDelete = this.voucherToActivate = null
       this.dialogService.showDialog = false
+      this.loading = false
       this.reloadVouchers()
     }, 1000)
   }
 
   private _activateVoucher() {
-    this.voucherService.activateVoucher(this.voucherToActivate).subscribe(res => {
-      if (res) {
-        this._performReload()
+    this.voucherService.activateVoucher(this.voucherToActivate).subscribe({
+      next: res => {
+        if (res) {
+          this._performReload()
+        }
       }
     })
   }

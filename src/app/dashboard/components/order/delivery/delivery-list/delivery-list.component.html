@@ -1,13 +1,11 @@
 <div class="delivery-main">
   <div class="header">
-    <span>
-      <small>**Click on the Button to add a Delivery Method</small>
-    </span>
+    <h2>Delivery Methods</h2>
     <button type="button" class="btn-success" (click)="openDialog(null)">Add Delivery Method</button>
   </div>
   <div class="content delivery-content">
     <app-table-header [selectLabel]="'Delivery Method Status'" (statusValue)="onStatusChange($event)"
-                      [resetStatus]="resetStatus" (search)="search($event)" (pageSize)="fetchItemsPerPage($event)"
+                      (search)="search($event)" (pageSize)="fetchItemsPerPage($event)"
                       [placeholder]="'Delivery Method Name...'">
     </app-table-header>
     <div class="table-wrapper">

@@ -10,7 +10,7 @@ import {ProductService} from "../product.service";
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
-  tabs: string[] = ['General', 'Images']
+  tabs: string[] = ['General', 'Orders']
   index: number
   productId: string
   product: IProduct

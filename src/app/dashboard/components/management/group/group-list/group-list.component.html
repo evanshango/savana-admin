@@ -1,14 +1,11 @@
 <div class="groups-main">
   <div class="header">
-    <span>
-      <small>**Click on the Add Group Button to add a Group</small>
-    </span>
+    <h2>Groups</h2>
     <button type="button" class="btn-success" (click)="dialogService.showDialog = true">Add Group</button>
   </div>
   <div class="content groups-content">
-    <app-table-header [selectLabel]="'Group Status'" (statusValue)="onStatusChange($event)" [resetStatus]="resetStatus"
-                      (search)="performSearch($event)" (pageSize)="fetchItemsPerPage($event)"
-                      [placeholder]="'Group Name...'">
+    <app-table-header [selectLabel]="'Group Status'" (statusValue)="onStatusChange($event)" (search)="search($event)"
+                      (pageSize)="fetchItemsPerPage($event)" [placeholder]="'Group Name...'">
     </app-table-header>
     <div class="table-wrapper">
       <table>
