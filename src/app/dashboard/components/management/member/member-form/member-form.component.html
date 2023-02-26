@@ -2,21 +2,22 @@
   <div class="content-area">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="form-controls">
-        <app-text-input formControlName="id" [label]="'UserID'" [isReadOnly]="true" [isDisabled]="true"></app-text-input>
-        <app-text-input formControlName="firstName" [label]="'First Name'" [isDisabled]="!isEdit"></app-text-input>
-        <app-text-input formControlName="lastName" [label]="'Last Name'" [isDisabled]="!isEdit"></app-text-input>
+        <app-text-input formControlName="id" [label]="'UserID'" [isReadOnly]="true"
+                        [isDisabled]="true"></app-text-input>
+        <app-text-input formControlName="firstName" [label]="'First Name'"></app-text-input>
+        <app-text-input formControlName="lastName" [label]="'Last Name'"></app-text-input>
         <app-text-input formControlName="email" [label]="'Email'" [isReadOnly]="true"
-                        [isDisabled]="true"></app-text-input>
-        <app-text-input formControlName="phoneNo" [label]="'Phone No'" [isDisabled]="!isEdit"></app-text-input>
+                        [isDisabled]="true">
+        </app-text-input>
+        <app-text-input formControlName="phoneNo" [label]="'Phone No'"></app-text-input>
         <app-text-input formControlName="groupCount" [label]="'Group Count'" [isReadOnly]="true"
-                        [isDisabled]="true"></app-text-input>
+                        [isDisabled]="true">
+        </app-text-input>
         <div class="type-content">
           <label for="gender">Gender</label>
           <select formControlName="gender">
             <option value="" disabled selected hidden>Choose Gender...</option>
-            <option *ngFor="let option of gender" ngValue="{{option.value}}" id="gender" [disabled]="!isEdit">
-              {{option.name}}
-            </option>
+            <option *ngFor="let option of gender" ngValue="{{option.value}}" id="gender">{{option.name}}</option>
           </select>
           <small class='text-error' *ngIf='!userForm.valid && userForm.get("gender")?.touched'>
             <span *ngIf="userForm.get('gender')?.errors?.['required']">*Gender is required</span>
@@ -26,9 +27,7 @@
           <label for="status">Account Status</label>
           <select formControlName="active">
             <option value="" selected disabled hidden>Choose Status...</option>
-            <option *ngFor="let option of status" value="{{option.value}}" id="status" [disabled]="!isEdit">
-              {{option.name}}
-            </option>
+            <option *ngFor="let option of status" value="{{option.value}}" id="status">{{option.name}}</option>
           </select>
           <small class='text-error' *ngIf='!userForm.valid && userForm.get("active")?.touched'>
             <span *ngIf="userForm.get('active')?.errors?.['required']">*Gender is required</span>
@@ -38,25 +37,32 @@
                         [isDisabled]="true">
         </app-text-input>
       </div>
-      <button class="btn-primary" type="submit" [disabled]="userForm.invalid || isSubmitting"
-              *ngIf="formDirty && isEdit" style="margin-top: 2rem">
-        Confirm Update
-      </button>
+      <div class="btn-area">
+        <button class="btn-primary" type="submit" [disabled]="userForm.invalid || isSubmitting" *ngIf="formDirty">
+          Confirm Update
+        </button>
+      </div>
     </form>
+    <hr>
+    <div style="margin-top: 1rem; width: 100%">
+      <p class="section-area" style="cursor: default">User Groups</p>
+      <app-member-group *ngIf="user" [userGroups]="user?.groups" [userId]="user?.id"></app-member-group>
+    </div>
+    <hr>
     <div style="margin: 2rem 0">
-      <p style="background: #565867; padding: 1rem; border-radius: 10px; cursor: pointer; color: white; font-size: 1rem"
-         (click)="resetPassword = !resetPassword">
-        Reset User Password <strong>(Click to Expand)</strong>
+      <p class="section-area" (click)="resetPassword = !resetPassword">Reset User Password</p>
+      <p style="text-transform: capitalize; font-style: italic; color: #28a745" *ngIf="!resetPassword">
+        **Click to Expand**
       </p>
       <div class="password-area" *ngIf="resetPassword">
         <form [formGroup]="passwordForm">
-          <app-text-input formControlName="newPassword" [label]="'New Password'"></app-text-input>
-          <app-text-input formControlName="confirmPassword" [label]="'Confirm Password'"></app-text-input>
-          <button style="margin: 1rem 0" class="btn-primary" [disabled]="passwordForm.invalid">Reset Password</button>
+          <div>
+            <app-text-input formControlName="newPassword" [label]="'New Password'"></app-text-input>
+            <app-text-input formControlName="confirmPassword" [label]="'Confirm Password'"></app-text-input>
+          </div>
+          <button class="btn-primary" [disabled]="passwordForm.invalid">Reset Password</button>
         </form>
       </div>
     </div>
   </div>
-  <hr>
-  <app-member-group *ngIf="user" [userGroups]="user?.groups" [userId]="user?.id"></app-member-group>
 </div>

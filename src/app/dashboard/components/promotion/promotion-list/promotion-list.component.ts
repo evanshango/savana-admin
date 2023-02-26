@@ -109,4 +109,8 @@ export class PromotionListComponent implements OnInit {
       this.reloadPromotions()
     }, 1000)
   }
+
+  getExpiry(expiresAt: Date): boolean {
+    return new Date().toISOString() > new Date(expiresAt).toISOString()
+  }
 }

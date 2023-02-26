@@ -5,14 +5,14 @@
         <h4>Click to Select a User Groups</h4>
       </div>
       <div class="items-area">
-        <p style="font-style: italic; text-align: center; padding: .5rem; font-weight: bold; color: #28a745">
+        <p class="pagination-text">
           <strong (click)="prevPage()" *ngIf="pg.pageNo !== 1">&#8678;</strong>
-          ** Showing Page {{pg.pageNo}} of {{pg.totalPages}} {{pg.totalPages > 1 ? 'Pages' : 'Page(s)'}} **
+          ** Showing Page {{pg.pageNo}} of {{pg.totalPages}} {{pg.totalPages > 1 ? 'Pages' : 'Page'}} **
           <strong (click)="nextPage()" *ngIf="pg.pageNo < pg.totalPages">&#8680;</strong>
         </p>
         <hr>
-        <div *ngFor="let group of pagedList?.items" (click)="addGroup(group)">
-          <span class="group-name">{{group.name}}</span>
+        <div *ngFor="let group of pagedList?.items; let i = index" (click)="addGroup(group)">
+          <span class="group-name">{{i + 1}}. {{group.name}}</span>
         </div>
       </div>
     </div>
@@ -21,20 +21,19 @@
         <h4>Selected User Groups</h4>
       </div>
       <div class="items-area">
-        <div *ngFor="let group of selectedGroups" (click)="removeGroup(group)">
-          <span class="group-name">{{group.name}}</span>
+        <div *ngFor="let group of selectedGroups; let i = index" (click)="removeGroup(group)">
+          <span class="group-name">{{i + 1}}. {{group.name}}</span>
           <ng-container *ngIf="group.roles">
-            <h3>Roles</h3>
-            <ul *ngFor="let role of group?.roles">
+            <ul *ngFor="let role of group?.roles" style="padding: 0 1rem; margin: 0 1rem">
               <li>{{role.uniqueName}}</li>
             </ul>
           </ng-container>
         </div>
       </div>
     </div>
-    <button class="btn-primary" style="margin-top: 1rem;" (click)="updateGroups()" *ngIf="isTouched"
-            [disabled]="!isTouched || isSubmitting">
-      Confirm Update
-    </button>
   </div>
+  <button class="btn-primary" style="margin-top: 1rem;" (click)="updateGroups()" *ngIf="isTouched"
+          [disabled]="!isTouched || isSubmitting">
+    Confirm Update
+  </button>
 </div>

@@ -479,3 +479,29 @@ td, th {
     }
   }
 }
+
+.expired, .unexpired {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+
+  small {
+    font-weight: bold;
+    padding: .2rem .8rem;
+    font-size: .6rem;
+    border-radius: 1rem;
+  }
+}
+
+.expired {
+  small {
+    background: red;
+  }
+}
+
+.unexpired {
+  small {
+    background: #28a745;
+  }
+}
+

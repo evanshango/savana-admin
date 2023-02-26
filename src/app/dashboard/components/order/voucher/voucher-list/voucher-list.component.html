@@ -29,7 +29,7 @@
           <td>{{voucher.discount}}</td>
           <td>{{voucher.useCount}}</td>
           <td>{{voucher.maxUse}}</td>
-          <td [class]="voucher.expired ? 'expired' : 'unexpired'" style="text-transform: uppercase">
+          <td [class]="voucher.expired ? 'expired' : 'unexpired'">
             <small>{{voucher.expired ? 'expired' : 'active'}}</small>
           </td>
           <td>{{voucher.expiresOn | date: 'MMM d, y HH:mm'}}</td>

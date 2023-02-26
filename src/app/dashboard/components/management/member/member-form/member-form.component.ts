@@ -11,7 +11,6 @@ import {gender, status} from "../../../../../shared/common";
 })
 export class MemberFormComponent implements OnInit {
   @Output() cancelEdit = new EventEmitter<boolean>()
-  @Input() isEdit: boolean
   @Input() user: IUser
   isSubmitting: boolean
   resetPassword: boolean

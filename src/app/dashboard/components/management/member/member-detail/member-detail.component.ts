@@ -11,7 +11,6 @@ import {getTabIndex, setTabIndex} from "../../../../../shared/common";
 })
 export class MemberDetailComponent implements OnInit {
   tabs: string[] = ['General', 'Products']
-  isEditClicked: boolean
   activatedTabIndex: number
   user: IUser
 
@@ -34,9 +33,5 @@ export class MemberDetailComponent implements OnInit {
       next: res => this.user = res,
       error: async () => await this.router.navigateByUrl('/users')
     })
-  }
-
-  editInfo() {
-    this.isEditClicked = !this.isEditClicked
   }
 }

@@ -17,6 +17,7 @@
           <th style="width: 10rem">Product Image</th>
           <th style="width: 15rem; text-align: center">Discount</th>
           <th style="width: 15rem; text-align: center">Expires On</th>
+          <th style="width: 15rem; text-align: center">Expired</th>
           <th style="width: 15rem; text-align: center">Created On</th>
           <th>Actions</th>
         </tr>
@@ -30,7 +31,10 @@
             <div class="table-image"><img [src]="promo.productImage" [alt]="promo.title" class="item-image"></div>
           </td>
           <td style="text-align: center">{{promo.discount}}</td>
-          <td style="text-align: center">{{promo.expiresAt | date: 'MMM d, y HH:mm'}}</td>
+          <td style="text-align: center; min-width: 15rem;">{{promo.expiresAt | date: 'MMM d, y HH:mm'}}</td>
+          <td [class]="getExpiry(promo.expiresAt) ? 'expired' : 'unexpired'">
+            <small>{{getExpiry(promo.expiresAt) ? 'Expired' : 'Active'}}</small>
+          </td>
           <td>{{promo.createdAt | date: 'MMM d, y HH:mm'}}</td>
           <td class="action-btn" *ngIf="!promo.active">
             <button type="button" class="btn-primary" (click)="activatePromo(promo, 'activate')">

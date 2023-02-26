@@ -1,19 +1,35 @@
 .member-form-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
   width: 100%;
   position: relative;
 
-  hr{
-    height: 100%;
-    width: 2px;
-    position: absolute;
-    transform: translate(50%,-50%);
-    top: 50%; right: 50%;
+  .content-area {
+    form {
+      .btn-area {
+        margin-top: 1rem;
+        display: flex;
 
-    @media screen and (max-width: 1258px) {
-      display: none;
+        .btn-primary {
+          margin-left: auto;
+        }
+      }
+    }
+
+    .form-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+
+      @media screen and (max-width: 968px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media screen and (max-width: 478px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    hr {
+      margin: 2rem 0;
     }
   }
 
@@ -22,7 +38,43 @@
     margin: auto;
   }
 
+  .section-area {
+    background: #565867;
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 1rem;
+    margin: 1rem 0;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
   @media screen and (max-width: 1198px) {
     grid-template-columns: 1fr;
+  }
+}
+
+.password-area {
+  display: flex;
+  flex-direction: column;
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      @media screen and (max-width: 478px) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn-primary {
+      margin: 1rem 0 1rem auto;
+    }
   }
 }
