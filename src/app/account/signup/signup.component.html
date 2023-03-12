@@ -1,0 +1,34 @@
+<div class="account-container">
+  <div class="account-panel">
+    <div class="left">
+      <img src="assets/signin.svg" alt="">
+    </div>
+    <div class="right">
+      <h3>Savana Admin</h3>
+      <h4>Please Sign up to proceed...</h4>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="type-content">
+          <label for="accountType">Account Type</label>
+          <select formControlName="accountType">
+            <option value="" disabled selected hidden>Account Type...</option>
+            <option *ngFor="let group of groups" ngValue="{{group.id}}" id="accountType">
+              {{group.name.toUpperCase()}}
+            </option>
+          </select>
+          <small class='text-error' *ngIf='!signupForm.valid && signupForm.get("accountType")?.touched'>
+            <span *ngIf="signupForm.get('accountType')?.errors?.['required']">*Gender is required</span>
+          </small>
+        </div>
+        <app-text-input formControlName="firstName" [label]="'First Name'"></app-text-input>
+        <app-text-input formControlName="lastName" [label]="'Last Name'"></app-text-input>
+        <app-text-input formControlName="email" [label]="'Email'"></app-text-input>
+        <app-text-input formControlName="phoneNumber" [label]="'Phone No.'" [type]="'tel'"
+                        [placeholder]="'0712345678'">
+        </app-text-input>
+        <app-text-input formControlName="password" [label]="'Password'" [type]="'password'"></app-text-input>
+        <button type="submit" [disabled]="signupForm.invalid || isSubmitting" class="btn-success">Signup</button>
+      </form>
+      <p class="link" routerLink="/account/signin">Already have An Account?</p>
+    </div>
+  </div>
+</div>

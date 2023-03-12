@@ -9,7 +9,7 @@
     <app-text-input formControlName="title" [label]="'Title'"></app-text-input>
     <app-text-input formControlName="discount" [label]="'Discount'" [type]="'number'"></app-text-input>
     <div *ngIf="productPagedList as pagedList" style="position: relative">
-      <app-text-select [pagedList]="pagedList" [type]="'product'" [label]="'Product'" (pageSelected)="pageChange($event)"
+      <app-text-select [pagedList]="pagedList" [type]="'product'" [label]="'Product'" (search)="performSearch($event)"
                        (selected)="selected($event)" [items]="[selectedProduct]" [multiple]="false">
       </app-text-select>
     </div>

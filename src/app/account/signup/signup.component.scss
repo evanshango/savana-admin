@@ -1,0 +1,18 @@
+.account{
+  &-panel{
+    max-width: 940px;
+    .left{
+      width: 43%;
+    }
+
+    .right{
+      form{
+        .form-row{
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+      }
+    }
+  }
+}

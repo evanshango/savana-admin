@@ -35,7 +35,7 @@
           <td>{{user.active ? 'Enabled' : 'Disabled'}}</td>
           <td>{{user.createdAt | date: 'MMM d, y HH:mm'}}</td>
           <td class="action-btn" *ngIf="!user.active">
-            <button type="button" class="btn-primary">Activate User</button>
+            <button type="button" class="btn-primary" (click)="activateUser(user.id)">Activate User</button>
           </td>
           <td class="action-btn" *ngIf="user.active">
             <button type="button" class="btn-primary" [routerLink]="'/users/'+user.id">View</button>

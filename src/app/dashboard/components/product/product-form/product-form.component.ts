@@ -12,6 +12,9 @@ import {ISelected, options} from "../../../../shared/common";
 import {ProductService} from "../product.service";
 import {Router} from "@angular/router";
 import {DialogService} from "../../../../shared/dialog/dialog.service";
+import {IUser} from "../../../../shared/interfaces/user";
+import {MemberService} from "../../management/member/member.service";
+import {UserParams} from "../../../../shared/models/user-params";
 
 @Component({
   selector: 'app-product-form',
@@ -27,11 +30,14 @@ export class ProductFormComponent implements OnInit {
   isSubmitting: boolean
   productForm: FormGroup;
   selectedBrand: ISelected = null
+  selectedVendor: ISelected = null
   selectedCategories: ISelected[] = []
   brandParams = new BrandParams()
   categoryParams = new CategoryParams()
+  userParams = new UserParams()
   brandPagedList: PaginationResponse<IBrand[]>
   categoryPagedList: PaginationResponse<ICategory[]>
+  vendorPagedList: PaginationResponse<IUser[]>
   previews: Map<string, string> = new Map<string, string>()
   options: string[] = options
   selectedFiles: File[] = []
@@ -58,13 +64,15 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, private catSvc: CategoryService, private brandSvc: BrandService,
-    private prodSvc: ProductService, private router: Router, public dialogSvc: DialogService
+    private prodSvc: ProductService, private router: Router, public dialogSvc: DialogService,
+    private memberSvc: MemberService
   ) {
   }
 
   ngOnInit(): void {
     this._fetchCategories()
     this._fetchBrands()
+    this._fetchVendors()
     this._createProductForm()
     /*
     Set timeout of 500ms to ensure the fetchBrands and fetchCategories methods have been invoked
@@ -123,19 +131,10 @@ export class ProductFormComponent implements OnInit {
         this.productForm.patchValue({categories: this.selectedCategories.map(c => c.id)})
         break
       case false:
-        this._updateBrand({id: item.id, name: item.name})
+        item.type === 'brand'
+          ? this._updateBrand({id: item.id, name: item.name})
+          : this._updateVendor({id: item.id, name: item.name})
         break
-    }
-  }
-
-  pageChange($event: { type: string; page: number }) {
-    if ($event.type === 'brand') {
-      this.brandParams.page = $event.page
-      this._fetchBrands()
-    }
-    if ($event.type === 'category') {
-      this.categoryParams.page = $event.page
-      this._fetchCategories()
     }
   }
 
@@ -162,6 +161,27 @@ export class ProductFormComponent implements OnInit {
 
   getPreviews(previews: Map<string, string>): string[] {
     return [...previews.values()]
+  }
+
+  performSearch($event: { type: string; term: string }) {
+    if ($event.type === 'brand') {
+      this.brandParams.name = $event.term
+      this._fetchBrands()
+    }
+    if ($event.type === 'category') {
+      this.categoryParams.name = $event.term
+      this._fetchCategories()
+    }
+
+    if ($event.type === 'vendor') {
+      this.userParams.name = $event.term
+      this._fetchVendors()
+    }
+  }
+
+  updateChange(files: FileList) {
+    this.tagType === 'addMulti' ? this._multipleFiles(Array.from(files)) : this._singleFile(files[0])
+    this.dialogSvc.showDialog = true
   }
 
   private _createProductForm() {
@@ -298,11 +318,6 @@ export class ProductFormComponent implements OnInit {
     }, 1000)
   }
 
-  updateChange(files: FileList) {
-    this.tagType === 'addMulti' ? this._multipleFiles(Array.from(files)) : this._singleFile(files[0])
-    this.dialogSvc.showDialog = true
-  }
-
   private _updateMedia() {
     if (this.selectedFile) {
       let formData = new FormData()
@@ -331,5 +346,15 @@ export class ProductFormComponent implements OnInit {
       this.selectedFiles.forEach(file => formData.append('showCase', file))
     }
     this.prodSvc.addProductImages(this.product.id, formData).subscribe({next: res => this._resetPage(res)})
+  }
+
+  private _fetchVendors() {
+    this.memberSvc.getMembers(this.userParams, 'vendor').subscribe({next: res => this.vendorPagedList = res})
+  }
+
+  private _updateVendor(vendor: { name: string; id: string }) {
+    this.selectedVendor = {id: vendor.id, name: vendor.name}
+    this.productForm.patchValue({owner: this.selectedVendor.id})
+    this.productForm.markAsDirty()
   }
 }

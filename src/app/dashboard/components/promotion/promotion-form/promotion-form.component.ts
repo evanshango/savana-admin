@@ -60,9 +60,9 @@ export class PromotionFormComponent implements OnInit {
     }
   }
 
-  pageChange($event: { type: string; page: number }) {
+  performSearch($event: { type: string; term: string }) {
     if ($event.type === 'product') {
-      this.productParams.page = $event.page
+      this.productParams.searchTerm = $event.term
       this._fetchProducts()
     }
   }

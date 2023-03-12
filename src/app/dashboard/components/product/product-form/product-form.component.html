@@ -7,16 +7,20 @@
     </div>
     <div class="form-row">
       <div *ngIf="brandPagedList as pagedList" style="position: relative">
-        <app-text-select [pagedList]="pagedList" [type]="'brand'" [label]="'Brand'" (pageSelected)="pageChange($event)"
+        <app-text-select [pagedList]="pagedList" [type]="'brand'" [label]="'Brand'" (search)="performSearch($event)"
                          (selected)="selected($event)" [items]="[selectedBrand]" [multiple]="false">
         </app-text-select>
       </div>
       <div *ngIf="categoryPagedList as pagedList" class="options">
         <app-text-select [pagedList]="pagedList" [type]="'category'" [label]="'Categories'" [items]="selectedCategories"
-                         (selected)="selected($event)" (pageSelected)="pageChange($event)" [multiple]="true">
+                         (selected)="selected($event)" (search)="performSearch($event)" [multiple]="true">
         </app-text-select>
       </div>
-      <app-text-input formControlName="owner" [label]="'Owner'"></app-text-input>
+      <div *ngIf="vendorPagedList as pagedList" style="position: relative">
+        <app-text-select [pagedList]="pagedList" [type]="'vendor'" [label]="'Vendor'" [multiple]="false"
+                         (search)="performSearch($event)" (selected)="selected($event)" [items]="[selectedVendor]">
+        </app-text-select>
+      </div>
     </div>
     <app-text-area formControlName="description" [label]="'Description'" [rows]="3"></app-text-area>
     <div class="detail-area">
@@ -63,7 +67,8 @@
       </div>
     </div>
   </div>
-  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading}" (confirmAction)="confirmAction()"
+  <app-dialog [extras]="{actionArea: actionArea, title: dialogTitle, loading: loading}"
+              (confirmAction)="confirmAction()"
               *ngIf="dialogSvc.showDialog" (clearDialog)="closeDialog($event)">
     <ng-container *ngIf="(preview || previews.size > 0) && action === 'update'">
       <div class="update-area"
@@ -77,7 +82,7 @@
         </div>
       </div>
     </ng-container>
-    <ng-container *ngIf="tagType === 'addSingle' || tagType === 'addMulti'" >
+    <ng-container *ngIf="tagType === 'addSingle' || tagType === 'addMulti'">
       <div class="previews">
         <div class="image-preview" *ngFor="let prev of getPreviews(previews)">
           <img [src]="prev" alt="Preview">

@@ -12,6 +12,7 @@ import {TOKEN_KEY} from "../../shared/common";
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
   returnUrl: string;
+  errorMsg: string
 
   constructor(private accountService: AccountService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
@@ -23,9 +24,10 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.accountService.signInUser(this.signinForm.value).subscribe(
-      async () => await this.router.navigateByUrl(this.returnUrl)
-    )
+    this.accountService.signInUser(this.signinForm.value).subscribe({
+      next: res => this.accountService.setSigninResponse(res, this.returnUrl),
+      error: err => this.errorMsg = err?.error?.['details']
+    })
   }
 
   async _loadUser(): Promise<void> {

@@ -1,16 +1,18 @@
-<div class="signin-container">
-  <div class="signin-panel">
+<div class="account-container">
+  <div class="account-panel">
     <div class="left">
       <img src="assets/signin.svg" alt="">
     </div>
     <div class="right">
-      <h3>Savana Ecommerce Admin</h3>
+      <h3>Savana Admin</h3>
       <h4>Please Sign in to proceed...</h4>
       <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
         <app-text-input formControlName="email" [label]="'Email Address'"></app-text-input>
         <app-text-input formControlName="password" [label]="'Password'" [type]="'password'"></app-text-input>
+        <p class="text-error" style="padding-top: 1rem; text-align: center" *ngIf="errorMsg">{{errorMsg}}</p>
         <button type="submit" [disabled]="signinForm.invalid" class="btn-success">Signin</button>
       </form>
+      <p class="link" routerLink="/account/signup">Don't have An Account?</p>
     </div>
   </div>
 </div>

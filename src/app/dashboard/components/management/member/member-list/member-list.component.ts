@@ -39,10 +39,15 @@ export class MemberListComponent implements OnInit{
   }
 
   onPageChange(page: number) {
-    console.log(page)
+    this.userParams.page = page
+    this._fetchMembers()
   }
 
   private _fetchMembers() {
     this.memberService.getMembers(this.userParams, this.slug).subscribe({next: res => this.pagedList = res})
+  }
+
+  activateUser(id: string) {
+    console.log(id)
   }
 }

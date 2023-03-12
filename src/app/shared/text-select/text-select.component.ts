@@ -10,7 +10,7 @@ import {ISelected} from "../common";
 })
 export class TextSelectComponent implements OnInit {
   @Output() selected = new EventEmitter<{ type: string, id: string, name: string, tag?: string, multiple: boolean }>()
-  @Output() pageSelected = new EventEmitter<{ type: string, page: number }>()
+  @Output() search = new EventEmitter<{type: string, term: string}>()
   @Input() pagedList: PaginationResponse<any>
   @Input() items: ISelected[]
   @Input() multiple: boolean
@@ -35,15 +35,7 @@ export class TextSelectComponent implements OnInit {
     this.selected.emit({type: this.type, id: id, name: name, tag: tag, multiple: this.multiple})
   }
 
-  prevPage() {
-    let page = --this.pagedList.metaData.pageNo
-    this.pageSelected.emit({type: this.type, page: page < 1 ? 1 : page})
-  }
-
-  nextPage() {
-    let page = ++this.pagedList.metaData.pageNo
-    this.pageSelected.emit({
-      type: this.type, page: page > this.pagedList.metaData.totalPages ? this.pagedList.metaData.totalPages : page
-    })
+  onChange(searchParam: string) {
+    this.search.emit({type: this.type, term: searchParam})
   }
 }

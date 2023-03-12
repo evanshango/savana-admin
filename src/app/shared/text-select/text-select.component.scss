@@ -82,6 +82,14 @@
     position: absolute;
     width: 100%;
     z-index: 100;
+
+    .text-input{
+      width: 100%;
+      padding: .7rem;
+      margin-bottom: .5rem;
+      border-radius: 8px;
+      border: 1px solid #cccccc;
+    }
   }
 
   &-items {
@@ -104,22 +112,6 @@
       &:hover {
         background: #cccccc;
       }
-    }
-    //&:empty::before {
-    //  content: attr(data-text);
-    //}
-  }
-
-  &-pagination {
-    display: flex;
-    justify-content: space-between;
-    margin-top: .5rem;
-
-    button {
-      padding: .4rem 1rem;
-      font-size: .9rem;
-      border: none;
-      border-radius: 8px;
     }
   }
 }

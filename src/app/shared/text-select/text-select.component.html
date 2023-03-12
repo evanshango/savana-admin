@@ -3,10 +3,10 @@
   <div style="width: 100%; position: relative">
     <div class="select-action">
       <div class="option-area" id="{{label}}">
-        <div class="selected-options" *ngIf="!multiple" data-text="Choose Item...">
+        <div class="selected-options" *ngIf="!multiple" data-text="Select One...">
           <h4 *ngIf="items[0]">{{items[0]?.name}}</h4>
         </div>
-        <div class="selected-options" *ngIf="multiple" data-text="Choose Items...">
+        <div class="selected-options" *ngIf="multiple" data-text="Select Items...">
           <span *ngFor="let item of items" (click)="onItemSelected(item['id'], item['name'], 'remove')">
             <small>{{item.name}}</small>
           </span>
@@ -17,22 +17,15 @@
       </div>
     </div>
     <div class="select-card" *ngIf="isShown">
+      <input class="text-input" type="text" placeholder="Type to Search..."
+             (keyup)="onChange($any($event.currentTarget).value)">
       <ul class="select-items">
         <li class="select-item" *ngFor="let item of pagedList.items">
-          <div (click)="onItemSelected(item['id'], item['name'], '')">{{item.name}}</div>
+          <div (click)="onItemSelected(item['id'], item['name'], '')" *ngIf="item.name">{{item.name}}</div>
+          <div (click)="onItemSelected(item['id'], item['firstName'] + ' ' + item['lastName'], '')"
+               *ngIf="item?.['firstName'] && item?.['lastName']">{{item['firstName']}} {{item['lastName']}}</div>
         </li>
       </ul>
-      <ng-container *ngIf="pagedList.metaData as pg">
-        <div class="select-pagination" *ngIf="pg.totalPages > 1">
-          <button class="btn-success" type="button" (click)="prevPage()" [disabled]="pg.pageNo === 1">
-            Prev
-          </button>
-          <button class="btn-success" type="button" (click)="nextPage()"
-                  [disabled]="pg.pageNo === pg.totalPages || pg.totalPages === 0">
-            Next
-          </button>
-        </div>
-      </ng-container>
     </div>
   </div>
 </div>

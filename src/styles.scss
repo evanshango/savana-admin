@@ -474,7 +474,7 @@ td, th {
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 2rem;
 
-    @media screen and (max-width: 498px){
+    @media screen and (max-width: 498px) {
       grid-template-columns: 1fr;
     }
   }
@@ -505,3 +505,117 @@ td, th {
   }
 }
 
+.account {
+  &-container {
+    display: flex;
+    background-image: linear-gradient(235deg, #565867, #191a25);
+    height: 100vh;
+  }
+
+  &-panel {
+    margin: auto;
+    background: white;
+    border-radius: .5rem;
+    display: flex;
+    position: relative;
+
+    .left {
+      width: 45%;
+      display: block;
+      padding: .5rem;
+      background: #dcdcdc;
+      border-bottom-left-radius: .5rem;
+      border-top-left-radius: .5rem;
+
+      img {
+        width: 100%;
+        display: flex;
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      @media screen and (max-width: 568px) {
+        display: none;
+      }
+    }
+
+    .right {
+      padding: 4rem 1rem;
+      width: 55%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      @media screen and (max-width: 568px) {
+        width: 100%;
+      }
+
+      h3 {
+        font-weight: 700;
+        font-size: 1.9rem;
+        text-align: center;
+        margin: 1rem 0;
+        color: #D2860D;
+      }
+
+      h4 {
+        font-size: 1.25rem;
+        margin: 0 0 1rem 0;
+        color: #424242;
+      }
+
+      form {
+        width: 100%;
+        position: relative;
+
+        button {
+          margin-top: 1rem;
+          padding: .8rem;
+          width: 100%;
+          text-transform: uppercase;
+          border-radius: 10rem;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 550px;
+    }
+
+    @media screen and (max-width: 568px) {
+      width: 350px;
+    }
+
+    .loader {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background: black;
+      border-radius: .5rem;
+      font-size: 1.4rem;
+      opacity: .8;
+      z-index: 1000;
+    }
+  }
+}
+
+.link {
+  margin-top: 1.5rem;
+  padding: .8rem 2rem;
+  border: 1px dashed #636363;
+  cursor: pointer;
+  color: #28a745;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  border-radius: 10rem;
+  font-size: 1rem;
+  user-select: none;
+}
