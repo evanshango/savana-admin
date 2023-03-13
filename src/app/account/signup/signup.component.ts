@@ -6,6 +6,7 @@ import {IGroup} from "../../shared/interfaces/group";
 import {AccountService} from "../account.service";
 import {ISignup} from "../../shared/interfaces/signup";
 import {Router} from "@angular/router";
+import {gender} from "../../shared/common";
 
 @Component({
   selector: 'app-signup',
@@ -13,6 +14,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  gender = gender
   groups: IGroup[]
   signupForm: FormGroup;
   isSubmitting: boolean
@@ -48,13 +50,14 @@ export class SignupComponent implements OnInit {
 
   private _createSignupForm() {
     this.signupForm = this.fb.group({
+      accountType: new FormControl('', [Validators.required]),
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators
         .pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
       phoneNumber: new FormControl('', [Validators.required, Validators
         .pattern('^[0]{1}[0-9]{9}')]),
-      accountType: new FormControl('', [Validators.required]),
+      gender: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.min(6)])
     })
   }

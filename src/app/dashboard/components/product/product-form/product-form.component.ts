@@ -276,6 +276,22 @@ export class ProductFormComponent implements OnInit {
         this.product.categories.includes(c.name)
       ).map(cat => ({id: cat.id, name: cat.name}) as ISelected)
       this.productForm.patchValue({categories: this.selectedCategories.map(c => c.id)})
+
+      /*
+      Make request to get product owner then append product owner. Filter the returned list to match the product
+      owner name then select the product owner from new list
+       */
+      let params = new UserParams()
+      params.name = this.product.owner.toLowerCase()
+      this.memberSvc.getMembers(params).subscribe({
+        next: res => {
+          let vendor = res.items.find(
+            (value: IUser) => `${value.firstName} ${value.lastName}` === this.product.owner
+          )
+          this.selectedVendor = {id: vendor?.id, name: `${vendor?.firstName} ${vendor?.lastName}`}
+          this.productForm.patchValue({owner: this.selectedVendor.id})
+        }
+      })
     }
   }
 

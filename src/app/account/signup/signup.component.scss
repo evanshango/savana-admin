@@ -1,13 +1,17 @@
-.account{
-  &-panel{
+.account {
+  &-panel {
     max-width: 940px;
-    .left{
+
+    .left {
       width: 43%;
     }
 
-    .right{
-      form{
-        .form-row{
+    .right {
+      h3{
+        margin: .5rem;
+      }
+      form {
+        .form-row {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           gap: 1rem;

@@ -6,6 +6,7 @@ export const status = [
 export const gender = [
   {name: 'Male', value: 'Male'},
   {name: 'Female', value: 'Female'},
+  {name: 'Prefer Not To Say', value: 'Prefer Not To Say'},
 ]
 
 export const options = ['Display', 'ShowCase']
@@ -24,9 +25,9 @@ export const setTabIndex = (tabIndex: number, component: string): void => {
   return sessionStorage.setItem(`${TAB_INDEX}-${component}`, tabIndex.toString())
 }
 
-export const isDataURL = (val: string): boolean => {
-  return /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*)\s*$/i.test(val)
-}
+// export const isDataURL = (val: string): boolean => {
+//   return /^\s*data:([a-z]+\/[a-z0-9-+.]+(;[a-z-]+=[a-z0-9-]+)?)?(;base64)?,([a-z0-9!$&',()*+;=\-._~:@\/?%\s]*)\s*$/i.test(val)
+// }
 
 export interface ISelected {
   id: string
